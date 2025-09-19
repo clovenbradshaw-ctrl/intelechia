@@ -121,33 +121,85 @@
             display: block;
         }
 
-        /* Roles Tab - Three Triads */
+        /* View Mode Toggle */
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: var(--green);
+            color: var(--bg);
+            border-color: var(--green);
+        }
+
+        /* Collapsible Triads - Icon View */
         .triads {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .triad {
             background: var(--bg-card);
             border-radius: 12px;
-            padding: 24px;
             border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .triad.collapsed {
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .triad-header {
-            text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .triad-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .triad-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .collapse-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .triad.collapsed .collapse-icon {
+            transform: rotate(-90deg);
         }
 
         .triad-title {
             font-size: 0.75rem;
             letter-spacing: 3px;
             color: var(--text-dim);
-            margin-bottom: 8px;
         }
 
         .triad-description {
@@ -155,79 +207,173 @@
             color: var(--text-dim);
         }
 
-        .roles {
+        .triad-summary {
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            gap: 12px;
         }
 
-        .role {
+        .role-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .role-indicator.filled {
+            background: var(--green);
+        }
+
+        .role-indicator.empty {
+            background: var(--red);
+        }
+
+        .triad-status {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Roles Content - Collapsible */
+        .roles-content {
+            padding: 0 24px 24px;
+            max-height: 1000px;
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .triad.collapsed .roles-content {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 24px;
+            overflow: hidden;
+        }
+
+        /* Icon View - Compact */
+        .roles.icon-view {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .role.icon-view {
             background: var(--bg);
             border: 2px solid var(--border);
             border-radius: 8px;
-            padding: 16px;
+            padding: 12px;
+            width: calc(33.333% - 11px);
             transition: all 0.2s ease;
             cursor: pointer;
         }
 
-        .role:hover {
-            transform: translateX(4px);
+        .role.icon-view:hover {
+            transform: translateY(-2px);
             border-color: var(--green);
         }
 
-        .role.filled {
+        .role.icon-view.filled {
             border-color: var(--green);
         }
 
-        .role.empty {
+        .role.icon-view.empty {
             border-color: var(--red);
             opacity: 0.8;
         }
 
-        .role-header {
+        .role-compact {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            text-align: center;
+            gap: 8px;
         }
 
         .role-icon {
-            font-size: 1.8rem;
-        }
-
-        .role-info {
-            flex: 1;
+            font-size: 2rem;
         }
 
         .role-name {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .role-description {
+        .role-people-count {
             font-size: 0.75rem;
-            color: var(--text-dim);
-            margin-top: 2px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--green);
         }
 
-        .role-status {
+        .role-people-count.empty {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--red);
+        }
+
+        /* Table View */
+        .roles.table-view {
+            width: 100%;
+        }
+
+        .role-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .role-table th {
+            text-align: left;
+            padding: 8px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .role-table td {
+            padding: 12px 8px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .role-table tr td:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .role-table tr td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .role-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .role-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--red);
         }
 
-        .role-status.filled {
+        .status-dot.filled {
             background: var(--green);
         }
 
-        .role-people {
+        .status-dot.empty {
+            background: var(--red);
+        }
+
+        .people-tags {
             display: flex;
-            flex-wrap: wrap;
             gap: 6px;
-            margin-top: 8px;
+            flex-wrap: wrap;
         }
 
         .person-tag {
@@ -358,7 +504,7 @@
             color: var(--text-dim);
         }
 
-        /* Flows List */
+        /* Flows Section */
         .flows-section {
             margin-top: 40px;
             padding-top: 40px;
@@ -377,7 +523,7 @@
             font-weight: 300;
         }
 
-        .view-toggle {
+        .toggle-view {
             display: flex;
             gap: 8px;
             background: var(--bg-card);
@@ -413,7 +559,7 @@
             padding: 16px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: space-between;
             position: relative;
             transition: all 0.2s ease;
         }
@@ -425,6 +571,13 @@
         .flow-item.shares-flow { border-left: 4px solid var(--blue); }
         .flow-item.okays-flow { border-left: 4px solid var(--purple); }
         .flow-item.does-flow { border-left: 4px solid var(--green); }
+
+        .flow-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
 
         .flow-role {
             padding: 8px 12px;
@@ -470,6 +623,80 @@
             color: var(--text-dim);
         }
 
+        .flow-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-timestamp {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .flow-consent {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .consent-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .consent-status.approved {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--green);
+        }
+
+        .consent-status.pending {
+            background: rgba(255, 170, 0, 0.1);
+            color: var(--yellow);
+        }
+
+        .consent-status.rejected {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--red);
+        }
+
+        .consent-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .consent-btn {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid var(--green);
+            border-radius: 4px;
+            color: var(--green);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .consent-btn:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .consent-btn.reject {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .consent-btn.reject:hover {
+            background: var(--red);
+            color: var(--bg);
+        }
+
         .flow-actions {
             display: flex;
             gap: 8px;
@@ -512,6 +739,326 @@
         .add-flow-btn:hover {
             border-color: var(--green);
             color: var(--green);
+        }
+
+        /* Tasks System */
+        .tasks-section {
+            padding: 20px 0;
+        }
+
+        .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .tasks-header h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .tasks-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .task-filter {
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        /* Flow-Task List */
+        .flow-task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .flow-task-group {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .flow-task-group.collapsed .flow-task-content {
+            display: none;
+        }
+
+        .flow-task-header {
+            padding: 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .flow-task-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .flow-task-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flow-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .flow-expand-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .flow-task-group.collapsed .flow-expand-icon {
+            transform: rotate(-90deg);
+        }
+
+        .flow-path {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .flow-path .role {
+            padding: 6px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .flow-path .operator {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .shares-operator {
+            background: rgba(0, 221, 255, 0.1);
+            border: 1px solid var(--blue);
+            color: var(--blue);
+        }
+
+        .does-operator {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
+        .okays-operator {
+            background: rgba(153, 69, 255, 0.1);
+            border: 1px solid var(--purple);
+            color: var(--purple);
+        }
+
+        .flow-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+        }
+
+        .stat-value {
+            font-weight: 600;
+        }
+
+        .create-task-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--green);
+            border-radius: 6px;
+            color: var(--green);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .create-task-btn:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        /* Task Content Area */
+        .flow-task-content {
+            padding: 20px;
+        }
+
+        .task-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .task-column {
+            min-height: 100px;
+        }
+
+        .task-column-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .task-column-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .task-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .task-card.shares-task {
+            border-left: 3px solid var(--blue);
+        }
+
+        .task-card.does-task {
+            border-left: 3px solid var(--green);
+        }
+
+        .task-card.okays-task {
+            border-left: 3px solid var(--purple);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .task-id {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-family: monospace;
+        }
+
+        .task-priority {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-dim);
+        }
+
+        .task-priority.high {
+            background: var(--red);
+            animation: pulse-priority 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-priority {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .task-priority.medium {
+            background: var(--yellow);
+        }
+
+        .task-priority.low {
+            background: var(--green);
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .task-chain-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chain-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .chain-line {
+            width: 12px;
+            height: 1px;
+            background: var(--green);
+        }
+
+        .chain-count {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            color: var(--green);
+        }
+
+        .task-assignee {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 4px;
+            color: var(--green);
+        }
+
+        .empty-state {
+            padding: 40px;
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        .empty-state-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
         }
 
         /* People Section */
@@ -793,9 +1340,27 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            .triads,
-            .operator-model {
+            .task-columns {
                 grid-template-columns: 1fr;
+            }
+            
+            .role.icon-view {
+                width: calc(50% - 8px);
+            }
+            
+            .triads {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .pod-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .role.icon-view {
+                width: 100%;
             }
         }
     </style>
@@ -827,176 +1392,22 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('roles')">Roles</button>
-            <button class="nav-tab" onclick="switchTab('flows')">Flows</button>
-            <button class="nav-tab" onclick="switchTab('people')">People</button>
+            <button class="nav-tab active" onclick="switchTab('roles', this)">Roles</button>
+            <button class="nav-tab" onclick="switchTab('flows', this)">Flows</button>
+            <button class="nav-tab" onclick="switchTab('tasks', this)">Tasks</button>
+            <button class="nav-tab" onclick="switchTab('people', this)">People</button>
         </div>
 
         <!-- Roles Tab -->
         <div class="tab-content active" id="rolesTab">
-            <div class="triads">
-                <!-- Creation Triad -->
-                <div class="triad">
-                    <div class="triad-header">
-                        <div class="triad-title">CREATION</div>
-                        <div class="triad-description">Beginning Phase</div>
-                    </div>
-                    <div class="roles">
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">🚀</span>
-                                <div class="role-info">
-                                    <div class="role-name">Starter</div>
-                                    <div class="role-description">Spots gaps, raises alarm</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">SilverFox</span>
-                                <button class="add-btn" onclick="quickAdd('Starter')">+</button>
-                            </div>
-                        </div>
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="toggleRoleView('icon')">Icon View</button>
+                <button class="view-btn" onclick="toggleRoleView('table')">Table View</button>
+            </div>
 
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">📋</span>
-                                <div class="role-info">
-                                    <div class="role-name">Definer</div>
-                                    <div class="role-description">Sets success criteria</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">CrystalSparrow</span>
-                                <button class="add-btn" onclick="quickAdd('Definer')">+</button>
-                            </div>
-                        </div>
-
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">🔨</span>
-                                <div class="role-info">
-                                    <div class="role-name">Builder</div>
-                                    <div class="role-description">Makes it real</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">ShadowSparrow</span>
-                                <span class="person-tag backup">RedMaple</span>
-                                <button class="add-btn" onclick="quickAdd('Builder')">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Structure Triad -->
-                <div class="triad">
-                    <div class="triad-header">
-                        <div class="triad-title">STRUCTURE</div>
-                        <div class="triad-description">Cohesion Phase</div>
-                    </div>
-                    <div class="roles">
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">🚧</span>
-                                <div class="role-info">
-                                    <div class="role-name">Divider</div>
-                                    <div class="role-description">Protects boundaries</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">RedWolf</span>
-                                <button class="add-btn" onclick="quickAdd('Divider')">+</button>
-                            </div>
-                        </div>
-
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">🔗</span>
-                                <div class="role-info">
-                                    <div class="role-name">Connector</div>
-                                    <div class="role-description">Links people & resources</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">GoldenFox</span>
-                                <button class="add-btn" onclick="quickAdd('Connector')">+</button>
-                            </div>
-                        </div>
-
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">🔄</span>
-                                <div class="role-info">
-                                    <div class="role-name">Integrator</div>
-                                    <div class="role-description">Weaves pieces together</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">BlueSparrow</span>
-                                <button class="add-btn" onclick="quickAdd('Integrator')">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continuity Triad -->
-                <div class="triad">
-                    <div class="triad-header">
-                        <div class="triad-title">CONTINUITY</div>
-                        <div class="triad-description">Sustainability Phase</div>
-                    </div>
-                    <div class="roles">
-                        <div class="role filled">
-                            <div class="role-header">
-                                <span class="role-icon">⏰</span>
-                                <div class="role-info">
-                                    <div class="role-name">Balancer</div>
-                                    <div class="role-description">Manages pace</div>
-                                </div>
-                                <div class="role-status filled"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="person-tag">BlueWolf</span>
-                                <button class="add-btn" onclick="quickAdd('Balancer')">+</button>
-                            </div>
-                        </div>
-
-                        <div class="role empty">
-                            <div class="role-header">
-                                <span class="role-icon">🗺️</span>
-                                <div class="role-info">
-                                    <div class="role-name">Overlayer</div>
-                                    <div class="role-description">Sees systems</div>
-                                </div>
-                                <div class="role-status"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="empty-tag">Empty - Critical!</span>
-                                <button class="add-btn" onclick="quickAdd('Overlayer')">+</button>
-                            </div>
-                        </div>
-
-                        <div class="role empty">
-                            <div class="role-header">
-                                <span class="role-icon">📚</span>
-                                <div class="role-info">
-                                    <div class="role-name">Reflector</div>
-                                    <div class="role-description">Captures lessons</div>
-                                </div>
-                                <div class="role-status"></div>
-                            </div>
-                            <div class="role-people">
-                                <span class="empty-tag">Empty - Critical!</span>
-                                <button class="add-btn" onclick="quickAdd('Reflector')">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="triads" id="triadsContainer">
+                <!-- Will be populated by JavaScript -->
             </div>
         </div>
 
@@ -1074,7 +1485,7 @@
             <div class="flows-section">
                 <div class="flows-header">
                     <h3>Active Process Flows</h3>
-                    <div class="view-toggle">
+                    <div class="toggle-view">
                         <button class="toggle-btn active" onclick="setView('simple')">Simple (3)</button>
                         <button class="toggle-btn" onclick="setView('detailed')">Detailed (9)</button>
                     </div>
@@ -1084,6 +1495,28 @@
 
                 <div class="flows-list" id="flowsList">
                     <!-- Generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks Tab -->
+        <div class="tab-content" id="tasksTab">
+            <div class="tasks-section">
+                <div class="tasks-header">
+                    <h2>Task Flows</h2>
+                    <div class="tasks-controls">
+                        <select class="task-filter" id="taskFilter" onchange="filterTasks()">
+                            <option value="all">All Tasks</option>
+                            <option value="active">Active</option>
+                            <option value="my-role">My Role</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flow-task-list" id="flowTaskList">
+                    <!-- Flow-grouped tasks will be generated here -->
                 </div>
             </div>
         </div>
@@ -1151,9 +1584,12 @@
                 </div>
 
                 <div class="builder-row" id="detailedOperatorRow" style="display: none;">
-                    <label class="builder-label">Specific Operator</label>
+                    <label class="builder-label">Specific Operator (Optional)</label>
                     <div class="operator-grid" id="operatorGrid">
                         <!-- Will be dynamically populated based on selected core category -->
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
+                        Leave blank to use the core operator only
                     </div>
                 </div>
 
@@ -1213,10 +1649,47 @@
         // State
         let currentTab = 'roles';
         let viewMode = 'simple';
+        let roleViewMode = 'icon';
+        let expandedTriads = new Set(['creation', 'structure', 'continuity']); // Start expanded
         let selectedOperator = null;
         let selectedCategory = null;
+        let selectedCoreCategory = null;
+        let expandedFlows = new Set();
 
         // Data
+        const triadsData = [
+            {
+                id: 'creation',
+                title: 'CREATION',
+                description: 'Beginning Phase',
+                roles: [
+                    { name: 'Starter', icon: '🚀', description: 'Spots gaps, raises alarm', people: ['SilverFox'] },
+                    { name: 'Definer', icon: '📋', description: 'Sets success criteria', people: ['CrystalSparrow'] },
+                    { name: 'Builder', icon: '🔨', description: 'Makes it real', people: ['ShadowSparrow', 'RedMaple'] }
+                ]
+            },
+            {
+                id: 'structure',
+                title: 'STRUCTURE',
+                description: 'Cohesion Phase',
+                roles: [
+                    { name: 'Divider', icon: '🚧', description: 'Protects boundaries', people: ['RedWolf'] },
+                    { name: 'Connector', icon: '🔗', description: 'Links people & resources', people: ['GoldenFox'] },
+                    { name: 'Integrator', icon: '🔄', description: 'Weaves pieces together', people: ['BlueSparrow'] }
+                ]
+            },
+            {
+                id: 'continuity',
+                title: 'CONTINUITY',
+                description: 'Sustainability Phase',
+                roles: [
+                    { name: 'Balancer', icon: '⏰', description: 'Manages pace', people: ['BlueWolf'] },
+                    { name: 'Overlayer', icon: '🗺️', description: 'Sees systems', people: [] },
+                    { name: 'Reflector', icon: '📚', description: 'Captures lessons', people: [] }
+                ]
+            }
+        ];
+
         const people = [
             { name: 'SilverFox', roles: ['Starter'] },
             { name: 'CrystalSparrow', roles: ['Definer'] },
@@ -1240,7 +1713,7 @@
                 preposition: 'to', 
                 to: 'Definer', 
                 category: 'shares',
-                timestamp: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
+                timestamp: new Date(Date.now() - 7200000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
             { 
@@ -1250,7 +1723,7 @@
                 preposition: 'for', 
                 to: 'Builder', 
                 category: 'shares',
-                timestamp: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+                timestamp: new Date(Date.now() - 3600000).toISOString(),
                 consent: { from: 'approved', to: 'pending' }
             },
             { 
@@ -1260,7 +1733,7 @@
                 preposition: 'with', 
                 to: 'Connector', 
                 category: 'does',
-                timestamp: new Date(Date.now() - 1800000).toISOString(), // 30 min ago
+                timestamp: new Date(Date.now() - 1800000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
             { 
@@ -1270,7 +1743,7 @@
                 preposition: 'to', 
                 to: 'Builder', 
                 category: 'does',
-                timestamp: new Date(Date.now() - 900000).toISOString(), // 15 min ago
+                timestamp: new Date(Date.now() - 900000).toISOString(),
                 consent: { from: 'pending', to: 'pending' }
             },
             { 
@@ -1280,8 +1753,53 @@
                 preposition: 'for', 
                 to: 'Builder', 
                 category: 'okays',
-                timestamp: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+                timestamp: new Date(Date.now() - 86400000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
+            }
+        ];
+
+        const tasks = [
+            {
+                id: 'T001',
+                flowId: 0,
+                title: 'Critical infrastructure risk identified',
+                description: 'Power grid vulnerability detected in sector 7',
+                from: 'Starter',
+                to: 'Definer',
+                operator: 'spot',
+                category: 'shares',
+                state: 'received',
+                priority: 'high',
+                created: new Date(Date.now() - 3600000).toISOString(),
+                chain: ['T002']
+            },
+            {
+                id: 'T002',
+                flowId: 1,
+                title: 'Define response criteria',
+                description: 'Need clear success metrics for infrastructure protection',
+                from: 'Definer',
+                to: 'Builder',
+                operator: 'define',
+                category: 'shares',
+                state: 'processing',
+                priority: 'high',
+                created: new Date(Date.now() - 1800000).toISOString(),
+                chain: ['T003']
+            },
+            {
+                id: 'T003',
+                flowId: 2,
+                title: 'Build emergency response system',
+                description: 'Construct failsafe for identified vulnerability',
+                from: 'Builder',
+                to: 'Connector',
+                operator: 'build',
+                category: 'does',
+                state: 'created',
+                priority: 'high',
+                created: new Date(Date.now() - 900000).toISOString(),
+                chain: []
             }
         ];
 
@@ -1291,33 +1809,203 @@
             'does': ['build', 'connect', 'protect']
         };
 
+        // Custom dropdown functionality
+        let selectedValues = {
+            fromRole: '',
+            preposition: 'to',
+            toRole: ''
+        };
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', function() {
+            renderRoles();
+        });
+
         // Tab switching
-        function switchTab(tab) {
+        function switchTab(tab, element) {
             currentTab = tab;
             
-            // Update tab buttons
             document.querySelectorAll('.nav-tab').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            element.classList.add('active');
             
-            // Update tab content
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
-            document.getElementById(tab + 'Tab').classList.add('active');
+            const tabContent = document.getElementById(tab + 'Tab');
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
             
-            // Render content if needed
             if (tab === 'people') {
                 renderPeople();
             } else if (tab === 'flows') {
                 renderFlows();
+            } else if (tab === 'tasks') {
+                renderTasks();
+            } else if (tab === 'roles') {
+                renderRoles();
             }
+        }
+
+        // Toggle role view between icon and table
+        function toggleRoleView(mode) {
+            roleViewMode = mode;
+            
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderRoles();
+        }
+
+        // Toggle triad collapse/expand
+        function toggleTriad(triadId) {
+            if (expandedTriads.has(triadId)) {
+                expandedTriads.delete(triadId);
+            } else {
+                expandedTriads.add(triadId);
+            }
+            renderRoles();
+        }
+
+        // Render roles based on view mode
+        function renderRoles() {
+            const container = document.getElementById('triadsContainer');
+            if (!container) return;
+            
+            if (roleViewMode === 'icon') {
+                renderIconView(container);
+            } else {
+                renderTableView(container);
+            }
+        }
+
+        // Render Icon View
+        function renderIconView(container) {
+            container.innerHTML = triadsData.map(triad => {
+                const isExpanded = expandedTriads.has(triad.id);
+                const filledCount = triad.roles.filter(r => r.people.length > 0).length;
+                
+                return `
+                    <div class="triad ${isExpanded ? '' : 'collapsed'}">
+                        <div class="triad-header" onclick="toggleTriad('${triad.id}')">
+                            <div class="triad-info">
+                                <span class="collapse-icon">▼</span>
+                                <div>
+                                    <div class="triad-title">${triad.title}</div>
+                                    <div class="triad-description">${triad.description}</div>
+                                </div>
+                            </div>
+                            <div class="triad-summary">
+                                ${triad.roles.map(role => `
+                                    <div class="role-indicator ${role.people.length > 0 ? 'filled' : 'empty'}"></div>
+                                `).join('')}
+                                <div class="triad-status">${filledCount}/${triad.roles.length} filled</div>
+                            </div>
+                        </div>
+                        <div class="roles-content">
+                            <div class="roles icon-view">
+                                ${triad.roles.map(role => `
+                                    <div class="role icon-view ${role.people.length > 0 ? 'filled' : 'empty'}" onclick="quickAdd('${role.name}')">
+                                        <div class="role-compact">
+                                            <div class="role-icon">${role.icon}</div>
+                                            <div class="role-name">${role.name}</div>
+                                            <div class="role-description" style="font-size: 0.75rem; color: var(--text-dim);">${role.description}</div>
+                                            <div class="role-people-count ${role.people.length === 0 ? 'empty' : ''}">
+                                                ${role.people.length > 0 ? `${role.people.length} person${role.people.length > 1 ? 's' : ''}` : 'Empty'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render Table View
+        function renderTableView(container) {
+            container.innerHTML = triadsData.map(triad => {
+                const isExpanded = expandedTriads.has(triad.id);
+                const filledCount = triad.roles.filter(r => r.people.length > 0).length;
+                
+                return `
+                    <div class="triad ${isExpanded ? '' : 'collapsed'}">
+                        <div class="triad-header" onclick="toggleTriad('${triad.id}')">
+                            <div class="triad-info">
+                                <span class="collapse-icon">▼</span>
+                                <div>
+                                    <div class="triad-title">${triad.title}</div>
+                                    <div class="triad-description">${triad.description}</div>
+                                </div>
+                            </div>
+                            <div class="triad-summary">
+                                ${triad.roles.map(role => `
+                                    <div class="role-indicator ${role.people.length > 0 ? 'filled' : 'empty'}"></div>
+                                `).join('')}
+                                <div class="triad-status">${filledCount}/${triad.roles.length} filled</div>
+                            </div>
+                        </div>
+                        <div class="roles-content">
+                            <div class="roles table-view">
+                                <table class="role-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Role</th>
+                                            <th>Description</th>
+                                            <th>People</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${triad.roles.map(role => `
+                                            <tr>
+                                                <td>
+                                                    <div class="status-dot ${role.people.length > 0 ? 'filled' : 'empty'}"></div>
+                                                </td>
+                                                <td>
+                                                    <div class="role-cell">
+                                                        <span>${role.icon}</span>
+                                                        <span style="font-weight: 600;">${role.name}</span>
+                                                    </div>
+                                                </td>
+                                                <td style="color: var(--text-dim); font-size: 0.85rem;">
+                                                    ${role.description}
+                                                </td>
+                                                <td>
+                                                    <div class="people-tags">
+                                                        ${role.people.length > 0 ? 
+                                                            role.people.map((person, idx) => `
+                                                                <span class="person-tag ${idx > 0 ? 'backup' : ''}">${person}</span>
+                                                            `).join('') :
+                                                            '<span class="empty-tag">Empty - Critical!</span>'
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button class="add-btn" onclick="quickAdd('${role.name}')">+ Add</button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         // People rendering
         function renderPeople() {
             const grid = document.getElementById('peopleGrid');
+            if (!grid) return;
+            
             grid.innerHTML = people.map(person => `
                 <div class="person-card">
                     <div class="person-avatar">${person.name[0]}</div>
@@ -1337,19 +2025,19 @@
 
         function renderFlows() {
             const list = document.getElementById('flowsList');
+            if (!list) return;
             
-            let displayFlows = flows;
-            if (viewMode === 'simple') {
-                displayFlows = flows.map(f => ({
+            let displayFlows = flows.map(f => {
+                let displayOperator = f.operator;
+                if (viewMode === 'simple') {
+                    displayOperator = f.category;
+                }
+                
+                return {
                     ...f,
-                    displayOperator: getCoreOperator(f.operator)
-                }));
-            } else {
-                displayFlows = flows.map(f => ({
-                    ...f,
-                    displayOperator: f.operator
-                }));
-            }
+                    displayOperator: displayOperator
+                };
+            });
 
             list.innerHTML = displayFlows.map((flow, index) => {
                 const timeAgo = getTimeAgo(flow.timestamp);
@@ -1361,17 +2049,13 @@
                     <div class="flow-content">
                         <div class="flow-role">${flow.from}</div>
                         <span class="flow-arrow">→</span>
-                        <div class="flow-operator">${flow.displayOperator || flow.operator}</div>
+                        <div class="flow-operator">${flow.displayOperator}</div>
                         <div class="flow-operand">"${flow.operand}"</div>
                         <span class="flow-arrow">${flow.preposition}</span>
                         <div class="flow-role">${flow.to}</div>
-                        <div class="flow-actions">
-                            <button class="flow-btn" onclick="editFlow(${index})">Edit</button>
-                            <button class="flow-btn" onclick="deleteFlow(${index})">Delete</button>
-                        </div>
                     </div>
                     <div class="flow-meta">
-                        <div class="flow-timestamp">Created ${timeAgo}</div>
+                        <div class="flow-timestamp">${timeAgo}</div>
                         <div class="flow-consent">
                             <div class="consent-status ${consentStatus.class}">
                                 <span class="consent-dot"></span>
@@ -1381,6 +2065,10 @@
                                 <button class="consent-btn" onclick="approveFlow(${index})">Approve</button>
                                 <button class="consent-btn reject" onclick="rejectFlow(${index})">Reject</button>
                             ` : ''}
+                        </div>
+                        <div class="flow-actions">
+                            <button class="flow-btn" onclick="editFlow(${index})">Edit</button>
+                            <button class="flow-btn" onclick="deleteFlow(${index})">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -1404,22 +2092,16 @@
 
         function getConsentStatus(consent) {
             if (consent.from === 'approved' && consent.to === 'approved') {
-                return { text: 'Approved by both', class: 'approved' };
+                return { text: 'Active', class: 'approved' };
             } else if (consent.from === 'rejected' || consent.to === 'rejected') {
                 return { text: 'Rejected', class: 'rejected' };
-            } else if (consent.from === 'pending' && consent.to === 'pending') {
-                return { text: 'Awaiting both parties', class: 'pending' };
-            } else if (consent.from === 'pending') {
-                return { text: 'Awaiting from role', class: 'pending' };
             } else {
-                return { text: 'Awaiting to role', class: 'pending' };
+                return { text: 'Pending', class: 'pending' };
             }
         }
 
         function approveFlow(index) {
-            // In a real app, this would check if the current user holds the relevant role
             const flow = flows[index];
-            // Simulate approval logic
             if (flow.consent.from === 'pending') {
                 flow.consent.from = 'approved';
             }
@@ -1430,7 +2112,6 @@
         }
 
         function rejectFlow(index) {
-            // In a real app, this would check if the current user holds the relevant role
             const flow = flows[index];
             flow.consent.from = 'rejected';
             renderFlows();
@@ -1445,19 +2126,140 @@
             renderFlows();
         }
 
-        // Custom dropdown functionality
-        let selectedValues = {
-            fromRole: '',
-            preposition: 'to',
-            toRole: ''
-        };
+        // Tasks rendering
+        function renderTasks() {
+            const list = document.getElementById('flowTaskList');
+            if (!list) return;
+            
+            const tasksByFlow = {};
+            const approvedFlows = flows.filter(f => f.consent.from === 'approved' && f.consent.to === 'approved');
+            
+            approvedFlows.forEach((flow, index) => {
+                const flowKey = `flow-${index}`;
+                tasksByFlow[flowKey] = {
+                    flow: flow,
+                    flowIndex: index,
+                    tasks: tasks.filter(t => t.flowId === index)
+                };
+            });
+            
+            list.innerHTML = Object.entries(tasksByFlow).map(([flowKey, data]) => {
+                const isExpanded = expandedFlows.has(flowKey);
+                const states = ['created', 'transmitted', 'received', 'processing', 'completed'];
+                const taskCounts = states.reduce((acc, state) => {
+                    acc[state] = data.tasks.filter(t => t.state === state).length;
+                    return acc;
+                }, {});
+                
+                return `
+                    <div class="flow-task-group ${isExpanded ? '' : 'collapsed'}" data-flow="${flowKey}">
+                        <div class="flow-task-header" onclick="toggleFlowTasks('${flowKey}')">
+                            <div class="flow-task-header-content">
+                                <div class="flow-info">
+                                    <span class="flow-expand-icon">▼</span>
+                                    <div class="flow-path">
+                                        <span class="role">${data.flow.from}</span>
+                                        <span>→</span>
+                                        <span class="operator ${data.flow.category}-operator">${data.flow.operator}</span>
+                                        <span class="flow-operand" style="color: var(--text-dim); font-style: italic;">
+                                            "${data.flow.operand}"
+                                        </span>
+                                        <span>→</span>
+                                        <span class="role">${data.flow.to}</span>
+                                    </div>
+                                </div>
+                                <div class="flow-stats">
+                                    <div class="flow-stat">
+                                        <span class="stat-value">${data.tasks.length}</span>
+                                        <span class="stat-label">tasks</span>
+                                    </div>
+                                    <div class="flow-stat">
+                                        <span class="stat-value" style="color: var(--green);">${taskCounts.completed || 0}</span>
+                                        <span class="stat-label">done</span>
+                                    </div>
+                                    <button class="create-task-btn" onclick="createTaskInFlow(event, ${data.flowIndex})">
+                                        + Task
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flow-task-content">
+                            ${data.tasks.length > 0 ? `
+                                <div class="task-columns">
+                                    ${states.map(state => `
+                                        <div class="task-column">
+                                            <div class="task-column-header">${state}</div>
+                                            <div class="task-column-content">
+                                                ${data.tasks
+                                                    .filter(t => t.state === state)
+                                                    .map(task => renderTaskCard(task))
+                                                    .join('') || ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : `
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📭</div>
+                                    <div>No tasks in this flow</div>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
+        function renderTaskCard(task) {
+            const hasChain = task.chain && task.chain.length > 0;
+            return `
+                <div class="task-card ${task.category}-task">
+                    <div class="task-header">
+                        <span class="task-id">#${task.id}</span>
+                        <span class="task-priority ${task.priority}"></span>
+                    </div>
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-meta">
+                        <div class="task-chain-indicator">
+                            ${hasChain ? `
+                                <span class="chain-dot"></span>
+                                <span class="chain-line"></span>
+                                <span class="chain-count">${task.chain.length}</span>
+                            ` : ''}
+                        </div>
+                        <div class="task-assignee">${task.to}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleFlowTasks(flowKey) {
+            if (expandedFlows.has(flowKey)) {
+                expandedFlows.delete(flowKey);
+            } else {
+                expandedFlows.add(flowKey);
+            }
+            renderTasks();
+        }
+
+        function createTaskInFlow(event, flowIndex) {
+            event.stopPropagation();
+            alert(`Creating task for flow ${flowIndex}`);
+        }
+
+        function filterTasks() {
+            const filter = document.getElementById('taskFilter').value;
+            console.log('Filtering tasks by:', filter);
+            renderTasks();
+        }
+
+        // Modal and dropdowns
         function toggleDropdown(selectId) {
             const selectElement = document.getElementById(selectId + 'Select');
             const trigger = selectElement.querySelector('.select-trigger');
             const options = selectElement.querySelector('.select-options');
             
-            // Close all other dropdowns
             document.querySelectorAll('.custom-select').forEach(sel => {
                 if (sel.id !== selectId + 'Select') {
                     sel.querySelector('.select-trigger').classList.remove('active');
@@ -1465,11 +2267,9 @@
                 }
             });
             
-            // Toggle current dropdown
             trigger.classList.toggle('active');
             options.classList.toggle('active');
             
-            // Close dropdown when clicking outside
             document.addEventListener('click', function closeDropdown(e) {
                 if (!selectElement.contains(e.target)) {
                     trigger.classList.remove('active');
@@ -1485,11 +2285,9 @@
             const trigger = selectElement.querySelector('.select-trigger');
             const options = selectElement.querySelector('.select-options');
             
-            // Update display value
             valueSpan.textContent = value;
             valueSpan.setAttribute('data-value', value);
             
-            // Update selected state
             selectElement.querySelectorAll('.select-option').forEach(opt => {
                 opt.classList.remove('selected');
                 if (opt.textContent === value) {
@@ -1497,96 +2295,51 @@
                 }
             });
             
-            // Store value
             selectedValues[selectId] = value;
             
-            // Close dropdown
             trigger.classList.remove('active');
             options.classList.remove('active');
             
             event.stopPropagation();
         }
 
-        function getDropdownValue(selectId) {
-            return selectedValues[selectId] || '';
-        }
-
-        function setDropdownValue(selectId, value) {
-            selectedValues[selectId] = value;
-            const selectElement = document.getElementById(selectId + 'Select');
-            if (selectElement) {
-                const valueSpan = selectElement.querySelector('.select-value');
-                valueSpan.textContent = value || 'Select role...';
-                valueSpan.setAttribute('data-value', value);
-                
-                selectElement.querySelectorAll('.select-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                    if (opt.textContent === value) {
-                        opt.classList.add('selected');
-                    }
-                });
-            }
-        }
-
-        // Flow management
-        let selectedCoreCategory = null;
-        
         function selectCoreCategory(category) {
             selectedCoreCategory = category;
             
-            // Update visual selection
             document.querySelectorAll('[data-core]').forEach(opt => {
                 opt.classList.remove('selected');
             });
             document.querySelector(`[data-core="${category}"]`).classList.add('selected');
             
-            // Show detailed operator row
             document.getElementById('detailedOperatorRow').style.display = 'block';
-            
-            // Populate specific operators for this category
             populateDetailedOperators(category);
         }
         
         function populateDetailedOperators(category) {
             const grid = document.getElementById('operatorGrid');
-            let operatorHTML = '';
+            const operators = categoryMap[category] || [];
             
-            if (category === 'shares') {
-                operatorHTML = `
-                    <div class="operator-option shares" data-op="spot" data-cat="shares" onclick="selectModalOperator(this)">Spot</div>
-                    <div class="operator-option shares" data-op="define" data-cat="shares" onclick="selectModalOperator(this)">Define</div>
-                    <div class="operator-option shares" data-op="bound" data-cat="shares" onclick="selectModalOperator(this)">Bound</div>
-                    <div class="operator-option shares" data-op="reflect" data-cat="shares" onclick="selectModalOperator(this)">Reflect</div>
-                `;
-            } else if (category === 'does') {
-                operatorHTML = `
-                    <div class="operator-option does" data-op="build" data-cat="does" onclick="selectModalOperator(this)">Build</div>
-                    <div class="operator-option does" data-op="connect" data-cat="does" onclick="selectModalOperator(this)">Connect</div>
-                    <div class="operator-option does" data-op="protect" data-cat="does" onclick="selectModalOperator(this)">Protect</div>
-                `;
-            } else if (category === 'okays') {
-                operatorHTML = `
-                    <div class="operator-option okays" data-op="integrate" data-cat="okays" onclick="selectModalOperator(this)">Integrate</div>
-                    <div class="operator-option okays" data-op="pace" data-cat="okays" onclick="selectModalOperator(this)">Pace</div>
-                `;
-            }
+            grid.innerHTML = operators.map(op => `
+                <div class="operator-option ${category}" data-op="${op}" onclick="selectModalOperator(this)">
+                    ${op}
+                </div>
+            `).join('');
             
-            grid.innerHTML = operatorHTML;
-            grid.style.gridTemplateColumns = category === 'shares' ? 'repeat(2, 1fr)' : category === 'does' ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)';
+            grid.style.gridTemplateColumns = operators.length === 4 ? 'repeat(2, 1fr)' : 
+                                              operators.length === 3 ? 'repeat(3, 1fr)' : 
+                                              'repeat(2, 1fr)';
         }
-        
+
         function selectOperator(op, cat) {
             selectedOperator = op;
             selectedCategory = cat;
             selectedCoreCategory = cat;
             openFlowBuilder();
             
-            // Pre-select the core category
             selectCoreCategory(cat);
             
-            // Pre-select the specific operator
             setTimeout(() => {
-                document.querySelectorAll('.operator-option').forEach(opt => {
+                document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
                     if (opt.dataset.op === op) {
                         opt.classList.add('selected');
                     }
@@ -1600,22 +2353,18 @@
             });
             element.classList.add('selected');
             selectedOperator = element.dataset.op;
-            selectedCategory = element.dataset.cat;
         }
 
         function openFlowBuilder() {
             document.getElementById('flowModal').classList.add('active');
-            // Reset state
             selectedCoreCategory = null;
             document.getElementById('detailedOperatorRow').style.display = 'none';
         }
 
         function closeModal() {
             document.getElementById('flowModal').classList.remove('active');
-            // Reset form
-            document.getElementById('fromRole').value = '';
+            selectedValues = { fromRole: '', preposition: 'to', toRole: '' };
             document.getElementById('operand').value = '';
-            document.getElementById('toRole').value = '';
             document.querySelectorAll('.operator-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
@@ -1626,69 +2375,34 @@
         }
 
         function createFlow() {
-            const fromRole = getDropdownValue('fromRole');
+            const fromRole = selectedValues.fromRole;
             const operand = document.getElementById('operand').value;
-            const preposition = getDropdownValue('preposition');
-            const toRole = getDropdownValue('toRole');
+            const preposition = selectedValues.preposition;
+            const toRole = selectedValues.toRole;
 
-            if (fromRole && selectedOperator && operand && toRole && selectedCoreCategory) {
+            if (fromRole && operand && toRole && selectedCoreCategory) {
+                const operator = selectedOperator || selectedCoreCategory;
+                
                 flows.push({
                     from: fromRole,
-                    operator: selectedOperator,
+                    operator: operator,
                     operand: operand,
                     preposition: preposition,
                     to: toRole,
-                    category: selectedCategory || selectedCoreCategory
+                    category: selectedCoreCategory,
+                    timestamp: new Date().toISOString(),
+                    consent: { from: 'pending', to: 'pending' }
                 });
                 
                 renderFlows();
                 closeModal();
             } else {
-                alert('Please fill in all fields and select both a category and operator');
+                alert('Please fill in all fields and select a core operator category');
             }
         }
 
         function editFlow(index) {
-            const flow = flows[index];
-            openFlowBuilder();
-            
-            // Set dropdown values
-            setDropdownValue('fromRole', flow.from);
-            setDropdownValue('preposition', flow.preposition);
-            setDropdownValue('toRole', flow.to);
-            
-            // Set operand
-            document.getElementById('operand').value = flow.operand;
-            
-            // Pre-select the core category and operator
-            selectCoreCategory(flow.category);
-            setTimeout(() => {
-                document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
-                    if (opt.dataset.op === flow.operator) {
-                        opt.classList.add('selected');
-                        selectedOperator = flow.operator;
-                        selectedCategory = flow.category;
-                    }
-                });
-            }, 100);
-            
-            flows.splice(index, 1);
-        }
-
-        function closeModal() {
-            document.getElementById('flowModal').classList.remove('active');
-            // Reset form
-            setDropdownValue('fromRole', '');
-            setDropdownValue('preposition', 'to');
-            setDropdownValue('toRole', '');
-            document.getElementById('operand').value = '';
-            document.querySelectorAll('.operator-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            selectedOperator = null;
-            selectedCategory = null;
-            selectedCoreCategory = null;
-            document.getElementById('detailedOperatorRow').style.display = 'none';
+            alert(`Edit flow ${index}`);
         }
 
         function deleteFlow(index) {
@@ -1698,19 +2412,10 @@
             }
         }
 
-        // Role management
         function quickAdd(role) {
             const name = prompt(`Add person to ${role} role:`);
             if (name) {
-                const person = people.find(p => p.name === name);
-                if (person) {
-                    if (!person.roles.includes(role)) {
-                        person.roles.push(role);
-                    }
-                } else {
-                    people.push({ name: name, roles: [role] });
-                }
-                location.reload(); // Simple refresh for demo
+                alert(`Adding ${name} to ${role}`);
             }
         }
     </script>
