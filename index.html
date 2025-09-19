@@ -523,6 +523,29 @@
             font-weight: 300;
         }
 
+        .flow-type-toggle {
+            display: flex;
+            gap: 8px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .flow-type-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .flow-type-btn.active {
+            background: var(--bg);
+            color: var(--text);
+        }
+
         .toggle-view {
             display: flex;
             gap: 8px;
@@ -1118,6 +1141,218 @@
             color: var(--text-dim);
         }
 
+        /* Network Tab - Pod Connections */
+        .network-section {
+            padding: 20px 0;
+        }
+
+        .network-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .network-header h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .pod-selector {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .current-pod-label {
+            padding: 8px 16px;
+            background: var(--green);
+            color: var(--bg);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .connected-pods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .pod-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .pod-card:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .pod-card.current {
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .pod-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .pod-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pod-health {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 4px;
+        }
+
+        .health-value {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .pod-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .pod-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+        }
+
+        .pod-stat-value {
+            font-weight: 600;
+        }
+
+        .pod-stat-label {
+            color: var(--text-dim);
+        }
+
+        .pod-flows {
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .pod-flow-count {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .pod-flow-indicators {
+            display: flex;
+            gap: 8px;
+        }
+
+        .flow-indicator {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border);
+        }
+
+        .flow-indicator.shares { background: var(--blue); }
+        .flow-indicator.does { background: var(--green); }
+        .flow-indicator.okays { background: var(--purple); }
+
+        .add-pod-btn {
+            width: 100%;
+            padding: 40px;
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            color: var(--text-dim);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-pod-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .add-pod-icon {
+            font-size: 2rem;
+            opacity: 0.5;
+        }
+
+        .pod-flows-list {
+            margin-top: 40px;
+        }
+
+        .pod-flow-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pod-flow-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .pod-badge {
+            padding: 6px 12px;
+            background: var(--bg);
+            border: 2px solid var(--green);
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .pod-flow-item.shares-flow .flow-operator {
+            background: rgba(0, 221, 255, 0.1);
+            border: 1px solid var(--blue);
+            color: var(--blue);
+        }
+
+        .pod-flow-item.okays-flow .flow-operator {
+            background: rgba(153, 69, 255, 0.1);
+            border: 1px solid var(--purple);
+            color: var(--purple);
+        }
+
+        .pod-flow-item.does-flow .flow-operator {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -1396,6 +1631,7 @@
             <button class="nav-tab" onclick="switchTab('flows', this)">Flows</button>
             <button class="nav-tab" onclick="switchTab('tasks', this)">Tasks</button>
             <button class="nav-tab" onclick="switchTab('people', this)">People</button>
+            <button class="nav-tab" onclick="switchTab('network', this)">Network</button>
         </div>
 
         <!-- Roles Tab -->
@@ -1533,9 +1769,269 @@
                 </div>
             </div>
         </div>
+
+        <!-- Network Tab -->
+        <div class="tab-content" id="networkTab">
+            <div class="network-section">
+                <div class="network-header">
+                    <h2>Pod Network</h2>
+                    <div class="pod-selector">
+                        <span style="color: var(--text-dim);">Current Pod:</span>
+                        <span class="current-pod-label">NORTHSIDE RESPONSE</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px; font-weight: 300;">Connected Pods</h3>
+                <div class="connected-pods" id="connectedPods">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <h3 style="margin: 40px 0 20px; font-weight: 300;">Inter-Pod Flows</h3>
+                <div class="flows-header">
+                    <div>Active connections between pods</div>
+                    <div class="flow-type-toggle">
+                        <button class="flow-type-btn active" onclick="setFlowType('all')">All Flows</button>
+                        <button class="flow-type-btn" onclick="setFlowType('incoming')">Incoming</button>
+                        <button class="flow-type-btn" onclick="setFlowType('outgoing')">Outgoing</button>
+                    </div>
+                </div>
+
+                <button class="add-flow-btn" onclick="openPodFlowBuilder()">+ Create Pod Connection</button>
+
+                <div class="pod-flows-list" id="podFlowsList">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Flow Builder Modal -->
+    <div class="modal" id="flowModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Process Flow</h3>
+                <p style="color: var(--text-dim);">Define how roles interact through operators</p>
+            </div>
+            
+            <div class="flow-builder">
+                <div class="builder-row">
+                    <label class="builder-label">From Role</label>
+                    <div class="custom-select" id="fromRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('fromRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="fromRoleOptions">
+                            <div class="select-option" onclick="selectOption('fromRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Core Operator Category</label>
+                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
+                            <div style="font-weight: bold;">SHARES</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Make visible</div>
+                        </div>
+                        <div class="operator-option does" data-core="does" onclick="selectCoreCategory('does')">
+                            <div style="font-weight: bold;">DOES</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Do the work</div>
+                        </div>
+                        <div class="operator-option okays" data-core="okays" onclick="selectCoreCategory('okays')">
+                            <div style="font-weight: bold;">OKAYS</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row" id="detailedOperatorRow" style="display: none;">
+                    <label class="builder-label">Specific Operator (Optional)</label>
+                    <div class="operator-grid" id="operatorGrid">
+                        <!-- Will be dynamically populated based on selected core category -->
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
+                        Leave blank to use the core operator only
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">What (Operand)</label>
+                    <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles...">
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Preposition</label>
+                    <div class="custom-select" id="prepositionSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('preposition')">
+                            <span class="select-value" data-value="to">to</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="prepositionOptions">
+                            <div class="select-option selected" onclick="selectOption('preposition', 'to')">to</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'with')">with</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'through')">through</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'for')">for</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'from')">from</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'by')">by</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">To Role</label>
+                    <div class="custom-select" id="toRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('toRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="toRoleOptions">
+                            <div class="select-option" onclick="selectOption('toRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-primary" onclick="createFlow()">Create Flow</button>
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pod Flow Builder Modal -->
+    <div class="modal" id="podFlowModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Pod Connection</h3>
+                <p style="color: var(--text-dim);">Connect pods using the same flow grammar</p>
+            </div>
+            
+            <div class="flow-builder">
+                <div class="builder-row">
+                    <label class="builder-label">Connection Type</label>
+                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="operator-option" data-type="role-to-role" onclick="setPodFlowType('role-to-role')">
+                            <div style="font-weight: bold;">Role → Role</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Cross-pod role flow</div>
+                        </div>
+                        <div class="operator-option" data-type="pod-to-role" onclick="setPodFlowType('pod-to-role')">
+                            <div style="font-weight: bold;">Pod → Role</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level to role</div>
+                        </div>
+                        <div class="operator-option selected" data-type="pod-to-pod" onclick="setPodFlowType('pod-to-pod')">
+                            <div style="font-weight: bold;">Pod → Pod</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level flow</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row" id="podFromRow">
+                    <label class="builder-label">From</label>
+                    <input type="text" class="builder-input" id="podFrom" value="NORTHSIDE RESPONSE" readonly style="background: rgba(0, 255, 136, 0.05);">
+                </div>
+
+                <div class="builder-row" id="podFromRoleRow" style="display: none;">
+                    <label class="builder-label">From Role (in NORTHSIDE)</label>
+                    <div class="custom-select" id="podFromRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('podFromRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="podFromRoleOptions">
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('podFromRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Core Operator</label>
+                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="operator-option shares" data-core="shares" onclick="selectPodCoreCategory('shares')">
+                            <div style="font-weight: bold;">SHARES</div>
+                        </div>
+                        <div class="operator-option does" data-core="does" onclick="selectPodCoreCategory('does')">
+                            <div style="font-weight: bold;">DOES</div>
+                        </div>
+                        <div class="operator-option okays" data-core="okays" onclick="selectPodCoreCategory('okays')">
+                            <div style="font-weight: bold;">OKAYS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">What (Operand)</label>
+                    <input type="text" class="builder-input" id="podOperand" placeholder="e.g., regional patterns, shared resources, coordination...">
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">To Pod</label>
+                    <div class="custom-select" id="toPodSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('toPod')">
+                            <span class="select-value" data-value="">Select pod...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="toPodOptions">
+                            <div class="select-option" onclick="selectOption('toPod', 'SOUTH DISTRICT')">SOUTH DISTRICT</div>
+                            <div class="select-option" onclick="selectOption('toPod', 'CENTRAL COMMAND')">CENTRAL COMMAND</div>
+                            <div class="select-option" onclick="selectOption('toPod', 'MEDICAL SECTOR')">MEDICAL SECTOR</div>
+                            <div class="select-option" onclick="selectOption('toPod', '[New Pod]')">[New Pod]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row" id="podToRoleRow" style="display: none;">
+                    <label class="builder-label">To Role (in target pod)</label>
+                    <div class="custom-select" id="podToRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('podToRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="podToRoleOptions">
+                            <div class="select-option" onclick="selectOption('podToRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('podToRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-primary" onclick="createPodFlow()">Create Connection</button>
+                <button class="modal-btn modal-btn-cancel" onclick="closePodModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
     <div class="modal" id="flowModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1655,6 +2151,87 @@
         let selectedCategory = null;
         let selectedCoreCategory = null;
         let expandedFlows = new Set();
+        let podFlowType = 'pod-to-pod';
+        let selectedPodCoreCategory = null;
+        let flowTypeFilter = 'all';
+
+        // Current pod info
+        const currentPod = {
+            name: 'NORTHSIDE RESPONSE',
+            health: 87,
+            rolesFilled: 7,
+            totalRoles: 9,
+            activeFlows: 12,
+            people: 12
+        };
+
+        // Connected pods data
+        const connectedPods = [
+            {
+                name: 'SOUTH DISTRICT',
+                health: 92,
+                rolesFilled: 8,
+                totalRoles: 9,
+                activeFlows: 8,
+                flowTypes: { shares: 3, does: 3, okays: 2 }
+            },
+            {
+                name: 'CENTRAL COMMAND',
+                health: 95,
+                rolesFilled: 9,
+                totalRoles: 9,
+                activeFlows: 15,
+                flowTypes: { shares: 6, does: 5, okays: 4 }
+            },
+            {
+                name: 'MEDICAL SECTOR',
+                health: 78,
+                rolesFilled: 6,
+                totalRoles: 9,
+                activeFlows: 10,
+                flowTypes: { shares: 4, does: 4, okays: 2 }
+            }
+        ];
+
+        // Pod-to-pod flows
+        const podFlows = [
+            {
+                type: 'pod-to-pod',
+                from: 'NORTHSIDE RESPONSE',
+                fromRole: null,
+                operator: 'shares',
+                operand: 'regional risk patterns',
+                to: 'CENTRAL COMMAND',
+                toRole: null,
+                category: 'shares',
+                timestamp: new Date(Date.now() - 3600000).toISOString(),
+                consent: { from: 'approved', to: 'approved' }
+            },
+            {
+                type: 'role-to-role',
+                from: 'NORTHSIDE RESPONSE',
+                fromRole: 'Connector',
+                operator: 'connect',
+                operand: 'medical resources',
+                to: 'MEDICAL SECTOR',
+                toRole: 'Builder',
+                category: 'does',
+                timestamp: new Date(Date.now() - 7200000).toISOString(),
+                consent: { from: 'approved', to: 'approved' }
+            },
+            {
+                type: 'pod-to-role',
+                from: 'CENTRAL COMMAND',
+                fromRole: null,
+                operator: 'okays',
+                operand: 'resource allocation',
+                to: 'NORTHSIDE RESPONSE',
+                toRole: 'Balancer',
+                category: 'okays',
+                timestamp: new Date(Date.now() - 1800000).toISOString(),
+                consent: { from: 'approved', to: 'pending' }
+            }
+        ];
 
         // Data
         const triadsData = [
@@ -1846,6 +2423,8 @@
                 renderTasks();
             } else if (tab === 'roles') {
                 renderRoles();
+            } else if (tab === 'network') {
+                renderNetwork();
             }
         }
 
@@ -2417,6 +2996,218 @@
             if (name) {
                 alert(`Adding ${name} to ${role}`);
             }
+        }
+
+        // Network tab functions
+        function renderNetwork() {
+            renderConnectedPods();
+            renderPodFlows();
+        }
+
+        function renderConnectedPods() {
+            const container = document.getElementById('connectedPods');
+            if (!container) return;
+
+            container.innerHTML = `
+                ${connectedPods.map(pod => `
+                    <div class="pod-card">
+                        <div class="pod-card-header">
+                            <div class="pod-name">${pod.name}</div>
+                            <div class="pod-health">
+                                <span class="health-value">${pod.health}%</span>
+                                <span style="color: var(--text-dim);">health</span>
+                            </div>
+                        </div>
+                        <div class="pod-stats">
+                            <div class="pod-stat">
+                                <span class="pod-stat-value">${pod.rolesFilled}/${pod.totalRoles}</span>
+                                <span class="pod-stat-label">roles</span>
+                            </div>
+                            <div class="pod-stat">
+                                <span class="pod-stat-value">${pod.activeFlows}</span>
+                                <span class="pod-stat-label">flows</span>
+                            </div>
+                        </div>
+                        <div class="pod-flows">
+                            <div class="pod-flow-count">CONNECTION TYPES</div>
+                            <div class="pod-flow-indicators">
+                                ${pod.flowTypes.shares > 0 ? `<div class="flow-indicator shares" style="flex: ${pod.flowTypes.shares}"></div>` : ''}
+                                ${pod.flowTypes.does > 0 ? `<div class="flow-indicator does" style="flex: ${pod.flowTypes.does}"></div>` : ''}
+                                ${pod.flowTypes.okays > 0 ? `<div class="flow-indicator okays" style="flex: ${pod.flowTypes.okays}"></div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+                <button class="add-pod-btn" onclick="addNewPod()">
+                    <div class="add-pod-icon">+</div>
+                    <div>Connect New Pod</div>
+                </button>
+            `;
+        }
+
+        function renderPodFlows() {
+            const container = document.getElementById('podFlowsList');
+            if (!container) return;
+
+            let displayFlows = podFlows;
+            
+            if (flowTypeFilter === 'incoming') {
+                displayFlows = podFlows.filter(f => f.to === 'NORTHSIDE RESPONSE' || (f.toRole && f.to === 'NORTHSIDE RESPONSE'));
+            } else if (flowTypeFilter === 'outgoing') {
+                displayFlows = podFlows.filter(f => f.from === 'NORTHSIDE RESPONSE');
+            }
+
+            container.innerHTML = displayFlows.map((flow, index) => {
+                let fromDisplay = flow.from;
+                let toDisplay = flow.to;
+                
+                if (flow.fromRole) {
+                    fromDisplay = `${flow.from}.${flow.fromRole}`;
+                }
+                if (flow.toRole) {
+                    toDisplay = `${flow.to}.${flow.toRole}`;
+                }
+
+                const timeAgo = getTimeAgo(flow.timestamp);
+                const consentStatus = getConsentStatus(flow.consent);
+
+                return `
+                    <div class="pod-flow-item ${flow.category}-flow">
+                        <div class="pod-flow-content">
+                            <div class="pod-badge">${flow.type === 'pod-to-pod' ? 'POD' : flow.type === 'role-to-role' ? 'ROLE' : 'MIXED'}</div>
+                            <span style="font-weight: 600;">${fromDisplay}</span>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-operator">${flow.operator}</div>
+                            <div class="flow-operand" style="font-style: italic; color: var(--text-dim);">"${flow.operand}"</div>
+                            <span class="flow-arrow">→</span>
+                            <span style="font-weight: 600;">${toDisplay}</span>
+                        </div>
+                        <div class="flow-meta">
+                            <div class="flow-timestamp">${timeAgo}</div>
+                            <div class="consent-status ${consentStatus.class}">
+                                <span class="consent-dot"></span>
+                                ${consentStatus.text}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setFlowType(type) {
+            flowTypeFilter = type;
+            document.querySelectorAll('.flow-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderPodFlows();
+        }
+
+        function openPodFlowBuilder() {
+            document.getElementById('podFlowModal').classList.add('active');
+            setPodFlowType('pod-to-pod');
+        }
+
+        function closePodModal() {
+            document.getElementById('podFlowModal').classList.remove('active');
+            // Reset form
+            selectedValues.podFromRole = '';
+            selectedValues.toPod = '';
+            selectedValues.podToRole = '';
+            document.getElementById('podOperand').value = '';
+            selectedPodCoreCategory = null;
+        }
+
+        function setPodFlowType(type) {
+            podFlowType = type;
+            
+            document.querySelectorAll('[data-type]').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('selected');
+            
+            // Show/hide appropriate fields
+            const fromRoleRow = document.getElementById('podFromRoleRow');
+            const toRoleRow = document.getElementById('podToRoleRow');
+            
+            if (type === 'pod-to-pod') {
+                fromRoleRow.style.display = 'none';
+                toRoleRow.style.display = 'none';
+            } else if (type === 'role-to-role') {
+                fromRoleRow.style.display = 'block';
+                toRoleRow.style.display = 'block';
+            } else if (type === 'pod-to-role') {
+                fromRoleRow.style.display = 'none';
+                toRoleRow.style.display = 'block';
+            }
+        }
+
+        function selectPodCoreCategory(category) {
+            selectedPodCoreCategory = category;
+            
+            document.querySelectorAll('#podFlowModal [data-core]').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`#podFlowModal [data-core="${category}"]`).classList.add('selected');
+        }
+
+        function createPodFlow() {
+            const from = 'NORTHSIDE RESPONSE';
+            const fromRole = podFlowType !== 'pod-to-pod' ? selectedValues.podFromRole : null;
+            const operand = document.getElementById('podOperand').value;
+            const to = selectedValues.toPod;
+            const toRole = podFlowType === 'role-to-role' || podFlowType === 'pod-to-role' ? selectedValues.podToRole : null;
+            
+            if (!operand || !to || !selectedPodCoreCategory) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (podFlowType === 'role-to-role' && (!fromRole || !toRole)) {
+                alert('Please select both from and to roles for role-to-role connection');
+                return;
+            }
+            
+            if (podFlowType === 'pod-to-role' && !toRole) {
+                alert('Please select target role');
+                return;
+            }
+            
+            podFlows.push({
+                type: podFlowType,
+                from: from,
+                fromRole: fromRole,
+                operator: selectedPodCoreCategory,
+                operand: operand,
+                to: to,
+                toRole: toRole,
+                category: selectedPodCoreCategory,
+                timestamp: new Date().toISOString(),
+                consent: { from: 'pending', to: 'pending' }
+            });
+            
+            // If connecting to a new pod, add it to connected pods
+            if (to === '[New Pod]') {
+                const newPodName = prompt('Enter new pod name:');
+                if (newPodName) {
+                    connectedPods.push({
+                        name: newPodName,
+                        health: 75,
+                        rolesFilled: 0,
+                        totalRoles: 9,
+                        activeFlows: 1,
+                        flowTypes: { shares: 0, does: 0, okays: 0 }
+                    });
+                    podFlows[podFlows.length - 1].to = newPodName;
+                }
+            }
+            
+            renderNetwork();
+            closePodModal();
+        }
+
+        function addNewPod() {
+            openPodFlowBuilder();
         }
     </script>
 </body>
