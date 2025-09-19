@@ -1043,12 +1043,21 @@
 
         .quick-task-input {
             width: 100%;
-            padding: 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
+            padding: 10px 12px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
             color: var(--text);
             margin-bottom: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 0 rgba(0, 255, 136, 0.15);
+        }
+
+        .quick-task-input:focus {
+            outline: none;
+            background: rgba(0, 255, 136, 0.02);
+            border-color: var(--green);
+            box-shadow: 0 0 0 1px var(--green), 0 0 18px rgba(0, 255, 136, 0.1);
         }
 
         .quick-task-tags {
@@ -1774,18 +1783,20 @@
         .login-input {
             width: 100%;
             padding: 14px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             color: var(--text);
             font-size: 1rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 0 rgba(0, 255, 136, 0.1);
         }
 
         .login-input:focus {
             outline: none;
+            background: rgba(0, 255, 136, 0.02);
             border-color: var(--green);
-            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 0 0 1px var(--green), 0 0 20px rgba(0, 255, 136, 0.12);
         }
 
         .login-btn {
@@ -2174,6 +2185,198 @@
             gap: 20px;
         }
 
+        .form-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            min-width: 92px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            color: var(--green);
+        }
+
+        .progress-step.active .step-number {
+            border-color: var(--green);
+            color: var(--green);
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.25);
+        }
+
+        .progress-step.completed {
+            color: var(--green);
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--green);
+            color: var(--bg);
+            border-color: var(--green);
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.45));
+            transition: width 0.3s ease;
+        }
+
+        .progress-line.active::after {
+            width: 50%;
+        }
+
+        .progress-line.completed::after {
+            width: 100%;
+        }
+
+        .flow-preview {
+            margin-top: 16px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.4), transparent);
+            opacity: 0.7;
+        }
+
+        .flow-preview.ready {
+            border-color: var(--green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.18);
+        }
+
+        .flow-preview.is-empty .preview-content {
+            opacity: 0.6;
+        }
+
+        .preview-label {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .preview-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .preview-role {
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .preview-operator {
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            text-transform: lowercase;
+        }
+
+        .preview-operator.shares {
+            color: var(--blue);
+            box-shadow: 0 0 12px rgba(0, 221, 255, 0.25);
+        }
+
+        .preview-operator.okays {
+            color: var(--purple);
+            box-shadow: 0 0 12px rgba(153, 69, 255, 0.25);
+        }
+
+        .preview-operator.does {
+            color: var(--green);
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.25);
+        }
+
+        .preview-operand {
+            font-style: italic;
+            color: var(--text-dim);
+        }
+
+        .preview-arrow {
+            opacity: 0.6;
+        }
+
+        .suggestions-panel {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggestion-pill {
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .suggestion-pill:hover {
+            color: var(--text);
+            border-color: var(--green);
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.18);
+        }
+
+        .suggestion-placeholder {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+
         .builder-row {
             display: flex;
             flex-direction: column;
@@ -2187,6 +2390,45 @@
             letter-spacing: 1px;
         }
 
+        .label-required {
+            color: var(--red);
+            font-size: 0.85rem;
+            margin-left: 4px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-helper {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            opacity: 0.7;
+        }
+
+        .input-error {
+            display: none;
+            font-size: 0.7rem;
+            color: var(--red);
+        }
+
+        .input-error.active {
+            display: block;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Custom Select Dropdown */
         .custom-select {
             position: relative;
@@ -2196,24 +2438,44 @@
         .select-trigger {
             width: 100%;
             padding: 14px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             color: var(--text);
             font-size: 1rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 0 rgba(0, 255, 136, 0.1);
         }
 
         .select-trigger:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(0, 255, 136, 0.35);
         }
 
         .select-trigger.active {
             border-color: var(--green);
+            box-shadow: 0 0 0 1px var(--green), 0 0 18px rgba(0, 255, 136, 0.12);
+            background: rgba(0, 255, 136, 0.02);
+        }
+
+        .select-trigger:focus-visible {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 1px var(--green), 0 0 18px rgba(0, 255, 136, 0.12);
+        }
+
+        .custom-select.error .select-trigger {
+            border-color: var(--red);
+            box-shadow: 0 0 0 1px rgba(255, 51, 102, 0.5);
+            background: rgba(255, 51, 102, 0.02);
+        }
+
+        .custom-select.error .select-arrow {
+            border-right-color: var(--red);
+            border-bottom-color: var(--red);
         }
 
         .select-arrow {
@@ -2251,21 +2513,52 @@
         }
 
         .select-option {
+            position: relative;
             padding: 12px 16px;
             color: var(--text);
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.25s ease;
             border-left: 3px solid transparent;
+            overflow: hidden;
+        }
+
+        .select-option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.12));
+            transform: translateY(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .select-option:hover::before,
+        .select-option.highlight::before {
+            width: 100%;
         }
 
         .select-option:hover {
-            background: rgba(255, 255, 255, 0.05);
             border-left-color: var(--green);
             padding-left: 20px;
         }
 
         .select-option.selected {
-            background: rgba(0, 255, 136, 0.1);
+            background: rgba(0, 255, 136, 0.12);
+            color: var(--green);
+            border-left-color: var(--green);
+        }
+
+        .select-option.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 16px;
+            font-weight: bold;
+            color: var(--green);
+        }
+
+        .select-option.highlight {
             color: var(--green);
         }
 
@@ -2273,22 +2566,31 @@
         .builder-input {
             width: 100%;
             padding: 14px 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             color: var(--text);
             font-size: 1rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 0 rgba(0, 255, 136, 0.1);
         }
 
         .builder-input:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(0, 255, 136, 0.35);
         }
 
         .builder-input:focus {
             outline: none;
+            background: rgba(0, 255, 136, 0.02);
             border-color: var(--green);
-            background: rgba(0, 255, 136, 0.05);
+            box-shadow: 0 0 0 1px var(--green), 0 0 20px rgba(0, 255, 136, 0.1);
+        }
+
+        .builder-input:invalid,
+        .builder-input.error {
+            border-color: var(--red);
+            background: rgba(255, 51, 102, 0.02);
+            box-shadow: 0 0 0 1px rgba(255, 51, 102, 0.5);
         }
 
         .builder-input::placeholder {
@@ -2301,28 +2603,56 @@
             gap: 8px;
         }
 
+        .operator-grid.error {
+            border: 1px solid rgba(255, 51, 102, 0.5);
+            border-radius: 12px;
+            padding: 6px;
+        }
+
         .operator-option {
-            padding: 12px;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 8px;
+            position: relative;
+            padding: 14px;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .operator-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.06));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .operator-option:hover::before {
+            transform: translateX(0);
         }
 
         .operator-option:hover {
             border-color: var(--green);
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.18);
         }
 
         .operator-option.selected {
+            transform: scale(1.05);
+            z-index: 1;
             border-color: var(--green);
-            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 6px 18px rgba(0, 255, 136, 0.3);
         }
 
-        .operator-option.shares { border-color: var(--blue); }
-        .operator-option.okays { border-color: var(--purple); }
-        .operator-option.does { border-color: var(--green); }
+        .operator-option.shares { border-color: rgba(0, 221, 255, 0.5); }
+        .operator-option.okays { border-color: rgba(153, 69, 255, 0.5); }
+        .operator-option.does { border-color: rgba(0, 255, 136, 0.6); }
 
         .modal-actions {
             display: flex;
@@ -2343,12 +2673,62 @@
         .modal-btn-primary {
             background: var(--green);
             color: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-btn-primary.loading {
+            color: transparent;
+            pointer-events: none;
+        }
+
+        .modal-btn-primary.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin: -8px 0 0 -8px;
+            border: 2px solid var(--bg);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
         }
 
         .modal-btn-cancel {
             background: transparent;
             color: var(--text);
             border: 2px solid var(--border);
+        }
+
+        .form-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--green);
+            color: var(--bg);
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .app-container:not(.logged-in) .form-fab {
+            display: none;
         }
 
         /* Responsive */
@@ -2764,6 +3144,7 @@
                 </div>
             </div>
         </div>
+        <button type="button" class="form-fab" id="openFlowFab" aria-label="Create new flow" title="Create new flow">+</button>
     </div>
 
     <!-- Flow Builder Modal -->
@@ -2773,102 +3154,154 @@
                 <h3>Create Process Flow</h3>
                 <p style="color: var(--text-dim);">Define how roles interact through operators</p>
             </div>
-            
+
+            <div class="form-progress" id="flowProgress">
+                <div class="progress-step active" data-step="source">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Source</span>
+                </div>
+                <div class="progress-line" data-line="source"></div>
+                <div class="progress-step" data-step="action">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Action</span>
+                </div>
+                <div class="progress-line" data-line="action"></div>
+                <div class="progress-step" data-step="target">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Target</span>
+                </div>
+            </div>
+
             <div class="flow-builder">
-                <div class="builder-row">
-                    <label class="builder-label">From Role</label>
-                    <div class="custom-select" id="fromRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('fromRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
+                <div class="builder-row" data-step="source">
+                    <label class="builder-label">From Role<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="fromRoleSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('fromRole')" onkeydown="handleDropdownKeyboard(event, 'fromRole')">
+                                <span class="select-value" data-value="">Select role...</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="fromRoleOptions">
+                                <div class="select-option" onclick="selectOption('fromRole', 'Starter', event)">Starter</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Definer', event)">Definer</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Builder', event)">Builder</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Divider', event)">Divider</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Connector', event)">Connector</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Integrator', event)">Integrator</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Balancer', event)">Balancer</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Overlayer', event)">Overlayer</div>
+                                <div class="select-option" onclick="selectOption('fromRole', 'Reflector', event)">Reflector</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="fromRoleOptions">
-                            <div class="select-option" onclick="selectOption('fromRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Reflector')">Reflector</div>
-                        </div>
+                        <span class="input-helper">Select the initiating role for this flow</span>
+                        <span class="input-error" id="fromRoleError">Select a source role</span>
                     </div>
                 </div>
 
-                <div class="builder-row">
-                    <label class="builder-label">Core Operator Category</label>
-                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
-                            <div style="font-weight: bold;">SHARES</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Make visible</div>
+                <div class="builder-row" data-step="action">
+                    <label class="builder-label">Core Operator Category<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="operator-grid" id="coreOperatorGrid">
+                            <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
+                                <div style="font-weight: bold;">SHARES</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Make visible</div>
+                            </div>
+                            <div class="operator-option does" data-core="does" onclick="selectCoreCategory('does')">
+                                <div style="font-weight: bold;">DOES</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Do the work</div>
+                            </div>
+                            <div class="operator-option okays" data-core="okays" onclick="selectCoreCategory('okays')">
+                                <div style="font-weight: bold;">OKAYS</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
+                            </div>
                         </div>
-                        <div class="operator-option does" data-core="does" onclick="selectCoreCategory('does')">
-                            <div style="font-weight: bold;">DOES</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Do the work</div>
-                        </div>
-                        <div class="operator-option okays" data-core="okays" onclick="selectCoreCategory('okays')">
-                            <div style="font-weight: bold;">OKAYS</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
-                        </div>
+                        <span class="input-helper">Choose the utilitarian mode of action</span>
+                        <span class="input-error" id="operatorError">Select a core operator</span>
                     </div>
                 </div>
 
                 <div class="builder-row" id="detailedOperatorRow" style="display: none;">
                     <label class="builder-label">Specific Operator (Optional)</label>
-                    <div class="operator-grid" id="operatorGrid">
-                        <!-- Will be dynamically populated based on selected core category -->
-                    </div>
-                    <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
-                        Leave blank to use the core operator only
+                    <div class="input-wrapper">
+                        <div class="operator-grid" id="operatorGrid">
+                            <!-- Will be dynamically populated based on selected core category -->
+                        </div>
+                        <span class="input-helper">Refine the action with a detailed operator (optional)</span>
                     </div>
                 </div>
 
-                <div class="builder-row">
-                    <label class="builder-label">What (Operand)</label>
-                    <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles...">
+                <div class="builder-row" data-step="action">
+                    <label class="builder-label">What (Operand)<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles..." data-validate="required" required>
+                        <span class="input-helper">Describe what is being acted upon</span>
+                        <span class="input-error" id="operandError">This field is required</span>
+                    </div>
                 </div>
 
                 <div class="builder-row">
                     <label class="builder-label">Preposition</label>
-                    <div class="custom-select" id="prepositionSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('preposition')">
-                            <span class="select-value" data-value="to">to</span>
-                            <span class="select-arrow"></span>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="prepositionSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('preposition')" onkeydown="handleDropdownKeyboard(event, 'preposition')">
+                                <span class="select-value" data-value="to">to</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="prepositionOptions">
+                                <div class="select-option selected" onclick="selectOption('preposition', 'to', event)">to</div>
+                                <div class="select-option" onclick="selectOption('preposition', 'with', event)">with</div>
+                                <div class="select-option" onclick="selectOption('preposition', 'through', event)">through</div>
+                                <div class="select-option" onclick="selectOption('preposition', 'for', event)">for</div>
+                                <div class="select-option" onclick="selectOption('preposition', 'from', event)">from</div>
+                                <div class="select-option" onclick="selectOption('preposition', 'by', event)">by</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="prepositionOptions">
-                            <div class="select-option selected" onclick="selectOption('preposition', 'to')">to</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'with')">with</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'through')">through</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'for')">for</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'from')">from</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'by')">by</div>
-                        </div>
+                        <span class="input-helper">Define how the action connects the roles</span>
                     </div>
                 </div>
 
-                <div class="builder-row">
-                    <label class="builder-label">To Role</label>
-                    <div class="custom-select" id="toRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('toRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
+                <div class="builder-row" data-step="target">
+                    <label class="builder-label">To Role<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="toRoleSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('toRole')" onkeydown="handleDropdownKeyboard(event, 'toRole')">
+                                <span class="select-value" data-value="">Select role...</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="toRoleOptions">
+                                <div class="select-option" onclick="selectOption('toRole', 'Starter', event)">Starter</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Definer', event)">Definer</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Builder', event)">Builder</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Divider', event)">Divider</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Connector', event)">Connector</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Integrator', event)">Integrator</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Balancer', event)">Balancer</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Overlayer', event)">Overlayer</div>
+                                <div class="select-option" onclick="selectOption('toRole', 'Reflector', event)">Reflector</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="toRoleOptions">
-                            <div class="select-option" onclick="selectOption('toRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Reflector')">Reflector</div>
-                        </div>
+                        <span class="input-helper">Select the receiving role for this flow</span>
+                        <span class="input-error" id="toRoleError">Select a destination role</span>
                     </div>
                 </div>
             </div>
-            
+
+            <div class="flow-preview is-empty" id="flowPreview">
+                <span class="preview-label">PREVIEW</span>
+                <div class="preview-content">
+                    <span class="preview-role from" id="previewFrom">Source Role</span>
+                    <span class="preview-arrow">→</span>
+                    <span class="preview-operator" id="previewOperator">operator</span>
+                    <span class="preview-operand" id="previewOperand">—</span>
+                    <span class="preview-arrow" id="previewPreposition">to</span>
+                    <span class="preview-role to" id="previewTo">Target Role</span>
+                </div>
+            </div>
+
+            <div class="suggestions-panel" id="flowSuggestions">
+                <div class="suggestion-placeholder">Start configuring the flow to see smart suggestions.</div>
+            </div>
+
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-primary" onclick="createFlow()">Create Flow</button>
                 <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
@@ -2883,225 +3316,142 @@
                 <h3>Create Pod Connection</h3>
                 <p style="color: var(--text-dim);">Connect pods using the same flow grammar</p>
             </div>
-            
+
             <div class="flow-builder">
                 <div class="builder-row">
                     <label class="builder-label">Connection Type</label>
-                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="operator-option" data-type="role-to-role" onclick="setPodFlowType('role-to-role')">
-                            <div style="font-weight: bold;">Role → Role</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Cross-pod role flow</div>
+                    <div class="input-wrapper">
+                        <div class="operator-grid" id="podConnectionGrid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="operator-option" data-type="role-to-role" onclick="setPodFlowType('role-to-role')">
+                                <div style="font-weight: bold;">Role → Role</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Cross-pod role flow</div>
+                            </div>
+                            <div class="operator-option" data-type="pod-to-role" onclick="setPodFlowType('pod-to-role')">
+                                <div style="font-weight: bold;">Pod → Role</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level to role</div>
+                            </div>
+                            <div class="operator-option selected" data-type="pod-to-pod" onclick="setPodFlowType('pod-to-pod')">
+                                <div style="font-weight: bold;">Pod → Pod</div>
+                                <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level flow</div>
+                            </div>
                         </div>
-                        <div class="operator-option" data-type="pod-to-role" onclick="setPodFlowType('pod-to-role')">
-                            <div style="font-weight: bold;">Pod → Role</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level to role</div>
-                        </div>
-                        <div class="operator-option selected" data-type="pod-to-pod" onclick="setPodFlowType('pod-to-pod')">
-                            <div style="font-weight: bold;">Pod → Pod</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Pod-level flow</div>
-                        </div>
+                        <span class="input-helper">Choose the scope of the inter-pod connection</span>
                     </div>
                 </div>
 
                 <div class="builder-row" id="podFromRow">
                     <label class="builder-label">From</label>
-                    <input type="text" class="builder-input" id="podFrom" value="NORTHSIDE RESPONSE" readonly style="background: rgba(0, 255, 136, 0.05);">
+                    <div class="input-wrapper">
+                        <input type="text" class="builder-input" id="podFrom" value="NORTHSIDE RESPONSE" readonly style="background: rgba(0, 255, 136, 0.05);">
+                        <span class="input-helper">Origin pod for this connection</span>
+                    </div>
                 </div>
 
                 <div class="builder-row" id="podFromRoleRow" style="display: none;">
-                    <label class="builder-label">From Role (in NORTHSIDE)</label>
-                    <div class="custom-select" id="podFromRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('podFromRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
+                    <label class="builder-label">From Role (in NORTHSIDE)<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="podFromRoleSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('podFromRole')" onkeydown="handleDropdownKeyboard(event, 'podFromRole')">
+                                <span class="select-value" data-value="">Select role...</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="podFromRoleOptions">
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Starter', event)">Starter</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Definer', event)">Definer</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Builder', event)">Builder</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Divider', event)">Divider</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Connector', event)">Connector</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Integrator', event)">Integrator</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Balancer', event)">Balancer</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Overlayer', event)">Overlayer</div>
+                                <div class="select-option" onclick="selectOption('podFromRole', 'Reflector', event)">Reflector</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="podFromRoleOptions">
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('podFromRole', 'Reflector')">Reflector</div>
-                        </div>
+                        <span class="input-helper">Specify the initiating role within the origin pod</span>
+                        <span class="input-error" id="podFromRoleError">Select a source role</span>
                     </div>
                 </div>
 
                 <div class="builder-row">
-                    <label class="builder-label">Core Operator</label>
-                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="operator-option shares" data-core="shares" onclick="selectPodCoreCategory('shares')">
-                            <div style="font-weight: bold;">SHARES</div>
+                    <label class="builder-label">Core Operator<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="operator-grid" id="podCoreOperatorGrid" style="grid-template-columns: repeat(3, 1fr);">
+                            <div class="operator-option shares" data-core="shares" onclick="selectPodCoreCategory('shares')">
+                                <div style="font-weight: bold;">SHARES</div>
+                            </div>
+                            <div class="operator-option does" data-core="does" onclick="selectPodCoreCategory('does')">
+                                <div style="font-weight: bold;">DOES</div>
+                            </div>
+                            <div class="operator-option okays" data-core="okays" onclick="selectPodCoreCategory('okays')">
+                                <div style="font-weight: bold;">OKAYS</div>
+                            </div>
                         </div>
-                        <div class="operator-option does" data-core="does" onclick="selectPodCoreCategory('does')">
-                            <div style="font-weight: bold;">DOES</div>
-                        </div>
-                        <div class="operator-option okays" data-core="okays" onclick="selectPodCoreCategory('okays')">
-                            <div style="font-weight: bold;">OKAYS</div>
-                        </div>
+                        <span class="input-helper">Select the operational intent for this connection</span>
+                        <span class="input-error" id="podCoreError">Select a core operator</span>
                     </div>
                 </div>
 
                 <div class="builder-row">
-                    <label class="builder-label">What (Operand)</label>
-                    <input type="text" class="builder-input" id="podOperand" placeholder="e.g., regional patterns, shared resources, coordination...">
+                    <label class="builder-label">What (Operand)<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" class="builder-input" id="podOperand" placeholder="e.g., regional patterns, shared resources, coordination..." data-validate="required" required>
+                        <span class="input-helper">Describe what is moving between pods</span>
+                        <span class="input-error" id="podOperandError">Provide an operand</span>
+                    </div>
                 </div>
 
                 <div class="builder-row">
-                    <label class="builder-label">To Pod</label>
-                    <div class="custom-select" id="toPodSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('toPod')">
-                            <span class="select-value" data-value="">Select pod...</span>
-                            <span class="select-arrow"></span>
+                    <label class="builder-label">To Pod<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="toPodSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('toPod')" onkeydown="handleDropdownKeyboard(event, 'toPod')">
+                                <span class="select-value" data-value="">Select pod...</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="toPodOptions">
+                                <div class="select-option" onclick="selectOption('toPod', 'SOUTH DISTRICT', event)">SOUTH DISTRICT</div>
+                                <div class="select-option" onclick="selectOption('toPod', 'CENTRAL COMMAND', event)">CENTRAL COMMAND</div>
+                                <div class="select-option" onclick="selectOption('toPod', 'MEDICAL SECTOR', event)">MEDICAL SECTOR</div>
+                                <div class="select-option" onclick="selectOption('toPod', '[New Pod]', event)">[New Pod]</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="toPodOptions">
-                            <div class="select-option" onclick="selectOption('toPod', 'SOUTH DISTRICT')">SOUTH DISTRICT</div>
-                            <div class="select-option" onclick="selectOption('toPod', 'CENTRAL COMMAND')">CENTRAL COMMAND</div>
-                            <div class="select-option" onclick="selectOption('toPod', 'MEDICAL SECTOR')">MEDICAL SECTOR</div>
-                            <div class="select-option" onclick="selectOption('toPod', '[New Pod]')">[New Pod]</div>
-                        </div>
+                        <span class="input-helper">Choose the receiving pod</span>
+                        <span class="input-error" id="toPodError">Select a destination pod</span>
                     </div>
                 </div>
 
                 <div class="builder-row" id="podToRoleRow" style="display: none;">
-                    <label class="builder-label">To Role (in target pod)</label>
-                    <div class="custom-select" id="podToRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('podToRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
+                    <label class="builder-label">To Role (in target pod)<span class="label-required">*</span></label>
+                    <div class="input-wrapper">
+                        <div class="custom-select" id="podToRoleSelect">
+                            <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('podToRole')" onkeydown="handleDropdownKeyboard(event, 'podToRole')">
+                                <span class="select-value" data-value="">Select role...</span>
+                                <span class="select-arrow"></span>
+                            </div>
+                            <div class="select-options" id="podToRoleOptions">
+                                <div class="select-option" onclick="selectOption('podToRole', 'Starter', event)">Starter</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Definer', event)">Definer</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Builder', event)">Builder</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Divider', event)">Divider</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Connector', event)">Connector</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Integrator', event)">Integrator</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Balancer', event)">Balancer</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Overlayer', event)">Overlayer</div>
+                                <div class="select-option" onclick="selectOption('podToRole', 'Reflector', event)">Reflector</div>
+                            </div>
                         </div>
-                        <div class="select-options" id="podToRoleOptions">
-                            <div class="select-option" onclick="selectOption('podToRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('podToRole', 'Reflector')">Reflector</div>
-                        </div>
+                        <span class="input-helper">Identify the receiving role inside the target pod</span>
+                        <span class="input-error" id="podToRoleError">Select a receiving role</span>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-primary" onclick="createPodFlow()">Create Connection</button>
                 <button class="modal-btn modal-btn-cancel" onclick="closePodModal()">Cancel</button>
             </div>
         </div>
     </div>
-    <div class="modal" id="flowModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Create Process Flow</h3>
-                <p style="color: var(--text-dim);">Define how roles interact through operators</p>
-            </div>
-            
-            <div class="flow-builder">
-                <div class="builder-row">
-                    <label class="builder-label">From Role</label>
-                    <div class="custom-select" id="fromRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('fromRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
-                        </div>
-                        <div class="select-options" id="fromRoleOptions">
-                            <div class="select-option" onclick="selectOption('fromRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('fromRole', 'Reflector')">Reflector</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="builder-row">
-                    <label class="builder-label">Core Operator Category</label>
-                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
-                            <div style="font-weight: bold;">SHARES</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Make visible</div>
-                        </div>
-                        <div class="operator-option does" data-core="does" onclick="selectCoreCategory('does')">
-                            <div style="font-weight: bold;">DOES</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Do the work</div>
-                        </div>
-                        <div class="operator-option okays" data-core="okays" onclick="selectCoreCategory('okays')">
-                            <div style="font-weight: bold;">OKAYS</div>
-                            <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="builder-row" id="detailedOperatorRow" style="display: none;">
-                    <label class="builder-label">Specific Operator (Optional)</label>
-                    <div class="operator-grid" id="operatorGrid">
-                        <!-- Will be dynamically populated based on selected core category -->
-                    </div>
-                    <div style="margin-top: 8px; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
-                        Leave blank to use the core operator only
-                    </div>
-                </div>
-
-                <div class="builder-row">
-                    <label class="builder-label">What (Operand)</label>
-                    <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles...">
-                </div>
-
-                <div class="builder-row">
-                    <label class="builder-label">Preposition</label>
-                    <div class="custom-select" id="prepositionSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('preposition')">
-                            <span class="select-value" data-value="to">to</span>
-                            <span class="select-arrow"></span>
-                        </div>
-                        <div class="select-options" id="prepositionOptions">
-                            <div class="select-option selected" onclick="selectOption('preposition', 'to')">to</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'with')">with</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'through')">through</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'for')">for</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'from')">from</div>
-                            <div class="select-option" onclick="selectOption('preposition', 'by')">by</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="builder-row">
-                    <label class="builder-label">To Role</label>
-                    <div class="custom-select" id="toRoleSelect">
-                        <div class="select-trigger" onclick="toggleDropdown('toRole')">
-                            <span class="select-value" data-value="">Select role...</span>
-                            <span class="select-arrow"></span>
-                        </div>
-                        <div class="select-options" id="toRoleOptions">
-                            <div class="select-option" onclick="selectOption('toRole', 'Starter')">Starter</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Definer')">Definer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Builder')">Builder</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Divider')">Divider</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Connector')">Connector</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Integrator')">Integrator</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Balancer')">Balancer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Overlayer')">Overlayer</div>
-                            <div class="select-option" onclick="selectOption('toRole', 'Reflector')">Reflector</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-primary" onclick="createFlow()">Create Flow</button>
-                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         // State
         let currentUser = null;
@@ -3473,6 +3823,14 @@
             'okays': ['integrate', 'pace'],
             'does': ['build', 'connect', 'protect']
         };
+
+        const commonFlows = [
+            { from: 'Starter', operator: 'spot', operand: 'emerging risks', preposition: 'to', to: 'Definer' },
+            { from: 'Builder', operator: 'build', operand: 'response systems', preposition: 'for', to: 'Connector' },
+            { from: 'Connector', operator: 'connect', operand: 'mutual aid teams', preposition: 'to', to: 'Builder' },
+            { from: 'Definer', operator: 'define', operand: 'deployment protocols', preposition: 'for', to: 'Integrator' },
+            { from: 'Reflector', operator: 'reflect', operand: 'lessons learned', preposition: 'with', to: 'Starter' }
+        ];
 
         // Custom dropdown functionality
         let selectedValues = {
@@ -4375,79 +4733,370 @@
             renderTasks();
         }
 
+        function escapeHtml(str = '') {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function setError(element, errorElement, show, message) {
+            if (!element || !errorElement) return;
+            if (message) {
+                errorElement.textContent = message;
+            }
+            if (show) {
+                errorElement.classList.add('active');
+                element.classList.add('error');
+            } else {
+                errorElement.classList.remove('active');
+                element.classList.remove('error');
+            }
+        }
+
+        function resetCustomSelect(selectId, placeholder, defaultValue = '') {
+            const selectElement = document.getElementById(selectId + 'Select');
+            if (!selectElement) return;
+
+            const valueSpan = selectElement.querySelector('.select-value');
+            const trigger = selectElement.querySelector('.select-trigger');
+            const optionsContainer = selectElement.querySelector('.select-options');
+            const options = optionsContainer ? optionsContainer.querySelectorAll('.select-option') : [];
+            const displayValue = defaultValue || placeholder;
+
+            valueSpan.textContent = displayValue;
+            valueSpan.setAttribute('data-value', defaultValue);
+
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'highlight');
+                if (defaultValue && opt.textContent === defaultValue) {
+                    opt.classList.add('selected');
+                }
+            });
+
+            if (trigger) {
+                trigger.classList.remove('active');
+            }
+            if (optionsContainer) {
+                optionsContainer.classList.remove('active');
+                optionsContainer.removeAttribute('data-highlight-index');
+            }
+        }
+
+        function updateFlowPreview() {
+            const preview = document.getElementById('flowPreview');
+            if (!preview) return;
+
+            const operandInput = document.getElementById('operand');
+            const operandValue = operandInput ? operandInput.value.trim() : '';
+            const from = selectedValues.fromRole || 'Source Role';
+            const operatorDisplay = selectedOperator || selectedCoreCategory || 'operator';
+            const preposition = selectedValues.preposition || 'to';
+            const to = selectedValues.toRole || 'Target Role';
+
+            const fromEl = document.getElementById('previewFrom');
+            const operatorEl = document.getElementById('previewOperator');
+            const operandEl = document.getElementById('previewOperand');
+            const prepositionEl = document.getElementById('previewPreposition');
+            const toEl = document.getElementById('previewTo');
+
+            if (fromEl) fromEl.textContent = from;
+            if (operatorEl) {
+                operatorEl.textContent = operatorDisplay;
+                operatorEl.className = 'preview-operator';
+                if (selectedCoreCategory) {
+                    operatorEl.classList.add(selectedCoreCategory);
+                }
+            }
+            if (operandEl) operandEl.textContent = operandValue ? `"${operandValue}"` : '—';
+            if (prepositionEl) prepositionEl.textContent = preposition || 'to';
+            if (toEl) toEl.textContent = to;
+
+            const isEmpty = !selectedValues.fromRole && !selectedCoreCategory && !operandValue && !selectedValues.toRole;
+            const isReady = !!(selectedValues.fromRole && selectedCoreCategory && operandValue && selectedValues.toRole);
+
+            preview.classList.toggle('is-empty', isEmpty);
+            preview.classList.toggle('ready', isReady);
+        }
+
+        function updateFlowProgress() {
+            const progress = document.getElementById('flowProgress');
+            if (!progress) return;
+
+            const operandFilled = !!(document.getElementById('operand')?.value.trim());
+            const status = {
+                source: !!selectedValues.fromRole,
+                action: !!selectedCoreCategory && operandFilled,
+                target: !!selectedValues.toRole
+            };
+
+            progress.querySelectorAll('.progress-step').forEach(step => {
+                const key = step.dataset.step;
+                step.classList.toggle('completed', !!status[key]);
+                step.classList.remove('active');
+            });
+
+            const nextStep = !status.source ? 'source' : !status.action ? 'action' : !status.target ? 'target' : null;
+            if (nextStep) {
+                const activeStep = progress.querySelector(`.progress-step[data-step="${nextStep}"]`);
+                if (activeStep) activeStep.classList.add('active');
+            } else {
+                const finalStep = progress.querySelector('.progress-step[data-step="target"]');
+                if (finalStep) finalStep.classList.add('active');
+            }
+
+            progress.querySelectorAll('.progress-line').forEach(line => {
+                const key = line.dataset.line;
+                line.classList.remove('active', 'completed');
+                if (key === 'source') {
+                    if (status.source && status.action) {
+                        line.classList.add('completed');
+                    } else if (status.source) {
+                        line.classList.add('active');
+                    }
+                } else if (key === 'action') {
+                    if (status.action && status.target) {
+                        line.classList.add('completed');
+                    } else if (status.action) {
+                        line.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        function suggestCompletion() {
+            const container = document.getElementById('flowSuggestions');
+            if (!container) return;
+
+            const operandValue = document.getElementById('operand')?.value.trim().toLowerCase() || '';
+            const operatorValue = selectedOperator || selectedCoreCategory || '';
+            const fromValue = selectedValues.fromRole || '';
+            const toValue = selectedValues.toRole || '';
+
+            let matches = commonFlows.filter(flow => (
+                (!fromValue || flow.from === fromValue) &&
+                (!operatorValue || flow.operator === operatorValue || flow.operator === selectedCoreCategory) &&
+                (!toValue || flow.to === toValue)
+            ));
+
+            if (!matches.length && operandValue) {
+                matches = commonFlows.filter(flow => flow.operand.toLowerCase().includes(operandValue));
+            }
+
+            if (matches.length) {
+                container.innerHTML = matches.slice(0, 4).map(flow => {
+                    const label = `${escapeHtml(flow.from)} ${escapeHtml(flow.operator)} "${escapeHtml(flow.operand)}" ${escapeHtml(flow.preposition || 'to')} ${escapeHtml(flow.to)}`;
+                    return `<button type="button" class="suggestion-pill" data-from="${escapeHtml(flow.from)}" data-operator="${escapeHtml(flow.operator)}" data-operand="${escapeHtml(flow.operand)}" data-preposition="${escapeHtml(flow.preposition || 'to')}" data-to="${escapeHtml(flow.to)}">${label}</button>`;
+                }).join('');
+            } else {
+                container.innerHTML = '<div class="suggestion-placeholder">No direct matches yet. Continue configuring the flow.</div>';
+            }
+        }
+
         // Modal and dropdowns
         function toggleDropdown(selectId) {
             const selectElement = document.getElementById(selectId + 'Select');
+            if (!selectElement) return;
             const trigger = selectElement.querySelector('.select-trigger');
             const options = selectElement.querySelector('.select-options');
-            
+
             document.querySelectorAll('.custom-select').forEach(sel => {
-                if (sel.id !== selectId + 'Select') {
+                if (sel !== selectElement) {
                     sel.querySelector('.select-trigger').classList.remove('active');
-                    sel.querySelector('.select-options').classList.remove('active');
+                    const selOptions = sel.querySelector('.select-options');
+                    selOptions.classList.remove('active');
+                    selOptions.removeAttribute('data-highlight-index');
+                    selOptions.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('highlight'));
                 }
             });
-            
+
             trigger.classList.toggle('active');
             options.classList.toggle('active');
-            
+            options.removeAttribute('data-highlight-index');
+            options.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('highlight'));
+
             document.addEventListener('click', function closeDropdown(e) {
                 if (!selectElement.contains(e.target)) {
                     trigger.classList.remove('active');
                     options.classList.remove('active');
+                    options.removeAttribute('data-highlight-index');
+                    options.querySelectorAll('.select-option').forEach(opt => opt.classList.remove('highlight'));
                     document.removeEventListener('click', closeDropdown);
                 }
             });
         }
 
-        function selectOption(selectId, value) {
+        function handleDropdownKeyboard(e, selectId) {
             const selectElement = document.getElementById(selectId + 'Select');
+            if (!selectElement) return;
+            const trigger = selectElement.querySelector('.select-trigger');
+            const optionsContainer = selectElement.querySelector('.select-options');
+            const options = Array.from(optionsContainer.querySelectorAll('.select-option'));
+            if (!options.length) return;
+
+            let index = parseInt(optionsContainer.getAttribute('data-highlight-index') || '-1', 10);
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (!optionsContainer.classList.contains('active')) {
+                    toggleDropdown(selectId);
+                }
+                if (index === -1) {
+                    index = options.findIndex(opt => opt.classList.contains('selected'));
+                }
+                if (index === -1) {
+                    index = e.key === 'ArrowDown' ? 0 : options.length - 1;
+                } else {
+                    const delta = e.key === 'ArrowDown' ? 1 : -1;
+                    index = (index + delta + options.length) % options.length;
+                }
+                options.forEach(opt => opt.classList.remove('highlight'));
+                options[index].classList.add('highlight');
+                optionsContainer.setAttribute('data-highlight-index', index);
+                options[index].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter' || e.key === ' ') {
+                if (!optionsContainer.classList.contains('active')) {
+                    e.preventDefault();
+                    toggleDropdown(selectId);
+                } else {
+                    e.preventDefault();
+                    const highlighted = options.find(opt => opt.classList.contains('highlight')) ||
+                        options.find(opt => opt.classList.contains('selected')) ||
+                        options[0];
+                    if (highlighted) {
+                        highlighted.click();
+                    }
+                }
+            } else if (e.key === 'Escape') {
+                if (optionsContainer.classList.contains('active')) {
+                    e.preventDefault();
+                    trigger.classList.remove('active');
+                    optionsContainer.classList.remove('active');
+                    optionsContainer.removeAttribute('data-highlight-index');
+                    options.forEach(opt => opt.classList.remove('highlight'));
+                }
+            }
+        }
+
+        function selectOption(selectId, value, evt) {
+            if (evt) {
+                evt.stopPropagation();
+            }
+
+            const selectElement = document.getElementById(selectId + 'Select');
+            if (!selectElement) return;
+
             const valueSpan = selectElement.querySelector('.select-value');
             const trigger = selectElement.querySelector('.select-trigger');
             const options = selectElement.querySelector('.select-options');
-            
+
             valueSpan.textContent = value;
             valueSpan.setAttribute('data-value', value);
-            
+
             selectElement.querySelectorAll('.select-option').forEach(opt => {
-                opt.classList.remove('selected');
+                opt.classList.remove('selected', 'highlight');
                 if (opt.textContent === value) {
                     opt.classList.add('selected');
                 }
             });
-            
+
             selectedValues[selectId] = value;
-            
+
             trigger.classList.remove('active');
             options.classList.remove('active');
-            
-            event.stopPropagation();
+            options.removeAttribute('data-highlight-index');
+
+            if (selectId === 'fromRole') {
+                setError(selectElement, document.getElementById('fromRoleError'), false);
+            } else if (selectId === 'toRole') {
+                setError(selectElement, document.getElementById('toRoleError'), false);
+            } else if (selectId === 'podFromRole') {
+                setError(selectElement, document.getElementById('podFromRoleError'), false);
+            } else if (selectId === 'toPod') {
+                setError(selectElement, document.getElementById('toPodError'), false);
+            } else if (selectId === 'podToRole') {
+                setError(selectElement, document.getElementById('podToRoleError'), false);
+            }
+
+            if (selectId === 'fromRole' || selectId === 'toRole' || selectId === 'preposition') {
+                updateFlowPreview();
+                updateFlowProgress();
+                suggestCompletion();
+            }
+        }
+
+        function applySuggestion(from, operator, operand, to, preposition = 'to') {
+            if (from) selectOption('fromRole', from);
+            if (operator) {
+                let category = operator;
+                if (!['shares', 'does', 'okays'].includes(operator)) {
+                    category = Object.keys(categoryMap).find(cat => (categoryMap[cat] || []).includes(operator)) || category;
+                }
+                if (category) {
+                    selectCoreCategory(category);
+                    if (categoryMap[category] && categoryMap[category].includes(operator)) {
+                        setTimeout(() => {
+                            const option = document.querySelector(`#operatorGrid .operator-option[data-op="${operator}"]`);
+                            if (option) {
+                                selectModalOperator(option);
+                            }
+                        }, 50);
+                    } else {
+                        selectedOperator = operator;
+                    }
+                }
+            }
+            if (operand) {
+                const operandInput = document.getElementById('operand');
+                operandInput.value = operand;
+                setError(operandInput, document.getElementById('operandError'), false);
+            }
+            if (preposition) {
+                selectOption('preposition', preposition);
+            }
+            if (to) selectOption('toRole', to);
+
+            updateFlowPreview();
+            updateFlowProgress();
+            suggestCompletion();
         }
 
         function selectCoreCategory(category) {
             selectedCoreCategory = category;
-            
-            document.querySelectorAll('[data-core]').forEach(opt => {
+
+            document.querySelectorAll('#flowModal [data-core]').forEach(opt => {
                 opt.classList.remove('selected');
             });
-            document.querySelector(`[data-core="${category}"]`).classList.add('selected');
-            
+            const selectedOption = document.querySelector(`#flowModal [data-core="${category}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+
+            const coreGrid = document.getElementById('coreOperatorGrid');
+            setError(coreGrid, document.getElementById('operatorError'), false);
+
             document.getElementById('detailedOperatorRow').style.display = 'block';
             populateDetailedOperators(category);
+            selectedOperator = null;
+            updateFlowPreview();
+            updateFlowProgress();
+            suggestCompletion();
         }
         
         function populateDetailedOperators(category) {
             const grid = document.getElementById('operatorGrid');
             const operators = categoryMap[category] || [];
-            
+
             grid.innerHTML = operators.map(op => `
                 <div class="operator-option ${category}" data-op="${op}" onclick="selectModalOperator(this)">
                     ${op}
                 </div>
             `).join('');
-            
-            grid.style.gridTemplateColumns = operators.length === 4 ? 'repeat(2, 1fr)' : 
-                                              operators.length === 3 ? 'repeat(3, 1fr)' : 
+
+            grid.style.gridTemplateColumns = operators.length === 4 ? 'repeat(2, 1fr)' :
+                                              operators.length === 3 ? 'repeat(3, 1fr)' :
                                               'repeat(2, 1fr)';
         }
 
@@ -4456,70 +5105,121 @@
             selectedCategory = cat;
             selectedCoreCategory = cat;
             openFlowBuilder();
-            
+
             selectCoreCategory(cat);
-            
+
             setTimeout(() => {
-                document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
-                    if (opt.dataset.op === op) {
-                        opt.classList.add('selected');
-                    }
-                });
-            }, 100);
+                const option = document.querySelector(`#operatorGrid .operator-option[data-op="${op}"]`);
+                if (option) {
+                    selectModalOperator(option);
+                }
+            }, 60);
         }
 
         function selectModalOperator(element) {
-            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
+            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
             selectedOperator = element.dataset.op;
+            updateFlowPreview();
+            updateFlowProgress();
+            suggestCompletion();
         }
 
         function openFlowBuilder() {
-            document.getElementById('flowModal').classList.add('active');
-            selectedCoreCategory = null;
-            document.getElementById('detailedOperatorRow').style.display = 'none';
+            const modal = document.getElementById('flowModal');
+            modal.classList.add('active');
+            document.getElementById('detailedOperatorRow').style.display = selectedCoreCategory ? 'block' : 'none';
+            updateFlowPreview();
+            updateFlowProgress();
+            suggestCompletion();
         }
 
         function closeModal() {
             document.getElementById('flowModal').classList.remove('active');
             selectedValues = { fromRole: '', preposition: 'to', toRole: '' };
-            document.getElementById('operand').value = '';
-            document.querySelectorAll('.operator-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
+            const operandInput = document.getElementById('operand');
+            if (operandInput) {
+                operandInput.value = '';
+                setError(operandInput, document.getElementById('operandError'), false);
+            }
+            document.querySelectorAll('#flowModal [data-core]').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => opt.classList.remove('selected'));
             selectedOperator = null;
             selectedCategory = null;
             selectedCoreCategory = null;
             document.getElementById('detailedOperatorRow').style.display = 'none';
+            resetCustomSelect('fromRole', 'Select role...');
+            resetCustomSelect('toRole', 'Select role...');
+            resetCustomSelect('preposition', 'to', 'to');
+            setError(document.getElementById('fromRoleSelect'), document.getElementById('fromRoleError'), false);
+            setError(document.getElementById('toRoleSelect'), document.getElementById('toRoleError'), false);
+            setError(document.getElementById('coreOperatorGrid'), document.getElementById('operatorError'), false);
+            const createButton = document.querySelector('#flowModal .modal-btn-primary');
+            if (createButton) {
+                createButton.classList.remove('loading');
+                createButton.disabled = false;
+            }
+            updateFlowPreview();
+            updateFlowProgress();
+            suggestCompletion();
         }
 
         function createFlow() {
             const fromRole = selectedValues.fromRole;
-            const operand = document.getElementById('operand').value;
-            const preposition = selectedValues.preposition;
+            const operandInput = document.getElementById('operand');
+            const operand = operandInput.value.trim();
             const toRole = selectedValues.toRole;
+            const createButton = document.querySelector('#flowModal .modal-btn-primary');
 
-            if (fromRole && operand && toRole && selectedCoreCategory) {
-                const operator = selectedOperator || selectedCoreCategory;
-                
-                flows.push({
-                    from: fromRole,
-                    operator: operator,
-                    operand: operand,
-                    preposition: preposition,
-                    to: toRole,
-                    category: selectedCoreCategory,
-                    timestamp: new Date().toISOString(),
-                    consent: { from: 'pending', to: 'pending' }
-                });
-                
+            let hasError = false;
+
+            if (!fromRole) {
+                setError(document.getElementById('fromRoleSelect'), document.getElementById('fromRoleError'), true, 'Select a source role');
+                hasError = true;
+            }
+            if (!selectedCoreCategory) {
+                setError(document.getElementById('coreOperatorGrid'), document.getElementById('operatorError'), true, 'Select a core operator');
+                hasError = true;
+            }
+            if (!operand) {
+                setError(operandInput, document.getElementById('operandError'), true, 'This field is required');
+                hasError = true;
+            }
+            if (!toRole) {
+                setError(document.getElementById('toRoleSelect'), document.getElementById('toRoleError'), true, 'Select a destination role');
+                hasError = true;
+            }
+
+            if (hasError) {
+                updateFlowProgress();
+                return;
+            }
+
+            if (createButton) {
+                createButton.classList.add('loading');
+                createButton.disabled = true;
+            }
+
+            const payload = {
+                from: fromRole,
+                operator: selectedOperator || selectedCoreCategory,
+                operand: operand,
+                preposition: selectedValues.preposition,
+                to: toRole,
+                category: selectedCoreCategory,
+                timestamp: new Date().toISOString(),
+                consent: { from: 'pending', to: 'pending' }
+            };
+
+            setTimeout(() => {
+                flows.push(payload);
                 renderFlows();
                 closeModal();
-            } else {
-                alert('Please fill in all fields and select a core operator category');
-            }
+                if (createButton) {
+                    createButton.classList.remove('loading');
+                    createButton.disabled = false;
+                }
+            }, 300);
         }
 
         function editFlow(index) {
@@ -4652,105 +5352,250 @@
 
         function closePodModal() {
             document.getElementById('podFlowModal').classList.remove('active');
-            // Reset form
             selectedValues.podFromRole = '';
             selectedValues.toPod = '';
             selectedValues.podToRole = '';
-            document.getElementById('podOperand').value = '';
+            const podOperandInput = document.getElementById('podOperand');
+            if (podOperandInput) {
+                podOperandInput.value = '';
+                setError(podOperandInput, document.getElementById('podOperandError'), false);
+            }
             selectedPodCoreCategory = null;
+            document.querySelectorAll('#podFlowModal [data-core]').forEach(opt => opt.classList.remove('selected'));
+            resetCustomSelect('podFromRole', 'Select role...');
+            resetCustomSelect('toPod', 'Select pod...');
+            resetCustomSelect('podToRole', 'Select role...');
+            setError(document.getElementById('podFromRoleSelect'), document.getElementById('podFromRoleError'), false);
+            setError(document.getElementById('toPodSelect'), document.getElementById('toPodError'), false);
+            setError(document.getElementById('podToRoleSelect'), document.getElementById('podToRoleError'), false);
+            setError(document.getElementById('podCoreOperatorGrid'), document.getElementById('podCoreError'), false);
+            const createButton = document.querySelector('#podFlowModal .modal-btn-primary');
+            if (createButton) {
+                createButton.classList.remove('loading');
+                createButton.disabled = false;
+            }
+            setPodFlowType('pod-to-pod');
         }
 
         function setPodFlowType(type) {
             podFlowType = type;
-            
-            document.querySelectorAll('[data-type]').forEach(opt => {
+
+            document.querySelectorAll('#podConnectionGrid [data-type]').forEach(opt => {
                 opt.classList.remove('selected');
             });
-            document.querySelector(`[data-type="${type}"]`).classList.add('selected');
-            
-            // Show/hide appropriate fields
+            const selectedType = document.querySelector(`#podConnectionGrid [data-type="${type}"]`);
+            if (selectedType) {
+                selectedType.classList.add('selected');
+            }
+
             const fromRoleRow = document.getElementById('podFromRoleRow');
             const toRoleRow = document.getElementById('podToRoleRow');
-            
+
             if (type === 'pod-to-pod') {
                 fromRoleRow.style.display = 'none';
                 toRoleRow.style.display = 'none';
+                selectedValues.podFromRole = '';
+                selectedValues.podToRole = '';
+                resetCustomSelect('podFromRole', 'Select role...');
+                resetCustomSelect('podToRole', 'Select role...');
+                setError(document.getElementById('podFromRoleSelect'), document.getElementById('podFromRoleError'), false);
+                setError(document.getElementById('podToRoleSelect'), document.getElementById('podToRoleError'), false);
             } else if (type === 'role-to-role') {
                 fromRoleRow.style.display = 'block';
                 toRoleRow.style.display = 'block';
             } else if (type === 'pod-to-role') {
                 fromRoleRow.style.display = 'none';
                 toRoleRow.style.display = 'block';
+                selectedValues.podFromRole = '';
+                resetCustomSelect('podFromRole', 'Select role...');
+                setError(document.getElementById('podFromRoleSelect'), document.getElementById('podFromRoleError'), false);
             }
         }
 
         function selectPodCoreCategory(category) {
             selectedPodCoreCategory = category;
-            
-            document.querySelectorAll('#podFlowModal [data-core]').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            document.querySelector(`#podFlowModal [data-core="${category}"]`).classList.add('selected');
+
+            document.querySelectorAll('#podFlowModal [data-core]').forEach(opt => opt.classList.remove('selected'));
+            const selectedOption = document.querySelector(`#podFlowModal [data-core="${category}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+            setError(document.getElementById('podCoreOperatorGrid'), document.getElementById('podCoreError'), false);
         }
 
         function createPodFlow() {
-            const from = 'NORTHSIDE RESPONSE';
-            const fromRole = podFlowType !== 'pod-to-pod' ? selectedValues.podFromRole : null;
-            const operand = document.getElementById('podOperand').value;
+            const operandInput = document.getElementById('podOperand');
+            const operand = operandInput.value.trim();
             const to = selectedValues.toPod;
-            const toRole = podFlowType === 'role-to-role' || podFlowType === 'pod-to-role' ? selectedValues.podToRole : null;
-            
-            if (!operand || !to || !selectedPodCoreCategory) {
-                alert('Please fill in all required fields');
-                return;
+            const fromRoleSelect = document.getElementById('podFromRoleSelect');
+            const toPodSelect = document.getElementById('toPodSelect');
+            const toRoleSelect = document.getElementById('podToRoleSelect');
+            const createButton = document.querySelector('#podFlowModal .modal-btn-primary');
+
+            let hasError = false;
+
+            if (!selectedPodCoreCategory) {
+                setError(document.getElementById('podCoreOperatorGrid'), document.getElementById('podCoreError'), true, 'Select a core operator');
+                hasError = true;
             }
-            
-            if (podFlowType === 'role-to-role' && (!fromRole || !toRole)) {
-                alert('Please select both from and to roles for role-to-role connection');
-                return;
+
+            if (!operand) {
+                setError(operandInput, document.getElementById('podOperandError'), true, 'Provide an operand');
+                hasError = true;
+            } else {
+                setError(operandInput, document.getElementById('podOperandError'), false);
             }
-            
-            if (podFlowType === 'pod-to-role' && !toRole) {
-                alert('Please select target role');
-                return;
+
+            if (!to) {
+                setError(toPodSelect, document.getElementById('toPodError'), true, 'Select a destination pod');
+                hasError = true;
+            } else {
+                setError(toPodSelect, document.getElementById('toPodError'), false);
             }
-            
-            podFlows.push({
+
+            if (podFlowType === 'role-to-role') {
+                if (!selectedValues.podFromRole) {
+                    setError(fromRoleSelect, document.getElementById('podFromRoleError'), true, 'Select a source role');
+                    hasError = true;
+                } else {
+                    setError(fromRoleSelect, document.getElementById('podFromRoleError'), false);
+                }
+                if (!selectedValues.podToRole) {
+                    setError(toRoleSelect, document.getElementById('podToRoleError'), true, 'Select a receiving role');
+                    hasError = true;
+                } else {
+                    setError(toRoleSelect, document.getElementById('podToRoleError'), false);
+                }
+            } else if (podFlowType === 'pod-to-role') {
+                if (!selectedValues.podToRole) {
+                    setError(toRoleSelect, document.getElementById('podToRoleError'), true, 'Select a receiving role');
+                    hasError = true;
+                } else {
+                    setError(toRoleSelect, document.getElementById('podToRoleError'), false);
+                }
+                setError(fromRoleSelect, document.getElementById('podFromRoleError'), false);
+            } else {
+                setError(fromRoleSelect, document.getElementById('podFromRoleError'), false);
+                setError(toRoleSelect, document.getElementById('podToRoleError'), false);
+            }
+
+            if (hasError) return;
+
+            if (createButton) {
+                createButton.classList.add('loading');
+                createButton.disabled = true;
+            }
+
+            const payload = {
                 type: podFlowType,
-                from: from,
-                fromRole: fromRole,
+                from: 'NORTHSIDE RESPONSE',
+                fromRole: podFlowType !== 'pod-to-pod' ? selectedValues.podFromRole || null : null,
                 operator: selectedPodCoreCategory,
                 operand: operand,
                 to: to,
-                toRole: toRole,
+                toRole: (podFlowType === 'role-to-role' || podFlowType === 'pod-to-role') ? selectedValues.podToRole || null : null,
                 category: selectedPodCoreCategory,
                 timestamp: new Date().toISOString(),
                 consent: { from: 'pending', to: 'pending' }
-            });
-            
-            // If connecting to a new pod, add it to connected pods
-            if (to === '[New Pod]') {
-                const newPodName = prompt('Enter new pod name:');
-                if (newPodName) {
-                    connectedPods.push({
-                        name: newPodName,
-                        health: 75,
-                        rolesFilled: 0,
-                        totalRoles: 9,
-                        activeFlows: 1,
-                        flowTypes: { shares: 0, does: 0, okays: 0 }
-                    });
-                    podFlows[podFlows.length - 1].to = newPodName;
+            };
+
+            setTimeout(() => {
+                podFlows.push(payload);
+
+                if (to === '[New Pod]') {
+                    const newPodName = prompt('Enter new pod name:');
+                    if (newPodName) {
+                        connectedPods.push({
+                            name: newPodName,
+                            health: 75,
+                            rolesFilled: 0,
+                            totalRoles: 9,
+                            activeFlows: 1,
+                            flowTypes: { shares: 0, does: 0, okays: 0 }
+                        });
+                        podFlows[podFlows.length - 1].to = newPodName;
+                    }
                 }
-            }
-            
-            renderNetwork();
-            closePodModal();
+
+                renderNetwork();
+                closePodModal();
+
+                if (createButton) {
+                    createButton.classList.remove('loading');
+                    createButton.disabled = false;
+                }
+            }, 300);
         }
 
         function addNewPod() {
             openPodFlowBuilder();
         }
+
+        const suggestionsContainer = document.getElementById('flowSuggestions');
+        if (suggestionsContainer) {
+            suggestionsContainer.addEventListener('click', (e) => {
+                const pill = e.target.closest('.suggestion-pill');
+                if (!pill) return;
+                applySuggestion(pill.dataset.from, pill.dataset.operator, pill.dataset.operand, pill.dataset.to, pill.dataset.preposition);
+            });
+        }
+
+        const operandInput = document.getElementById('operand');
+        if (operandInput) {
+            operandInput.addEventListener('input', () => {
+                setError(operandInput, document.getElementById('operandError'), false);
+                updateFlowPreview();
+                updateFlowProgress();
+                suggestCompletion();
+            });
+        }
+
+        const podOperandInput = document.getElementById('podOperand');
+        if (podOperandInput) {
+            podOperandInput.addEventListener('input', () => {
+                setError(podOperandInput, document.getElementById('podOperandError'), false);
+            });
+        }
+
+        const flowFab = document.getElementById('openFlowFab');
+        if (flowFab) {
+            flowFab.addEventListener('click', () => {
+                openFlowBuilder();
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' && (e.ctrlKey || e.metaKey))) {
+                if (document.getElementById('flowModal').classList.contains('active')) {
+                    e.preventDefault();
+                    createFlow();
+                    return;
+                }
+                if (document.getElementById('podFlowModal').classList.contains('active')) {
+                    e.preventDefault();
+                    createPodFlow();
+                    return;
+                }
+            }
+            if (e.key === 'Escape') {
+                let handled = false;
+                if (document.getElementById('flowModal').classList.contains('active')) {
+                    closeModal();
+                    handled = true;
+                }
+                if (document.getElementById('podFlowModal').classList.contains('active')) {
+                    closePodModal();
+                    handled = true;
+                }
+                if (!handled && document.getElementById('profileModal')?.classList.contains('active')) {
+                    closeProfile();
+                    handled = true;
+                }
+                if (!handled && document.getElementById('taskDetailModal')?.classList.contains('active')) {
+                    closeTaskDetail();
+                }
+            }
+        });
     </script>
 </body>
 </html>
