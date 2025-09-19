@@ -360,14 +360,49 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            opacity: 0.4;
+            transition: opacity 0.2s ease;
         }
 
         .status-dot.filled {
-            background: var(--green);
+            opacity: 1;
         }
 
         .status-dot.empty {
-            background: var(--red);
+            background: transparent;
+        }
+
+        .status-dot.ground.filled {
+            background: var(--blue);
+        }
+
+        .status-dot.figure.filled {
+            background: var(--green);
+        }
+
+        .status-dot.pattern.filled {
+            background: var(--purple);
+        }
+
+        .triad-status {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .triad-status-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.04em;
+        }
+
+        .triad-status.compact {
+            gap: 6px;
+        }
+
+        .triad-status.compact .triad-status-label {
+            display: none;
         }
 
         .people-tags {
@@ -481,7 +516,6 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 12px;
-            cursor: pointer;
             transition: all 0.2s ease;
         }
 
@@ -502,6 +536,18 @@
         .operator-desc {
             font-size: 0.8rem;
             color: var(--text-dim);
+        }
+
+        .operator-aspect-chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .operator-aspect-chips .aspect-chip {
+            padding: 6px 8px;
+            font-size: 0.72rem;
         }
 
         /* Flows Section */
@@ -600,6 +646,12 @@
             align-items: center;
             gap: 12px;
             flex: 1;
+        }
+
+        .flow-triad {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
         }
 
         .flow-role {
@@ -948,6 +1000,10 @@
             width: 4px;
             height: 12px;
             border-radius: 2px;
+        }
+
+        .card-triad {
+            margin: 6px 0;
         }
 
         .card-flow-indicator.shares { background: var(--blue); }
@@ -2869,14 +2925,64 @@
             padding: 6px;
         }
 
+        .triad-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 8px;
+        }
+
+        .triad-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .triad-field-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+        }
+
+        .triad-field input,
+        .triad-field textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 10, 10, 0.85);
+            color: var(--text);
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 42px;
+        }
+
+        .triad-field textarea {
+            min-height: 80px;
+        }
+
+        .triad-field input::placeholder,
+        .triad-field textarea::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .triad-nudge {
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: var(--yellow);
+        }
+
+        .triad-nudge.hidden {
+            display: none;
+        }
+
         .operator-option {
             position: relative;
             padding: 14px;
             background: rgba(10, 10, 10, 0.9);
             border: 1px solid var(--border);
             border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
+            text-align: left;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             transform-style: preserve-3d;
@@ -2903,16 +3009,77 @@
             box-shadow: 0 4px 12px rgba(0, 255, 136, 0.18);
         }
 
-        .operator-option.selected {
-            transform: scale(1.05);
-            z-index: 1;
-            border-color: var(--green);
-            box-shadow: 0 6px 18px rgba(0, 255, 136, 0.3);
+        .operator-option.shares { border-color: rgba(0, 221, 255, 0.3); }
+        .operator-option.okays { border-color: rgba(153, 69, 255, 0.3); }
+        .operator-option.does { border-color: rgba(0, 255, 136, 0.35); }
+
+        .operator-option-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
         }
 
-        .operator-option.shares { border-color: rgba(0, 221, 255, 0.5); }
-        .operator-option.okays { border-color: rgba(153, 69, 255, 0.5); }
-        .operator-option.does { border-color: rgba(0, 255, 136, 0.6); }
+        .operator-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .operator-desc {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        .operator-aspects {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .aspect-chip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .aspect-chip:hover {
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.08);
+        }
+
+        .aspect-chip.selected {
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--green);
+        }
+
+        .aspect-chip .chip-hint {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .aspect-chip.ground {
+            border-color: rgba(0, 221, 255, 0.25);
+        }
+
+        .aspect-chip.figure {
+            border-color: rgba(0, 255, 136, 0.25);
+        }
+
+        .aspect-chip.pattern {
+            border-color: rgba(153, 69, 255, 0.25);
+        }
 
         .modal-actions {
             display: flex;
@@ -3180,21 +3347,41 @@
                         <div class="core-description">Make it visible</div>
                     </div>
                     <div class="detailed-operators">
-                        <div class="operator-item" onclick="selectOperator('spot', 'shares')">
+                        <div class="operator-item">
                             <div class="operator-name">Spot</div>
                             <div class="operator-desc">Notice gaps, risks, missing pieces</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('spot', 'shares', 'ground')">Ground <span class="chip-hint">What's missing in context?</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('spot', 'shares', 'figure')">Figure <span class="chip-hint">Which entity is absent?</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('spot', 'shares', 'pattern')">Pattern <span class="chip-hint">Where's the relational gap?</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('define', 'shares')">
+                        <div class="operator-item">
                             <div class="operator-name">Define</div>
                             <div class="operator-desc">Create shared language & standards</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('define', 'shares', 'ground')">Ground <span class="chip-hint">Name the domain & scope</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('define', 'shares', 'figure')">Figure <span class="chip-hint">Clarify the entity</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('define', 'shares', 'pattern')">Pattern <span class="chip-hint">Describe how it relates</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('bound', 'shares')">
+                        <div class="operator-item">
                             <div class="operator-name">Bound</div>
                             <div class="operator-desc">Set scope and access (in/out)</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('bound', 'shares', 'ground')">Ground <span class="chip-hint">Set limits & resources</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('bound', 'shares', 'figure')">Figure <span class="chip-hint">Segment the deliverable</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('bound', 'shares', 'pattern')">Pattern <span class="chip-hint">Mark process boundaries</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('reflect', 'shares')">
+                        <div class="operator-item">
                             <div class="operator-name">Reflect</div>
                             <div class="operator-desc">Capture what happened, share lessons</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('reflect', 'shares', 'ground')">Ground <span class="chip-hint">Surface enabling conditions</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('reflect', 'shares', 'figure')">Figure <span class="chip-hint">Capture the outcome</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('reflect', 'shares', 'pattern')">Pattern <span class="chip-hint">Close the learning loop</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3206,13 +3393,23 @@
                         <div class="core-description">Check, align & ratchet</div>
                     </div>
                     <div class="detailed-operators">
-                        <div class="operator-item" onclick="selectOperator('integrate', 'okays')">
+                        <div class="operator-item">
                             <div class="operator-name">Integrate</div>
                             <div class="operator-desc">Align overlapping efforts</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('integrate', 'okays', 'ground')">Ground <span class="chip-hint">Align shared foundations</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('integrate', 'okays', 'figure')">Figure <span class="chip-hint">Fuse tangible pieces</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('integrate', 'okays', 'pattern')">Pattern <span class="chip-hint">Blend overlapping flows</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('pace', 'okays')">
+                        <div class="operator-item">
                             <div class="operator-name">Pace</div>
                             <div class="operator-desc">Keep timing sustainable & in sync</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('pace', 'okays', 'ground')">Ground <span class="chip-hint">Set rhythm & cadence</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('pace', 'okays', 'figure')">Figure <span class="chip-hint">Sequence the work focus</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('pace', 'okays', 'pattern')">Pattern <span class="chip-hint">Balance alternating flows</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3224,17 +3421,32 @@
                         <div class="core-description">Do the work</div>
                     </div>
                     <div class="detailed-operators">
-                        <div class="operator-item" onclick="selectOperator('build', 'does')">
+                        <div class="operator-item">
                             <div class="operator-name">Build</div>
                             <div class="operator-desc">Create tools, kits, prototypes</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('build', 'does', 'ground')">Ground <span class="chip-hint">Provision enabling resources</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('build', 'does', 'figure')">Figure <span class="chip-hint">Instantiate the thing</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('build', 'does', 'pattern')">Pattern <span class="chip-hint">Embed it into workflow</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('connect', 'does')">
+                        <div class="operator-item">
                             <div class="operator-name">Connect</div>
                             <div class="operator-desc">Link people, flows & resources</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('connect', 'does', 'ground')">Ground <span class="chip-hint">Open the channels</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('connect', 'does', 'figure')">Figure <span class="chip-hint">Link the roles/assets</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('connect', 'does', 'pattern')">Pattern <span class="chip-hint">Design the handoffs</span></button>
+                            </div>
                         </div>
-                        <div class="operator-item" onclick="selectOperator('protect', 'does')">
+                        <div class="operator-item">
                             <div class="operator-name">Protect</div>
                             <div class="operator-desc">Add backups & resilience</div>
+                            <div class="operator-aspect-chips">
+                                <button class="aspect-chip ground" onclick="selectOperator('protect', 'does', 'ground')">Ground <span class="chip-hint">Harden the environment</span></button>
+                                <button class="aspect-chip figure" onclick="selectOperator('protect', 'does', 'figure')">Figure <span class="chip-hint">Safeguard the deliverable</span></button>
+                                <button class="aspect-chip pattern" onclick="selectOperator('protect', 'does', 'pattern')">Pattern <span class="chip-hint">Layer redundancies</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3418,23 +3630,23 @@
             <div class="form-progress" id="flowProgress">
                 <div class="progress-step active" data-step="source">
                     <span class="step-number">1</span>
-                    <span class="step-label">Source</span>
+                    <span class="step-label">Ground</span>
                 </div>
                 <div class="progress-line" data-line="source"></div>
                 <div class="progress-step" data-step="action">
                     <span class="step-number">2</span>
-                    <span class="step-label">Action</span>
+                    <span class="step-label">Figure</span>
                 </div>
                 <div class="progress-line" data-line="action"></div>
                 <div class="progress-step" data-step="target">
                     <span class="step-number">3</span>
-                    <span class="step-label">Target</span>
+                    <span class="step-label">Pattern</span>
                 </div>
             </div>
 
             <div class="flow-builder">
                 <div class="builder-row" data-step="source">
-                    <label class="builder-label">From Role<span class="label-required">*</span></label>
+                    <label class="builder-label">Ground Role<span class="label-required">*</span></label>
                     <div class="input-wrapper">
                         <div class="custom-select" id="fromRoleSelect">
                             <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('fromRole')" onkeydown="handleDropdownKeyboard(event, 'fromRole')">
@@ -3453,13 +3665,13 @@
                                 <div class="select-option" onclick="selectOption('fromRole', 'Reflector', event)">Reflector</div>
                             </div>
                         </div>
-                        <span class="input-helper">Select the initiating role for this flow</span>
-                        <span class="input-error" id="fromRoleError">Select a source role</span>
+                        <span class="input-helper">Select the enabling role that grounds this flow</span>
+                        <span class="input-error" id="fromRoleError">Select a ground role</span>
                     </div>
                 </div>
 
                 <div class="builder-row" data-step="action">
-                    <label class="builder-label">Core Operator Category<span class="label-required">*</span></label>
+                    <label class="builder-label">Figure Operator Category<span class="label-required">*</span></label>
                     <div class="input-wrapper">
                         <div class="operator-grid" id="coreOperatorGrid">
                             <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
@@ -3475,32 +3687,74 @@
                                 <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
                             </div>
                         </div>
-                        <span class="input-helper">Choose the utilitarian mode of action</span>
+                        <span class="input-helper">Choose how the figure shows up</span>
                         <span class="input-error" id="operatorError">Select a core operator</span>
                     </div>
                 </div>
 
                 <div class="builder-row" id="detailedOperatorRow" style="display: none;">
-                    <label class="builder-label">Specific Operator (Optional)</label>
+                    <label class="builder-label">Operator Aspect</label>
                     <div class="input-wrapper">
                         <div class="operator-grid" id="operatorGrid">
                             <!-- Will be dynamically populated based on selected core category -->
                         </div>
-                        <span class="input-helper">Refine the action with a detailed operator (optional)</span>
+                        <span class="input-helper">Select the ground/figure/pattern face of this operator</span>
                     </div>
                 </div>
 
                 <div class="builder-row" data-step="action">
-                    <label class="builder-label">What (Operand)<span class="label-required">*</span></label>
+                    <label class="builder-label">Figure (What)<span class="label-required">*</span></label>
                     <div class="input-wrapper">
                         <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles..." data-validate="required" required>
-                        <span class="input-helper">Describe what is being acted upon</span>
+                        <span class="input-helper">Describe what is emerging or being defined</span>
                         <span class="input-error" id="operandError">This field is required</span>
                     </div>
                 </div>
 
                 <div class="builder-row">
-                    <label class="builder-label">Preposition</label>
+                    <label class="builder-label">Ground Context</label>
+                    <div class="input-wrapper">
+                        <div class="triad-grid">
+                            <div class="triad-field">
+                                <span class="triad-field-label">Scope</span>
+                                <input type="text" id="groundScope" placeholder="Where does this apply?">
+                            </div>
+                            <div class="triad-field">
+                                <span class="triad-field-label">Limits</span>
+                                <input type="text" id="groundLimits" placeholder="Boundaries or guardrails">
+                            </div>
+                            <div class="triad-field">
+                                <span class="triad-field-label">Resources</span>
+                                <input type="text" id="groundResources" placeholder="People, tools, budget">
+                            </div>
+                        </div>
+                        <div class="triad-nudge hidden" id="groundNudge">Add scope? (2d timebox, pod-visible)</div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Pattern Details</label>
+                    <div class="input-wrapper">
+                        <div class="triad-grid">
+                            <div class="triad-field">
+                                <span class="triad-field-label">Dependencies</span>
+                                <input type="text" id="patternDeps" placeholder="Upstream / downstream links">
+                            </div>
+                            <div class="triad-field">
+                                <span class="triad-field-label">Cadence</span>
+                                <input type="text" id="patternCadence" placeholder="Rhythm or heartbeat">
+                            </div>
+                            <div class="triad-field">
+                                <span class="triad-field-label">Integrations</span>
+                                <input type="text" id="patternIntegrations" placeholder="Systems or rituals">
+                            </div>
+                        </div>
+                        <div class="triad-nudge hidden" id="patternNudge">Suggest cadence or dependencies to complete the pattern.</div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Pattern Link</label>
                     <div class="input-wrapper">
                         <div class="custom-select" id="prepositionSelect">
                             <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('preposition')" onkeydown="handleDropdownKeyboard(event, 'preposition')">
@@ -3516,12 +3770,12 @@
                                 <div class="select-option" onclick="selectOption('preposition', 'by', event)">by</div>
                             </div>
                         </div>
-                        <span class="input-helper">Define how the action connects the roles</span>
+                        <span class="input-helper">Define how the relationship moves between roles</span>
                     </div>
                 </div>
 
                 <div class="builder-row" data-step="target">
-                    <label class="builder-label">To Role<span class="label-required">*</span></label>
+                    <label class="builder-label">Pattern Role<span class="label-required">*</span></label>
                     <div class="input-wrapper">
                         <div class="custom-select" id="toRoleSelect">
                             <div class="select-trigger" role="button" tabindex="0" onclick="toggleDropdown('toRole')" onkeydown="handleDropdownKeyboard(event, 'toRole')">
@@ -3540,8 +3794,8 @@
                                 <div class="select-option" onclick="selectOption('toRole', 'Reflector', event)">Reflector</div>
                             </div>
                         </div>
-                        <span class="input-helper">Select the receiving role for this flow</span>
-                        <span class="input-error" id="toRoleError">Select a destination role</span>
+                        <span class="input-helper">Select the role that receives or propagates the pattern</span>
+                        <span class="input-error" id="toRoleError">Select a pattern role</span>
                     </div>
                 </div>
             </div>
@@ -3549,12 +3803,20 @@
             <div class="flow-preview is-empty" id="flowPreview">
                 <span class="preview-label">PREVIEW</span>
                 <div class="preview-content">
-                    <span class="preview-role from" id="previewFrom">Source Role</span>
+                    <span class="preview-role from" id="previewFrom">Ground Role</span>
                     <span class="preview-arrow">→</span>
-                    <span class="preview-operator" id="previewOperator">operator</span>
+                    <span class="preview-operator" id="previewOperator">figure move</span>
                     <span class="preview-operand" id="previewOperand">—</span>
                     <span class="preview-arrow" id="previewPreposition">to</span>
-                    <span class="preview-role to" id="previewTo">Target Role</span>
+                    <span class="preview-role to" id="previewTo">Pattern Role</span>
+                </div>
+                <div class="triad-status" id="previewTriad">
+                    <span class="triad-status-label">Ground</span>
+                    <span class="status-dot ground empty"></span>
+                    <span class="triad-status-label">Figure</span>
+                    <span class="status-dot figure empty"></span>
+                    <span class="triad-status-label">Pattern</span>
+                    <span class="status-dot pattern empty"></span>
                 </div>
             </div>
 
@@ -3720,7 +3982,8 @@
         let viewMode = 'simple';
         let roleViewMode = 'icon';
         let expandedTriads = new Set(['creation', 'structure', 'continuity']); // Start expanded
-        let selectedOperator = null;
+        let selectedOperatorKey = null;
+        let selectedAspect = null;
         let selectedCategory = null;
         let selectedCoreCategory = null;
         let expandedFlows = new Set();
@@ -3840,11 +4103,14 @@
                 type: 'pod-to-pod',
                 from: 'NORTHSIDE RESPONSE',
                 fromRole: null,
-                operator: 'shares',
+                operator: 'spot',
+                aspect: 'pattern',
                 operand: 'regional risk patterns',
                 to: 'CENTRAL COMMAND',
                 toRole: null,
                 category: 'shares',
+                ground: { scope: 'Metro network', limits: 'Active incidents', resources: 'Shared dashboards' },
+                pattern: { deps: 'Command intelligence', cadence: 'Twice daily', integrations: 'Signal sync' },
                 timestamp: new Date(Date.now() - 3600000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
@@ -3853,10 +4119,13 @@
                 from: 'NORTHSIDE RESPONSE',
                 fromRole: 'Connector',
                 operator: 'connect',
+                aspect: 'pattern',
                 operand: 'medical resources',
                 to: 'MEDICAL SECTOR',
                 toRole: 'Builder',
                 category: 'does',
+                ground: { scope: 'Regional aid grid', limits: 'Licensed partners', resources: 'Connector network' },
+                pattern: { deps: 'Builder staging', cadence: 'Real-time', integrations: 'Mutual-aid relay' },
                 timestamp: new Date(Date.now() - 7200000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
@@ -3864,11 +4133,14 @@
                 type: 'pod-to-role',
                 from: 'CENTRAL COMMAND',
                 fromRole: null,
-                operator: 'okays',
+                operator: 'pace',
+                aspect: 'ground',
                 operand: 'resource allocation',
                 to: 'NORTHSIDE RESPONSE',
                 toRole: 'Balancer',
                 category: 'okays',
+                ground: { scope: 'Allocation cadence', limits: 'Weekly windows', resources: 'Command planning team' },
+                pattern: { deps: 'Pod demand signals', cadence: 'Weekly sync', integrations: 'Allocation ledger' },
                 timestamp: new Date(Date.now() - 1800000).toISOString(),
                 consent: { from: 'approved', to: 'pending' }
             }
@@ -3923,54 +4195,176 @@
             { name: 'ShadowFox', roles: [] }
         ];
 
-        const flows = [
-            { 
-                from: 'Starter', 
-                operator: 'spot', 
-                operand: 'emerging risks', 
-                preposition: 'to', 
-                to: 'Definer', 
+        const aspectOrder = ['ground', 'figure', 'pattern'];
+
+        const aspectLabels = {
+            ground: 'Ground',
+            figure: 'Figure',
+            pattern: 'Pattern'
+        };
+
+        const sharedAspectNudges = {
+            ground: 'Add scope? (2d timebox, pod-visible)',
+            figure: 'Provide operand/definition before moving on.',
+            pattern: 'Suggest cadence or dependencies to complete the pattern.'
+        };
+
+        const operatorLibrary = {
+            spot: {
+                label: 'Spot',
                 category: 'shares',
+                description: 'Notice gaps, risks, missing pieces',
+                aspects: {
+                    ground: { label: 'Ground', hint: "What's missing in context?", nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Which entity is absent?', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: "Where's the relational gap?", nudge: sharedAspectNudges.pattern }
+                }
+            },
+            define: {
+                label: 'Define',
+                category: 'shares',
+                description: 'Create shared language & standards',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Name the domain & scope', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Clarify the entity', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Describe how it relates', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            bound: {
+                label: 'Bound',
+                category: 'shares',
+                description: 'Set scope and access (in/out)',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Set limits & resources', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Segment the deliverable', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Mark process boundaries', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            reflect: {
+                label: 'Reflect',
+                category: 'shares',
+                description: 'Capture what happened, share lessons',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Surface enabling conditions', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Capture the outcome', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Close the learning loop', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            integrate: {
+                label: 'Integrate',
+                category: 'okays',
+                description: 'Align overlapping efforts',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Align shared foundations', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Fuse tangible pieces', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Blend overlapping flows', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            pace: {
+                label: 'Pace',
+                category: 'okays',
+                description: 'Keep timing sustainable & in sync',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Set rhythm & cadence', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Sequence the work focus', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Balance alternating flows', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            build: {
+                label: 'Build',
+                category: 'does',
+                description: 'Create tools, kits, prototypes',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Provision enabling resources', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Instantiate the thing', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Embed it into workflow', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            connect: {
+                label: 'Connect',
+                category: 'does',
+                description: 'Link people, flows & resources',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Open the channels', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Link the roles/assets', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Design the handoffs', nudge: sharedAspectNudges.pattern }
+                }
+            },
+            protect: {
+                label: 'Protect',
+                category: 'does',
+                description: 'Add backups & resilience',
+                aspects: {
+                    ground: { label: 'Ground', hint: 'Harden the environment', nudge: sharedAspectNudges.ground },
+                    figure: { label: 'Figure', hint: 'Safeguard the deliverable', nudge: sharedAspectNudges.figure },
+                    pattern: { label: 'Pattern', hint: 'Layer redundancies', nudge: sharedAspectNudges.pattern }
+                }
+            }
+        };
+
+        const flows = [
+            {
+                from: 'Starter',
+                operator: 'spot',
+                aspect: 'ground',
+                operand: 'emerging risks',
+                preposition: 'to',
+                to: 'Definer',
+                category: 'shares',
+                ground: { scope: 'Critical infrastructure grid', limits: 'Sector 7 focus', resources: 'Starter scouts' },
+                pattern: { deps: 'Definer review', cadence: 'Daily scan', integrations: 'Risk board' },
                 timestamp: new Date(Date.now() - 7200000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
-            { 
-                from: 'Definer', 
-                operator: 'define', 
-                operand: 'success criteria', 
-                preposition: 'for', 
-                to: 'Builder', 
+            {
+                from: 'Definer',
+                operator: 'define',
+                aspect: 'figure',
+                operand: 'success criteria',
+                preposition: 'for',
+                to: 'Builder',
                 category: 'shares',
+                ground: { scope: 'Infrastructure response pod', limits: 'Week-long sprint', resources: 'Definer + Starter insights' },
+                pattern: { deps: 'Build sprint', cadence: 'Sprint kickoff', integrations: 'Standards library' },
                 timestamp: new Date(Date.now() - 3600000).toISOString(),
                 consent: { from: 'approved', to: 'pending' }
             },
-            { 
-                from: 'Builder', 
-                operator: 'build', 
-                operand: 'intake system', 
-                preposition: 'with', 
-                to: 'Connector', 
+            {
+                from: 'Builder',
+                operator: 'build',
+                aspect: 'pattern',
+                operand: 'intake system',
+                preposition: 'with',
+                to: 'Connector',
                 category: 'does',
+                ground: { scope: 'Command center operations', limits: 'MVP only', resources: 'Core build team' },
+                pattern: { deps: 'Connector onboarding', cadence: '48h hand-off', integrations: 'Ops playbook' },
                 timestamp: new Date(Date.now() - 1800000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             },
-            { 
-                from: 'Connector', 
-                operator: 'connect', 
-                operand: 'resource providers', 
-                preposition: 'to', 
-                to: 'Builder', 
+            {
+                from: 'Connector',
+                operator: 'connect',
+                aspect: 'pattern',
+                operand: 'resource providers',
+                preposition: 'to',
+                to: 'Builder',
                 category: 'does',
+                ground: { scope: 'Mutual aid network', limits: 'Certified partners', resources: 'Connector roster' },
+                pattern: { deps: 'Builder availability', cadence: 'Real-time updates', integrations: 'Relay channel' },
                 timestamp: new Date(Date.now() - 900000).toISOString(),
                 consent: { from: 'pending', to: 'pending' }
             },
-            { 
-                from: 'Balancer', 
-                operator: 'pace', 
-                operand: 'sprint cycles', 
-                preposition: 'for', 
-                to: 'Builder', 
+            {
+                from: 'Balancer',
+                operator: 'pace',
+                aspect: 'ground',
+                operand: 'sprint cycles',
+                preposition: 'for',
+                to: 'Builder',
                 category: 'okays',
+                ground: { scope: 'Pod sprint rhythm', limits: 'No weekend deploys', resources: 'Balancer oversight' },
+                pattern: { deps: 'Builder capacity', cadence: 'Weekly sync', integrations: 'Rhythm tracker' },
                 timestamp: new Date(Date.now() - 86400000).toISOString(),
                 consent: { from: 'approved', to: 'approved' }
             }
@@ -3985,6 +4379,7 @@
                 from: 'Starter',
                 to: 'Definer',
                 operator: 'spot',
+                aspect: 'ground',
                 category: 'shares',
                 status: 'in-progress',
                 priority: 'urgent',
@@ -3992,6 +4387,8 @@
                 tags: ['infrastructure', 'critical'],
                 dueDate: new Date(Date.now() + 86400000).toISOString(),
                 created: new Date(Date.now() - 3600000).toISOString(),
+                ground: { scope: 'Sector 7 grid', limits: 'High-risk nodes', resources: 'Starter scouts' },
+                pattern: { deps: 'Definer brief', cadence: 'Daily at 09:00', integrations: 'Ops channel' },
                 activity: [
                     { time: '1h ago', user: 'SilverFox', action: 'created task' },
                     { time: '45m ago', user: 'CrystalSparrow', action: 'changed status to In Progress' },
@@ -4006,6 +4403,7 @@
                 from: 'Definer',
                 to: 'Builder',
                 operator: 'define',
+                aspect: 'figure',
                 category: 'shares',
                 status: 'ready',
                 priority: 'high',
@@ -4013,6 +4411,8 @@
                 tags: ['planning'],
                 dueDate: new Date(Date.now() + 172800000).toISOString(),
                 created: new Date(Date.now() - 1800000).toISOString(),
+                ground: { scope: 'Response playbook', limits: 'Deployment phase only', resources: 'Definer + Starter data' },
+                pattern: { deps: 'Build backlog', cadence: 'Sprint planning', integrations: 'Standards vault' },
                 activity: [
                     { time: '30m ago', user: 'CrystalSparrow', action: 'created task' }
                 ]
@@ -4025,6 +4425,7 @@
                 from: 'Builder',
                 to: 'Connector',
                 operator: 'build',
+                aspect: 'pattern',
                 category: 'does',
                 status: 'backlog',
                 priority: 'high',
@@ -4032,6 +4433,8 @@
                 tags: ['build', 'emergency'],
                 dueDate: null,
                 created: new Date(Date.now() - 900000).toISOString(),
+                ground: { scope: 'Command ops', limits: 'Core infrastructure only', resources: 'Builder toolkit' },
+                pattern: { deps: 'Connector readiness', cadence: '48h sprint', integrations: 'Ops pipeline' },
                 activity: [
                     { time: '15m ago', user: 'ShadowSparrow', action: 'created task' }
                 ]
@@ -4044,6 +4447,7 @@
                 from: 'Connector',
                 to: 'Builder',
                 operator: 'connect',
+                aspect: 'pattern',
                 category: 'does',
                 status: 'blocked',
                 priority: 'normal',
@@ -4051,6 +4455,8 @@
                 tags: ['coordination', 'blocked'],
                 dueDate: new Date(Date.now() + 259200000).toISOString(),
                 created: new Date(Date.now() - 7200000).toISOString(),
+                ground: { scope: 'Responder network', limits: 'Verified partners', resources: 'Connector roster' },
+                pattern: { deps: 'Equipment delivery', cadence: 'Rolling updates', integrations: 'Relay bridge' },
                 activity: [
                     { time: '2h ago', user: 'GoldenFox', action: 'created task' },
                     { time: '1h ago', user: 'GoldenFox', action: 'changed status to Blocked' },
@@ -4065,6 +4471,7 @@
                 from: 'Starter',
                 to: 'Definer',
                 operator: 'spot',
+                aspect: 'pattern',
                 category: 'shares',
                 status: 'done',
                 priority: 'normal',
@@ -4072,6 +4479,8 @@
                 tags: ['water', 'monitoring'],
                 dueDate: new Date(Date.now() - 86400000).toISOString(),
                 created: new Date(Date.now() - 259200000).toISOString(),
+                ground: { scope: 'Water grid', limits: 'Municipal supply', resources: 'Water monitors' },
+                pattern: { deps: 'Lab testing', cadence: 'Weekly sampling', integrations: 'Health dashboard' },
                 activity: [
                     { time: '3d ago', user: 'SilverFox', action: 'created task' },
                     { time: '2d ago', user: 'SilverFox', action: 'changed status to Done' }
@@ -4079,18 +4488,65 @@
             }
         ];
 
-        const categoryMap = {
-            'shares': ['spot', 'define', 'bound', 'reflect'],
-            'okays': ['integrate', 'pace'],
-            'does': ['build', 'connect', 'protect']
-        };
+        const categoryMap = Object.entries(operatorLibrary).reduce((acc, [key, definition]) => {
+            if (!acc[definition.category]) {
+                acc[definition.category] = [];
+            }
+            acc[definition.category].push(key);
+            return acc;
+        }, { shares: [], does: [], okays: [] });
 
         const commonFlows = [
-            { from: 'Starter', operator: 'spot', operand: 'emerging risks', preposition: 'to', to: 'Definer' },
-            { from: 'Builder', operator: 'build', operand: 'response systems', preposition: 'for', to: 'Connector' },
-            { from: 'Connector', operator: 'connect', operand: 'mutual aid teams', preposition: 'to', to: 'Builder' },
-            { from: 'Definer', operator: 'define', operand: 'deployment protocols', preposition: 'for', to: 'Integrator' },
-            { from: 'Reflector', operator: 'reflect', operand: 'lessons learned', preposition: 'with', to: 'Starter' }
+            {
+                from: 'Starter',
+                operator: 'spot',
+                aspect: 'ground',
+                operand: 'emerging risks',
+                preposition: 'to',
+                to: 'Definer',
+                ground: { scope: 'Critical grid', limits: 'Sector 7', resources: 'Starter scouts' },
+                pattern: { deps: 'Definer review', cadence: 'Daily scan', integrations: 'Risk board' }
+            },
+            {
+                from: 'Builder',
+                operator: 'build',
+                aspect: 'pattern',
+                operand: 'response systems',
+                preposition: 'for',
+                to: 'Connector',
+                ground: { scope: 'Command ops', limits: 'MVP only', resources: 'Build pod' },
+                pattern: { deps: 'Connector onboarding', cadence: '48h sprint', integrations: 'Ops pipeline' }
+            },
+            {
+                from: 'Connector',
+                operator: 'connect',
+                aspect: 'pattern',
+                operand: 'mutual aid teams',
+                preposition: 'to',
+                to: 'Builder',
+                ground: { scope: 'Mutual aid network', limits: 'Certified partners', resources: 'Connector roster' },
+                pattern: { deps: 'Builder availability', cadence: 'Real-time', integrations: 'Relay channel' }
+            },
+            {
+                from: 'Definer',
+                operator: 'define',
+                aspect: 'figure',
+                operand: 'deployment protocols',
+                preposition: 'for',
+                to: 'Integrator',
+                ground: { scope: 'Response teams', limits: 'Current incident', resources: 'Definer kit' },
+                pattern: { deps: 'Integrator sync', cadence: 'Sprint kickoff', integrations: 'Standards library' }
+            },
+            {
+                from: 'Reflector',
+                operator: 'reflect',
+                aspect: 'pattern',
+                operand: 'lessons learned',
+                preposition: 'with',
+                to: 'Starter',
+                ground: { scope: 'Pod retro', limits: 'Last cycle', resources: 'Reflection notes' },
+                pattern: { deps: 'Starter planning', cadence: 'Weekly retro', integrations: 'Learning loop' }
+            }
         ];
 
         // Custom dropdown functionality
@@ -4526,25 +4982,50 @@
 
         // Flow rendering
         function getCoreOperator(operator) {
+            if (!operator) return 'shares';
+            if (operatorLibrary[operator]) {
+                return operatorLibrary[operator].category;
+            }
+            if (['shares', 'does', 'okays'].includes(operator)) {
+                return operator;
+            }
             for (const [core, ops] of Object.entries(categoryMap)) {
-                if (ops.includes(operator)) return core;
+                if ((ops || []).includes(operator)) return core;
             }
             return 'shares';
+        }
+
+        function getFlowTriadStatus(flow) {
+            return buildTriadStatus({
+                ground: flow.ground || {},
+                figure: flow.operand || '',
+                pattern: flow.pattern || {}
+            });
+        }
+
+        function getTaskTriadStatus(task) {
+            return buildTriadStatus({
+                ground: task.ground || {},
+                figure: task.description || task.title || '',
+                pattern: task.pattern || {}
+            });
         }
 
         function renderFlows() {
             const list = document.getElementById('flowsList');
             if (!list) return;
-            
+
             let displayFlows = flows.map(f => {
-                let displayOperator = f.operator;
-                if (viewMode === 'simple') {
-                    displayOperator = f.category;
-                }
-                
+                const category = f.category || getCoreOperator(f.operator);
+                const detailedOperator = formatOperatorDisplay(f.operator, f.aspect);
+                const displayOperator = viewMode === 'simple'
+                    ? (category || '').toUpperCase()
+                    : detailedOperator;
+
                 return {
                     ...f,
-                    displayOperator: displayOperator
+                    category,
+                    displayOperator
                 };
             });
 
@@ -4552,16 +5033,19 @@
                 const timeAgo = getTimeAgo(flow.timestamp);
                 const consentStatus = getConsentStatus(flow.consent);
                 const needsConsent = flow.consent.from === 'pending' || flow.consent.to === 'pending';
-                
+                const triadDots = `<div class="flow-triad">${renderTriadDotsHtml(getFlowTriadStatus(flow))}</div>`;
+                const operatorClass = viewMode === 'simple' ? 'flow-operator' : `flow-operator`;
+
                 return `
                 <div class="flow-item ${flow.category}-flow">
                     <div class="flow-content">
                         <div class="flow-role">${flow.from}</div>
                         <span class="flow-arrow">→</span>
-                        <div class="flow-operator">${flow.displayOperator}</div>
-                        <div class="flow-operand">"${flow.operand}"</div>
-                        <span class="flow-arrow">${flow.preposition}</span>
+                        <div class="${operatorClass}">${flow.displayOperator}</div>
+                        <div class="flow-operand">"${flow.operand || '—'}"</div>
+                        <span class="flow-arrow">${flow.preposition || 'to'}</span>
                         <div class="flow-role">${flow.to}</div>
+                        ${triadDots}
                     </div>
                     <div class="flow-meta">
                         <div class="flow-timestamp">${timeAgo}</div>
@@ -4722,10 +5206,12 @@
         function renderKanbanCard(task) {
             const isOverdue = task.dueDate && new Date(task.dueDate) < new Date();
             const daysUntilDue = task.dueDate ? Math.ceil((new Date(task.dueDate) - new Date()) / 86400000) : null;
-            
+            const operatorDisplay = formatOperatorDisplay(task.operator, task.aspect);
+            const triadDots = renderTriadDotsHtml(getTaskTriadStatus(task));
+
             return `
-                <div class="kanban-card" 
-                     draggable="true" 
+                <div class="kanban-card"
+                     draggable="true"
                      ondragstart="handleDragStart(event, '${task.id}')"
                      ondragend="handleDragEnd(event)"
                      onclick="showTaskDetail('${task.id}')">
@@ -4736,8 +5222,9 @@
                     <div class="card-title">${task.title}</div>
                     <div class="card-flow">
                         <span class="card-flow-indicator ${task.category}"></span>
-                        <span>${task.from} → ${task.operator} → ${task.to}</span>
+                        <span>${task.from} → ${operatorDisplay} → ${task.to}</span>
                     </div>
+                    <div class="card-triad">${triadDots}</div>
                     ${task.tags.length > 0 ? `
                         <div class="card-tags">
                             ${task.tags.map(tag => `
@@ -4782,7 +5269,9 @@
             
             list.innerHTML = Object.entries(tasksByFlow).map(([flowKey, data]) => {
                 const isExpanded = expandedFlows.has(flowKey);
-                
+                const operatorDisplay = formatOperatorDisplay(data.flow.operator, data.flow.aspect);
+                const triadDots = `<div class="flow-triad">${renderTriadDotsHtml(getFlowTriadStatus(data.flow))}</div>`;
+
                 return `
                     <div class="flow-task-group ${isExpanded ? '' : 'collapsed'}" data-flow="${flowKey}">
                         <div class="flow-task-header" onclick="toggleFlowTasks('${flowKey}')">
@@ -4792,12 +5281,13 @@
                                     <div class="flow-path">
                                         <span class="role">${data.flow.from}</span>
                                         <span>→</span>
-                                        <span class="operator ${data.flow.category}-operator">${data.flow.operator}</span>
+                                        <span class="operator ${data.flow.category}-operator">${operatorDisplay}</span>
                                         <span class="flow-operand" style="color: var(--text-dim); font-style: italic;">
                                             "${data.flow.operand}"
                                         </span>
                                         <span>→</span>
                                         <span class="role">${data.flow.to}</span>
+                                        ${triadDots}
                                     </div>
                                 </div>
                                 <div class="flow-stats">
@@ -4893,6 +5383,7 @@
                 from: 'Starter',
                 to: 'Definer',
                 operator: 'spot',
+                aspect: 'figure',
                 category: 'shares',
                 status: 'backlog',
                 priority: selectedTags.includes('urgent') ? 'urgent' : 'normal',
@@ -4900,6 +5391,8 @@
                 tags: selectedTags,
                 dueDate: null,
                 created: new Date().toISOString(),
+                ground: { scope: '', limits: '', resources: '' },
+                pattern: { deps: '', cadence: '', integrations: '' },
                 activity: [
                     { time: 'now', user: 'You', action: 'created task' }
                 ]
@@ -4921,7 +5414,8 @@
             document.getElementById('detailStatus').value = selectedTask.status;
             document.getElementById('detailPriority').value = selectedTask.priority;
             document.getElementById('detailAssignee').textContent = selectedTask.assignee || 'Unassigned';
-            document.getElementById('detailFlow').textContent = `${selectedTask.from} → ${selectedTask.operator} → ${selectedTask.to}`;
+            const detailOperator = formatOperatorDisplay(selectedTask.operator, selectedTask.aspect);
+            document.getElementById('detailFlow').textContent = `${selectedTask.from} → ${detailOperator} → ${selectedTask.to}`;
             document.getElementById('detailDescription').textContent = selectedTask.description;
             
             // Render tags
@@ -5046,16 +5540,97 @@
             }
         }
 
+        function getOperatorDefinition(key) {
+            return key ? operatorLibrary[key] || null : null;
+        }
+
+        function formatOperatorDisplay(operatorKey, aspect) {
+            const definition = getOperatorDefinition(operatorKey);
+            if (!definition) {
+                if (['shares', 'does', 'okays'].includes(operatorKey)) {
+                    return operatorKey.toUpperCase();
+                }
+                return operatorKey || 'figure move';
+            }
+            const aspectLabel = aspect ? (definition.aspects[aspect]?.label || aspectLabels[aspect] || aspect) : null;
+            return aspectLabel ? `${definition.label} · ${aspectLabel}` : definition.label;
+        }
+
+        function getGroundInputValues() {
+            return {
+                scope: document.getElementById('groundScope')?.value.trim() || '',
+                limits: document.getElementById('groundLimits')?.value.trim() || '',
+                resources: document.getElementById('groundResources')?.value.trim() || ''
+            };
+        }
+
+        function getPatternInputValues() {
+            return {
+                deps: document.getElementById('patternDeps')?.value.trim() || '',
+                cadence: document.getElementById('patternCadence')?.value.trim() || '',
+                integrations: document.getElementById('patternIntegrations')?.value.trim() || ''
+            };
+        }
+
+        function hasTriadData(values) {
+            return Object.values(values || {}).some(value => !!(value && value.length));
+        }
+
+        function buildTriadStatus({ ground, figure, pattern }) {
+            return {
+                ground: hasTriadData(ground),
+                figure: !!figure,
+                pattern: hasTriadData(pattern)
+            };
+        }
+
+        function updateTriadDots(container, status) {
+            if (!container) return;
+            const dots = container.querySelectorAll('.status-dot');
+            dots.forEach(dot => {
+                const aspect = aspectOrder.find(a => dot.classList.contains(a));
+                dot.classList.remove('filled');
+                dot.classList.add('empty');
+                if (aspect && status[aspect]) {
+                    dot.classList.add('filled');
+                    dot.classList.remove('empty');
+                }
+            });
+        }
+
+        function renderTriadDotsHtml(status, { showLabels = false } = {}) {
+            const dots = aspectOrder.map(aspect => {
+                const label = showLabels ? `<span class="triad-status-label">${aspectLabels[aspect]}</span>` : '';
+                return `${label}<span class="status-dot ${aspect} ${status[aspect] ? 'filled' : 'empty'}"></span>`;
+            }).join('');
+            return `<div class="triad-status ${showLabels ? '' : 'compact'}">${dots}</div>`;
+        }
+
+        function updateTriadNudges() {
+            const groundValues = getGroundInputValues();
+            const patternValues = getPatternInputValues();
+
+            const groundNudge = document.getElementById('groundNudge');
+            if (groundNudge) {
+                groundNudge.classList.toggle('hidden', hasTriadData(groundValues));
+            }
+
+            const patternNudge = document.getElementById('patternNudge');
+            if (patternNudge) {
+                patternNudge.classList.toggle('hidden', hasTriadData(patternValues));
+            }
+        }
+
         function updateFlowPreview() {
             const preview = document.getElementById('flowPreview');
             if (!preview) return;
 
             const operandInput = document.getElementById('operand');
             const operandValue = operandInput ? operandInput.value.trim() : '';
-            const from = selectedValues.fromRole || 'Source Role';
-            const operatorDisplay = selectedOperator || selectedCoreCategory || 'operator';
+            const from = selectedValues.fromRole || 'Ground Role';
+            const operatorDisplay = selectedOperatorKey ? formatOperatorDisplay(selectedOperatorKey, selectedAspect) : (selectedCoreCategory ? selectedCoreCategory.toUpperCase() : 'figure move');
             const preposition = selectedValues.preposition || 'to';
-            const to = selectedValues.toRole || 'Target Role';
+            const to = selectedValues.toRole || 'Pattern Role';
 
             const fromEl = document.getElementById('previewFrom');
             const operatorEl = document.getElementById('previewOperator');
@@ -5067,19 +5642,31 @@
             if (operatorEl) {
                 operatorEl.textContent = operatorDisplay;
                 operatorEl.className = 'preview-operator';
-                if (selectedCoreCategory) {
-                    operatorEl.classList.add(selectedCoreCategory);
+                const category = selectedOperatorKey ? (getOperatorDefinition(selectedOperatorKey)?.category) : selectedCoreCategory;
+                if (category) {
+                    operatorEl.classList.add(category);
                 }
             }
             if (operandEl) operandEl.textContent = operandValue ? `"${operandValue}"` : '—';
             if (prepositionEl) prepositionEl.textContent = preposition || 'to';
             if (toEl) toEl.textContent = to;
 
-            const isEmpty = !selectedValues.fromRole && !selectedCoreCategory && !operandValue && !selectedValues.toRole;
+            const groundValues = getGroundInputValues();
+            const patternValues = getPatternInputValues();
+            const triadStatus = buildTriadStatus({
+                ground: groundValues,
+                figure: operandValue,
+                pattern: patternValues
+            });
+
+            updateTriadDots(document.getElementById('previewTriad'), triadStatus);
+
+            const isEmpty = !selectedValues.fromRole && !selectedCoreCategory && !operandValue && !selectedValues.toRole && !hasTriadData(groundValues) && !hasTriadData(patternValues);
             const isReady = !!(selectedValues.fromRole && selectedCoreCategory && operandValue && selectedValues.toRole);
 
             preview.classList.toggle('is-empty', isEmpty);
             preview.classList.toggle('ready', isReady);
+            updateTriadNudges();
         }
 
         function updateFlowProgress() {
@@ -5132,13 +5719,15 @@
             if (!container) return;
 
             const operandValue = document.getElementById('operand')?.value.trim().toLowerCase() || '';
-            const operatorValue = selectedOperator || selectedCoreCategory || '';
+            const operatorValue = selectedOperatorKey || selectedCoreCategory || '';
+            const aspectValue = selectedAspect || '';
             const fromValue = selectedValues.fromRole || '';
             const toValue = selectedValues.toRole || '';
 
             let matches = commonFlows.filter(flow => (
                 (!fromValue || flow.from === fromValue) &&
-                (!operatorValue || flow.operator === operatorValue || flow.operator === selectedCoreCategory) &&
+                (!operatorValue || flow.operator === operatorValue || (categoryMap[selectedCoreCategory || ''] || []).includes(flow.operator)) &&
+                (!aspectValue || flow.aspect === aspectValue) &&
                 (!toValue || flow.to === toValue)
             ));
 
@@ -5148,8 +5737,11 @@
 
             if (matches.length) {
                 container.innerHTML = matches.slice(0, 4).map(flow => {
-                    const label = `${escapeHtml(flow.from)} ${escapeHtml(flow.operator)} "${escapeHtml(flow.operand)}" ${escapeHtml(flow.preposition || 'to')} ${escapeHtml(flow.to)}`;
-                    return `<button type="button" class="suggestion-pill" data-from="${escapeHtml(flow.from)}" data-operator="${escapeHtml(flow.operator)}" data-operand="${escapeHtml(flow.operand)}" data-preposition="${escapeHtml(flow.preposition || 'to')}" data-to="${escapeHtml(flow.to)}">${label}</button>`;
+                    const operatorLabel = formatOperatorDisplay(flow.operator, flow.aspect);
+                    const label = `${escapeHtml(flow.from)} ${escapeHtml(operatorLabel)} "${escapeHtml(flow.operand)}" ${escapeHtml(flow.preposition || 'to')} ${escapeHtml(flow.to)}`;
+                    const encodedGround = encodeURIComponent(JSON.stringify(flow.ground || {}));
+                    const encodedPattern = encodeURIComponent(JSON.stringify(flow.pattern || {}));
+                    return `<button type="button" class="suggestion-pill" data-from="${escapeHtml(flow.from)}" data-operator="${escapeHtml(flow.operator)}" data-aspect="${escapeHtml(flow.aspect || '')}" data-operand="${escapeHtml(flow.operand)}" data-preposition="${escapeHtml(flow.preposition || 'to')}" data-to="${escapeHtml(flow.to)}" data-ground="${encodedGround}" data-pattern="${encodedPattern}">${label}</button>`;
                 }).join('');
             } else {
                 container.innerHTML = '<div class="suggestion-placeholder">No direct matches yet. Continue configuring the flow.</div>';
@@ -5282,13 +5874,42 @@
             }
 
             if (selectId === 'fromRole' || selectId === 'toRole' || selectId === 'preposition') {
+                if (selectId === 'fromRole') {
+                    applyRoleDefaults(value);
+                }
                 updateFlowPreview();
                 updateFlowProgress();
                 suggestCompletion();
             }
         }
 
-        function applySuggestion(from, operator, operand, to, preposition = 'to') {
+        function applyRoleDefaults(role) {
+            const defaults = {
+                'Starter': { category: 'shares', operator: 'spot', aspect: 'ground' },
+                'Definer': { category: 'shares', operator: 'define', aspect: 'figure' },
+                'Builder': { category: 'does', operator: 'build', aspect: 'pattern' }
+            };
+
+            const config = defaults[role];
+            if (!config) return;
+
+            selectCoreCategory(config.category);
+
+            setTimeout(() => {
+                const chip = document.querySelector(`#operatorGrid .aspect-chip[data-op="${config.operator}"][data-aspect="${config.aspect}"]`);
+                if (chip) {
+                    selectModalOperator(chip);
+                } else {
+                    selectedOperatorKey = config.operator;
+                    selectedAspect = config.aspect;
+                    updateFlowPreview();
+                    updateFlowProgress();
+                    suggestCompletion();
+                }
+            }, 80);
+        }
+
+        function applySuggestion(from, operator, operand, to, preposition = 'to', aspect = 'figure', ground = {}, pattern = {}) {
             if (from) selectOption('fromRole', from);
             if (operator) {
                 let category = operator;
@@ -5299,13 +5920,14 @@
                     selectCoreCategory(category);
                     if (categoryMap[category] && categoryMap[category].includes(operator)) {
                         setTimeout(() => {
-                            const option = document.querySelector(`#operatorGrid .operator-option[data-op="${operator}"]`);
-                            if (option) {
-                                selectModalOperator(option);
+                            const chip = document.querySelector(`#operatorGrid .aspect-chip[data-op="${operator}"][data-aspect="${aspect || 'figure'}"]`);
+                            if (chip) {
+                                selectModalOperator(chip);
                             }
                         }, 50);
                     } else {
-                        selectedOperator = operator;
+                        selectedOperatorKey = operator;
+                        selectedAspect = aspect || 'figure';
                     }
                 }
             }
@@ -5318,6 +5940,23 @@
                 selectOption('preposition', preposition);
             }
             if (to) selectOption('toRole', to);
+
+            const groundValues = ground || {};
+            const patternValues = pattern || {};
+
+            const groundScope = document.getElementById('groundScope');
+            const groundLimits = document.getElementById('groundLimits');
+            const groundResources = document.getElementById('groundResources');
+            if (groundScope) groundScope.value = groundValues.scope || '';
+            if (groundLimits) groundLimits.value = groundValues.limits || '';
+            if (groundResources) groundResources.value = groundValues.resources || '';
+
+            const patternDeps = document.getElementById('patternDeps');
+            const patternCadence = document.getElementById('patternCadence');
+            const patternIntegrations = document.getElementById('patternIntegrations');
+            if (patternDeps) patternDeps.value = patternValues.deps || '';
+            if (patternCadence) patternCadence.value = patternValues.cadence || '';
+            if (patternIntegrations) patternIntegrations.value = patternValues.integrations || '';
 
             updateFlowPreview();
             updateFlowProgress();
@@ -5340,7 +5979,8 @@
 
             document.getElementById('detailedOperatorRow').style.display = 'block';
             populateDetailedOperators(category);
-            selectedOperator = null;
+            selectedOperatorKey = null;
+            selectedAspect = null;
             updateFlowPreview();
             updateFlowProgress();
             suggestCompletion();
@@ -5348,21 +5988,44 @@
         
         function populateDetailedOperators(category) {
             const grid = document.getElementById('operatorGrid');
+            if (!grid) return;
+
             const operators = categoryMap[category] || [];
 
-            grid.innerHTML = operators.map(op => `
-                <div class="operator-option ${category}" data-op="${op}" onclick="selectModalOperator(this)">
-                    ${op}
-                </div>
-            `).join('');
+            grid.innerHTML = operators.map(op => {
+                const definition = operatorLibrary[op];
+                if (!definition) return '';
+                const aspects = aspectOrder.map(aspect => {
+                    const info = definition.aspects[aspect] || {};
+                    const isSelected = selectedOperatorKey === op && selectedAspect === aspect;
+                    return `
+                        <button type="button" class="aspect-chip ${aspect} ${isSelected ? 'selected' : ''}" data-op="${op}" data-aspect="${aspect}" onclick="selectModalOperator(this)">
+                            ${aspectLabels[aspect]}
+                            <span class="chip-hint">${escapeHtml(info.hint || '')}</span>
+                        </button>
+                    `;
+                }).join('');
 
-            grid.style.gridTemplateColumns = operators.length === 4 ? 'repeat(2, 1fr)' :
-                                              operators.length === 3 ? 'repeat(3, 1fr)' :
-                                              'repeat(2, 1fr)';
+                return `
+                    <div class="operator-option ${category}">
+                        <div class="operator-option-header">
+                            <div class="operator-name">${definition.label}</div>
+                            <div class="operator-desc">${definition.description}</div>
+                        </div>
+                        <div class="operator-aspects">
+                            ${aspects}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const columnCount = Math.min(operators.length, 3) || 1;
+            grid.style.gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
         }
 
-        function selectOperator(op, cat) {
-            selectedOperator = op;
+        function selectOperator(op, cat, aspect = 'figure') {
+            selectedOperatorKey = op;
+            selectedAspect = aspect;
             selectedCategory = cat;
             selectedCoreCategory = cat;
             openFlowBuilder();
@@ -5370,17 +6033,22 @@
             selectCoreCategory(cat);
 
             setTimeout(() => {
-                const option = document.querySelector(`#operatorGrid .operator-option[data-op="${op}"]`);
-                if (option) {
-                    selectModalOperator(option);
+                const chip = document.querySelector(`#operatorGrid .aspect-chip[data-op="${op}"][data-aspect="${aspect}"]`);
+                if (chip) {
+                    selectModalOperator(chip);
                 }
             }, 60);
         }
 
         function selectModalOperator(element) {
-            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('#operatorGrid .aspect-chip').forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
-            selectedOperator = element.dataset.op;
+            selectedOperatorKey = element.dataset.op;
+            selectedAspect = element.dataset.aspect || 'figure';
+            const definition = getOperatorDefinition(selectedOperatorKey);
+            if (definition) {
+                selectedCoreCategory = definition.category;
+            }
             updateFlowPreview();
             updateFlowProgress();
             suggestCompletion();
@@ -5404,8 +6072,9 @@
                 setError(operandInput, document.getElementById('operandError'), false);
             }
             document.querySelectorAll('#flowModal [data-core]').forEach(opt => opt.classList.remove('selected'));
-            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => opt.classList.remove('selected'));
-            selectedOperator = null;
+            document.querySelectorAll('#operatorGrid .aspect-chip').forEach(opt => opt.classList.remove('selected'));
+            selectedOperatorKey = null;
+            selectedAspect = null;
             selectedCategory = null;
             selectedCoreCategory = null;
             document.getElementById('detailedOperatorRow').style.display = 'none';
@@ -5420,6 +6089,10 @@
                 createButton.classList.remove('loading');
                 createButton.disabled = false;
             }
+            ['groundScope', 'groundLimits', 'groundResources', 'patternDeps', 'patternCadence', 'patternIntegrations'].forEach(id => {
+                const input = document.getElementById(id);
+                if (input) input.value = '';
+            });
             updateFlowPreview();
             updateFlowProgress();
             suggestCompletion();
@@ -5431,15 +6104,18 @@
             const operand = operandInput.value.trim();
             const toRole = selectedValues.toRole;
             const createButton = document.querySelector('#flowModal .modal-btn-primary');
+            const groundValues = getGroundInputValues();
+            const patternValues = getPatternInputValues();
+            const aspectValue = selectedAspect || 'figure';
 
             let hasError = false;
 
             if (!fromRole) {
-                setError(document.getElementById('fromRoleSelect'), document.getElementById('fromRoleError'), true, 'Select a source role');
+                setError(document.getElementById('fromRoleSelect'), document.getElementById('fromRoleError'), true, 'Select a ground role');
                 hasError = true;
             }
             if (!selectedCoreCategory) {
-                setError(document.getElementById('coreOperatorGrid'), document.getElementById('operatorError'), true, 'Select a core operator');
+                setError(document.getElementById('coreOperatorGrid'), document.getElementById('operatorError'), true, 'Select a figure operator');
                 hasError = true;
             }
             if (!operand) {
@@ -5447,7 +6123,7 @@
                 hasError = true;
             }
             if (!toRole) {
-                setError(document.getElementById('toRoleSelect'), document.getElementById('toRoleError'), true, 'Select a destination role');
+                setError(document.getElementById('toRoleSelect'), document.getElementById('toRoleError'), true, 'Select a pattern role');
                 hasError = true;
             }
 
@@ -5461,13 +6137,17 @@
                 createButton.disabled = true;
             }
 
+            const operatorValue = selectedOperatorKey || selectedCoreCategory;
             const payload = {
                 from: fromRole,
-                operator: selectedOperator || selectedCoreCategory,
+                operator: operatorValue,
+                aspect: aspectValue,
                 operand: operand,
                 preposition: selectedValues.preposition,
                 to: toRole,
                 category: selectedCoreCategory,
+                ground: groundValues,
+                pattern: patternValues,
                 timestamp: new Date().toISOString(),
                 consent: { from: 'pending', to: 'pending' }
             };
@@ -5756,7 +6436,7 @@
             container.innerHTML = displayFlows.map((flow, index) => {
                 let fromDisplay = flow.from;
                 let toDisplay = flow.to;
-                
+
                 if (flow.fromRole) {
                     fromDisplay = `${flow.from}.${flow.fromRole}`;
                 }
@@ -5766,6 +6446,8 @@
 
                 const timeAgo = getTimeAgo(flow.timestamp);
                 const consentStatus = getConsentStatus(flow.consent);
+                const operatorDisplay = formatOperatorDisplay(flow.operator, flow.aspect);
+                const triadDots = `<div class="flow-triad">${renderTriadDotsHtml(getFlowTriadStatus(flow))}</div>`;
 
                 return `
                     <div class="pod-flow-item ${flow.category}-flow">
@@ -5773,10 +6455,11 @@
                             <div class="pod-badge">${flow.type === 'pod-to-pod' ? 'POD' : flow.type === 'role-to-role' ? 'ROLE' : 'MIXED'}</div>
                             <span style="font-weight: 600;">${fromDisplay}</span>
                             <span class="flow-arrow">→</span>
-                            <div class="flow-operator">${flow.operator}</div>
+                            <div class="flow-operator">${operatorDisplay}</div>
                             <div class="flow-operand" style="font-style: italic; color: var(--text-dim);">"${flow.operand}"</div>
                             <span class="flow-arrow">→</span>
                             <span style="font-weight: 600;">${toDisplay}</span>
+                            ${triadDots}
                         </div>
                         <div class="flow-meta">
                             <div class="flow-timestamp">${timeAgo}</div>
@@ -5990,7 +6673,28 @@
             suggestionsContainer.addEventListener('click', (e) => {
                 const pill = e.target.closest('.suggestion-pill');
                 if (!pill) return;
-                applySuggestion(pill.dataset.from, pill.dataset.operator, pill.dataset.operand, pill.dataset.to, pill.dataset.preposition);
+                let ground = {};
+                let pattern = {};
+                try {
+                    ground = pill.dataset.ground ? JSON.parse(decodeURIComponent(pill.dataset.ground)) : {};
+                } catch (err) {
+                    ground = {};
+                }
+                try {
+                    pattern = pill.dataset.pattern ? JSON.parse(decodeURIComponent(pill.dataset.pattern)) : {};
+                } catch (err) {
+                    pattern = {};
+                }
+                applySuggestion(
+                    pill.dataset.from,
+                    pill.dataset.operator,
+                    pill.dataset.operand,
+                    pill.dataset.to,
+                    pill.dataset.preposition,
+                    pill.dataset.aspect || 'figure',
+                    ground,
+                    pattern
+                );
             });
         }
 
@@ -6003,6 +6707,16 @@
                 suggestCompletion();
             });
         }
+
+        ['groundScope', 'groundLimits', 'groundResources', 'patternDeps', 'patternCadence', 'patternIntegrations'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', () => {
+                    updateFlowPreview();
+                    suggestCompletion();
+                });
+            }
+        });
 
         const podOperandInput = document.getElementById('podOperand');
         if (podOperandInput) {
