@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Commons - Complete System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text: #ffffff;
+            --text-dim: #808080;
+            --green: #00ff88;
+            --blue: #00ddff;
+            --purple: #9945ff;
+            --red: #ff3366;
+            --yellow: #ffaa00;
+            --border: #2a2a2a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pod-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .pod-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 1.2rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--green);
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            padding: 8px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-dim);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+        }
+
+        .nav-tab.active {
+            background: var(--bg);
+            color: var(--green);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Roles Tab - Three Triads */
+        .triads {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .triad {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .triad-header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .triad-title {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .triad-description {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .roles {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .role {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .role:hover {
+            transform: translateX(4px);
+            border-color: var(--green);
+        }
+
+        .role.filled {
+            border-color: var(--green);
+        }
+
+        .role.empty {
+            border-color: var(--red);
+            opacity: 0.8;
+        }
+
+        .role-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .role-icon {
+            font-size: 1.8rem;
+        }
+
+        .role-info {
+            flex: 1;
+        }
+
+        .role-name {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .role-description {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        .role-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+
+        .role-status.filled {
+            background: var(--green);
+        }
+
+        .role-people {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .person-tag {
+            padding: 2px 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--green);
+        }
+
+        .person-tag.backup {
+            background: rgba(255, 170, 0, 0.1);
+            border-color: rgba(255, 170, 0, 0.3);
+            color: var(--yellow);
+        }
+
+        .empty-tag {
+            padding: 2px 8px;
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--red);
+            font-style: italic;
+        }
+
+        .add-btn {
+            padding: 2px 8px;
+            background: transparent;
+            border: 1px dashed var(--border);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* Flows Tab */
+        .operator-model {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .core-operator {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .core-operator.shares {
+            border-color: var(--blue);
+        }
+
+        .core-operator.okays {
+            border-color: var(--purple);
+        }
+
+        .core-operator.does {
+            border-color: var(--green);
+        }
+
+        .core-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .core-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .shares .core-title { color: var(--blue); }
+        .okays .core-title { color: var(--purple); }
+        .does .core-title { color: var(--green); }
+
+        .core-description {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .detailed-operators {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .operator-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .operator-item:hover {
+            transform: translateX(4px);
+        }
+
+        .shares .operator-item:hover { border-color: var(--blue); }
+        .okays .operator-item:hover { border-color: var(--purple); }
+        .does .operator-item:hover { border-color: var(--green); }
+
+        .operator-name {
+            font-weight: 600;
+            text-transform: capitalize;
+            margin-bottom: 4px;
+        }
+
+        .operator-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Flows List */
+        .flows-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .flows-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .flows-header h3 {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .toggle-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .flows-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .flow-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .flow-item:hover {
+            border-color: var(--green);
+        }
+
+        .flow-item.shares-flow { border-left: 4px solid var(--blue); }
+        .flow-item.okays-flow { border-left: 4px solid var(--purple); }
+        .flow-item.does-flow { border-left: 4px solid var(--green); }
+
+        .flow-role {
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .flow-arrow {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+        }
+
+        .flow-operator {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .shares-flow .flow-operator {
+            background: rgba(0, 221, 255, 0.1);
+            border: 1px solid var(--blue);
+            color: var(--blue);
+        }
+
+        .okays-flow .flow-operator {
+            background: rgba(153, 69, 255, 0.1);
+            border: 1px solid var(--purple);
+            color: var(--purple);
+        }
+
+        .does-flow .flow-operator {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+
+        .flow-operand {
+            flex: 1;
+            font-style: italic;
+            color: var(--text-dim);
+        }
+
+        .flow-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .flow-item:hover .flow-actions {
+            opacity: 1;
+        }
+
+        .flow-btn {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .flow-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .add-flow-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            color: var(--text-dim);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-flow-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* People Section */
+        .people-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .people-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .person-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .person-card:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .person-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg);
+        }
+
+        .person-name {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .person-role-count {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .flow-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .builder-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .builder-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Custom Select Dropdown */
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-trigger {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .select-trigger:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .select-trigger.active {
+            border-color: var(--green);
+        }
+
+        .select-arrow {
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid var(--text-dim);
+            border-bottom: 2px solid var(--text-dim);
+            transform: rotate(45deg);
+            transition: transform 0.2s ease;
+            margin-top: -4px;
+        }
+
+        .select-trigger.active .select-arrow {
+            transform: rotate(-135deg);
+            margin-top: 2px;
+        }
+
+        .select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 4px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .select-options.active {
+            display: block;
+        }
+
+        .select-option {
+            padding: 12px 16px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .select-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-left-color: var(--green);
+            padding-left: 20px;
+        }
+
+        .select-option.selected {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--green);
+        }
+
+        .builder-select,
+        .builder-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .builder-input:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .builder-input:focus {
+            outline: none;
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .builder-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .operator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .operator-option {
+            padding: 12px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .operator-option:hover {
+            border-color: var(--green);
+        }
+
+        .operator-option.selected {
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .operator-option.shares { border-color: var(--blue); }
+        .operator-option.okays { border-color: var(--purple); }
+        .operator-option.does { border-color: var(--green); }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-primary {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .modal-btn-cancel {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .triads,
+            .operator-model {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="pod-title">NORTHSIDE RESPONSE</h1>
+            <div class="pod-stats">
+                <div class="stat">
+                    <span class="stat-value">87%</span>
+                    <span class="stat-label">Health</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">7/9</span>
+                    <span class="stat-label">Roles Filled</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Active Flows</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">People</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('roles')">Roles</button>
+            <button class="nav-tab" onclick="switchTab('flows')">Flows</button>
+            <button class="nav-tab" onclick="switchTab('people')">People</button>
+        </div>
+
+        <!-- Roles Tab -->
+        <div class="tab-content active" id="rolesTab">
+            <div class="triads">
+                <!-- Creation Triad -->
+                <div class="triad">
+                    <div class="triad-header">
+                        <div class="triad-title">CREATION</div>
+                        <div class="triad-description">Beginning Phase</div>
+                    </div>
+                    <div class="roles">
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">🚀</span>
+                                <div class="role-info">
+                                    <div class="role-name">Starter</div>
+                                    <div class="role-description">Spots gaps, raises alarm</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">SilverFox</span>
+                                <button class="add-btn" onclick="quickAdd('Starter')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">📋</span>
+                                <div class="role-info">
+                                    <div class="role-name">Definer</div>
+                                    <div class="role-description">Sets success criteria</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">CrystalSparrow</span>
+                                <button class="add-btn" onclick="quickAdd('Definer')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">🔨</span>
+                                <div class="role-info">
+                                    <div class="role-name">Builder</div>
+                                    <div class="role-description">Makes it real</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">ShadowSparrow</span>
+                                <span class="person-tag backup">RedMaple</span>
+                                <button class="add-btn" onclick="quickAdd('Builder')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structure Triad -->
+                <div class="triad">
+                    <div class="triad-header">
+                        <div class="triad-title">STRUCTURE</div>
+                        <div class="triad-description">Cohesion Phase</div>
+                    </div>
+                    <div class="roles">
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">🚧</span>
+                                <div class="role-info">
+                                    <div class="role-name">Divider</div>
+                                    <div class="role-description">Protects boundaries</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">RedWolf</span>
+                                <button class="add-btn" onclick="quickAdd('Divider')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">🔗</span>
+                                <div class="role-info">
+                                    <div class="role-name">Connector</div>
+                                    <div class="role-description">Links people & resources</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">GoldenFox</span>
+                                <button class="add-btn" onclick="quickAdd('Connector')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">🔄</span>
+                                <div class="role-info">
+                                    <div class="role-name">Integrator</div>
+                                    <div class="role-description">Weaves pieces together</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">BlueSparrow</span>
+                                <button class="add-btn" onclick="quickAdd('Integrator')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continuity Triad -->
+                <div class="triad">
+                    <div class="triad-header">
+                        <div class="triad-title">CONTINUITY</div>
+                        <div class="triad-description">Sustainability Phase</div>
+                    </div>
+                    <div class="roles">
+                        <div class="role filled">
+                            <div class="role-header">
+                                <span class="role-icon">⏰</span>
+                                <div class="role-info">
+                                    <div class="role-name">Balancer</div>
+                                    <div class="role-description">Manages pace</div>
+                                </div>
+                                <div class="role-status filled"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="person-tag">BlueWolf</span>
+                                <button class="add-btn" onclick="quickAdd('Balancer')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role empty">
+                            <div class="role-header">
+                                <span class="role-icon">🗺️</span>
+                                <div class="role-info">
+                                    <div class="role-name">Overlayer</div>
+                                    <div class="role-description">Sees systems</div>
+                                </div>
+                                <div class="role-status"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="empty-tag">Empty - Critical!</span>
+                                <button class="add-btn" onclick="quickAdd('Overlayer')">+</button>
+                            </div>
+                        </div>
+
+                        <div class="role empty">
+                            <div class="role-header">
+                                <span class="role-icon">📚</span>
+                                <div class="role-info">
+                                    <div class="role-name">Reflector</div>
+                                    <div class="role-description">Captures lessons</div>
+                                </div>
+                                <div class="role-status"></div>
+                            </div>
+                            <div class="role-people">
+                                <span class="empty-tag">Empty - Critical!</span>
+                                <button class="add-btn" onclick="quickAdd('Reflector')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flows Tab -->
+        <div class="tab-content" id="flowsTab">
+            <div class="operator-model">
+                <!-- SHARES -->
+                <div class="core-operator shares">
+                    <div class="core-header">
+                        <div class="core-title">SHARES</div>
+                        <div class="core-description">Make it visible</div>
+                    </div>
+                    <div class="detailed-operators">
+                        <div class="operator-item" onclick="selectOperator('spot', 'shares')">
+                            <div class="operator-name">Spot</div>
+                            <div class="operator-desc">Notice gaps, risks, missing pieces</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('define', 'shares')">
+                            <div class="operator-name">Define</div>
+                            <div class="operator-desc">Create shared language & standards</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('bound', 'shares')">
+                            <div class="operator-name">Bound</div>
+                            <div class="operator-desc">Set scope and access (in/out)</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('reflect', 'shares')">
+                            <div class="operator-name">Reflect</div>
+                            <div class="operator-desc">Capture what happened, share lessons</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OKAYS -->
+                <div class="core-operator okays">
+                    <div class="core-header">
+                        <div class="core-title">OKAYS</div>
+                        <div class="core-description">Check, align & ratchet</div>
+                    </div>
+                    <div class="detailed-operators">
+                        <div class="operator-item" onclick="selectOperator('integrate', 'okays')">
+                            <div class="operator-name">Integrate</div>
+                            <div class="operator-desc">Align overlapping efforts</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('pace', 'okays')">
+                            <div class="operator-name">Pace</div>
+                            <div class="operator-desc">Keep timing sustainable & in sync</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOES -->
+                <div class="core-operator does">
+                    <div class="core-header">
+                        <div class="core-title">DOES</div>
+                        <div class="core-description">Do the work</div>
+                    </div>
+                    <div class="detailed-operators">
+                        <div class="operator-item" onclick="selectOperator('build', 'does')">
+                            <div class="operator-name">Build</div>
+                            <div class="operator-desc">Create tools, kits, prototypes</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('connect', 'does')">
+                            <div class="operator-name">Connect</div>
+                            <div class="operator-desc">Link people, flows & resources</div>
+                        </div>
+                        <div class="operator-item" onclick="selectOperator('protect', 'does')">
+                            <div class="operator-name">Protect</div>
+                            <div class="operator-desc">Add backups & resilience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flows List -->
+            <div class="flows-section">
+                <div class="flows-header">
+                    <h3>Active Process Flows</h3>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" onclick="setView('simple')">Simple (3)</button>
+                        <button class="toggle-btn" onclick="setView('detailed')">Detailed (9)</button>
+                    </div>
+                </div>
+
+                <button class="add-flow-btn" onclick="openFlowBuilder()">+ Create New Flow</button>
+
+                <div class="flows-list" id="flowsList">
+                    <!-- Generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- People Tab -->
+        <div class="tab-content" id="peopleTab">
+            <div class="people-section">
+                <div class="people-header">
+                    <h2>People in Pod</h2>
+                    <p style="color: var(--text-dim);">12 members total</p>
+                </div>
+                <div class="people-grid" id="peopleGrid">
+                    <!-- Generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flow Builder Modal -->
+    <div class="modal" id="flowModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create Process Flow</h3>
+                <p style="color: var(--text-dim);">Define how roles interact through operators</p>
+            </div>
+            
+            <div class="flow-builder">
+                <div class="builder-row">
+                    <label class="builder-label">From Role</label>
+                    <div class="custom-select" id="fromRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('fromRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="fromRoleOptions">
+                            <div class="select-option" onclick="selectOption('fromRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('fromRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Core Operator Category</label>
+                    <div class="operator-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="operator-option shares" data-core="shares" onclick="selectCoreCategory('shares')">
+                            <div style="font-weight: bold;">SHARES</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Make visible</div>
+                        </div>
+                        <div class="operator-option does" data-core="does" onclick="selectCoreCategory('does')">
+                            <div style="font-weight: bold;">DOES</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Do the work</div>
+                        </div>
+                        <div class="operator-option okays" data-core="okays" onclick="selectCoreCategory('okays')">
+                            <div style="font-weight: bold;">OKAYS</div>
+                            <div style="font-size: 0.7rem; margin-top: 4px;">Align & ratchet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row" id="detailedOperatorRow" style="display: none;">
+                    <label class="builder-label">Specific Operator</label>
+                    <div class="operator-grid" id="operatorGrid">
+                        <!-- Will be dynamically populated based on selected core category -->
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">What (Operand)</label>
+                    <input type="text" class="builder-input" id="operand" placeholder="e.g., emerging risks, resource needs, sprint cycles...">
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">Preposition</label>
+                    <div class="custom-select" id="prepositionSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('preposition')">
+                            <span class="select-value" data-value="to">to</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="prepositionOptions">
+                            <div class="select-option selected" onclick="selectOption('preposition', 'to')">to</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'with')">with</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'through')">through</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'for')">for</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'from')">from</div>
+                            <div class="select-option" onclick="selectOption('preposition', 'by')">by</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builder-row">
+                    <label class="builder-label">To Role</label>
+                    <div class="custom-select" id="toRoleSelect">
+                        <div class="select-trigger" onclick="toggleDropdown('toRole')">
+                            <span class="select-value" data-value="">Select role...</span>
+                            <span class="select-arrow"></span>
+                        </div>
+                        <div class="select-options" id="toRoleOptions">
+                            <div class="select-option" onclick="selectOption('toRole', 'Starter')">Starter</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Definer')">Definer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Builder')">Builder</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Divider')">Divider</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Connector')">Connector</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Integrator')">Integrator</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Balancer')">Balancer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Overlayer')">Overlayer</div>
+                            <div class="select-option" onclick="selectOption('toRole', 'Reflector')">Reflector</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-primary" onclick="createFlow()">Create Flow</button>
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentTab = 'roles';
+        let viewMode = 'simple';
+        let selectedOperator = null;
+        let selectedCategory = null;
+
+        // Data
+        const people = [
+            { name: 'SilverFox', roles: ['Starter'] },
+            { name: 'CrystalSparrow', roles: ['Definer'] },
+            { name: 'ShadowSparrow', roles: ['Builder'] },
+            { name: 'RedMaple', roles: ['Builder'] },
+            { name: 'RedWolf', roles: ['Divider'] },
+            { name: 'GoldenFox', roles: ['Connector'] },
+            { name: 'BlueSparrow', roles: ['Integrator'] },
+            { name: 'BlueWolf', roles: ['Balancer'] },
+            { name: 'GreenOwl', roles: [] },
+            { name: 'SilverEagle', roles: [] },
+            { name: 'CrystalBear', roles: [] },
+            { name: 'ShadowFox', roles: [] }
+        ];
+
+        const flows = [
+            { 
+                from: 'Starter', 
+                operator: 'spot', 
+                operand: 'emerging risks', 
+                preposition: 'to', 
+                to: 'Definer', 
+                category: 'shares',
+                timestamp: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
+                consent: { from: 'approved', to: 'approved' }
+            },
+            { 
+                from: 'Definer', 
+                operator: 'define', 
+                operand: 'success criteria', 
+                preposition: 'for', 
+                to: 'Builder', 
+                category: 'shares',
+                timestamp: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+                consent: { from: 'approved', to: 'pending' }
+            },
+            { 
+                from: 'Builder', 
+                operator: 'build', 
+                operand: 'intake system', 
+                preposition: 'with', 
+                to: 'Connector', 
+                category: 'does',
+                timestamp: new Date(Date.now() - 1800000).toISOString(), // 30 min ago
+                consent: { from: 'approved', to: 'approved' }
+            },
+            { 
+                from: 'Connector', 
+                operator: 'connect', 
+                operand: 'resource providers', 
+                preposition: 'to', 
+                to: 'Builder', 
+                category: 'does',
+                timestamp: new Date(Date.now() - 900000).toISOString(), // 15 min ago
+                consent: { from: 'pending', to: 'pending' }
+            },
+            { 
+                from: 'Balancer', 
+                operator: 'pace', 
+                operand: 'sprint cycles', 
+                preposition: 'for', 
+                to: 'Builder', 
+                category: 'okays',
+                timestamp: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+                consent: { from: 'approved', to: 'approved' }
+            }
+        ];
+
+        const categoryMap = {
+            'shares': ['spot', 'define', 'bound', 'reflect'],
+            'okays': ['integrate', 'pace'],
+            'does': ['build', 'connect', 'protect']
+        };
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab buttons
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tab + 'Tab').classList.add('active');
+            
+            // Render content if needed
+            if (tab === 'people') {
+                renderPeople();
+            } else if (tab === 'flows') {
+                renderFlows();
+            }
+        }
+
+        // People rendering
+        function renderPeople() {
+            const grid = document.getElementById('peopleGrid');
+            grid.innerHTML = people.map(person => `
+                <div class="person-card">
+                    <div class="person-avatar">${person.name[0]}</div>
+                    <div class="person-name">${person.name}</div>
+                    <div class="person-role-count">${person.roles.length} role${person.roles.length !== 1 ? 's' : ''}</div>
+                </div>
+            `).join('');
+        }
+
+        // Flow rendering
+        function getCoreOperator(operator) {
+            for (const [core, ops] of Object.entries(categoryMap)) {
+                if (ops.includes(operator)) return core;
+            }
+            return 'shares';
+        }
+
+        function renderFlows() {
+            const list = document.getElementById('flowsList');
+            
+            let displayFlows = flows;
+            if (viewMode === 'simple') {
+                displayFlows = flows.map(f => ({
+                    ...f,
+                    displayOperator: getCoreOperator(f.operator)
+                }));
+            } else {
+                displayFlows = flows.map(f => ({
+                    ...f,
+                    displayOperator: f.operator
+                }));
+            }
+
+            list.innerHTML = displayFlows.map((flow, index) => {
+                const timeAgo = getTimeAgo(flow.timestamp);
+                const consentStatus = getConsentStatus(flow.consent);
+                const needsConsent = flow.consent.from === 'pending' || flow.consent.to === 'pending';
+                
+                return `
+                <div class="flow-item ${flow.category}-flow">
+                    <div class="flow-content">
+                        <div class="flow-role">${flow.from}</div>
+                        <span class="flow-arrow">→</span>
+                        <div class="flow-operator">${flow.displayOperator || flow.operator}</div>
+                        <div class="flow-operand">"${flow.operand}"</div>
+                        <span class="flow-arrow">${flow.preposition}</span>
+                        <div class="flow-role">${flow.to}</div>
+                        <div class="flow-actions">
+                            <button class="flow-btn" onclick="editFlow(${index})">Edit</button>
+                            <button class="flow-btn" onclick="deleteFlow(${index})">Delete</button>
+                        </div>
+                    </div>
+                    <div class="flow-meta">
+                        <div class="flow-timestamp">Created ${timeAgo}</div>
+                        <div class="flow-consent">
+                            <div class="consent-status ${consentStatus.class}">
+                                <span class="consent-dot"></span>
+                                ${consentStatus.text}
+                            </div>
+                            ${needsConsent ? `
+                                <button class="consent-btn" onclick="approveFlow(${index})">Approve</button>
+                                <button class="consent-btn reject" onclick="rejectFlow(${index})">Reject</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function getTimeAgo(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'just now';
+            if (minutes < 60) return `${minutes} min ago`;
+            if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+            return `${days} day${days !== 1 ? 's' : ''} ago`;
+        }
+
+        function getConsentStatus(consent) {
+            if (consent.from === 'approved' && consent.to === 'approved') {
+                return { text: 'Approved by both', class: 'approved' };
+            } else if (consent.from === 'rejected' || consent.to === 'rejected') {
+                return { text: 'Rejected', class: 'rejected' };
+            } else if (consent.from === 'pending' && consent.to === 'pending') {
+                return { text: 'Awaiting both parties', class: 'pending' };
+            } else if (consent.from === 'pending') {
+                return { text: 'Awaiting from role', class: 'pending' };
+            } else {
+                return { text: 'Awaiting to role', class: 'pending' };
+            }
+        }
+
+        function approveFlow(index) {
+            // In a real app, this would check if the current user holds the relevant role
+            const flow = flows[index];
+            // Simulate approval logic
+            if (flow.consent.from === 'pending') {
+                flow.consent.from = 'approved';
+            }
+            if (flow.consent.to === 'pending') {
+                flow.consent.to = 'approved';
+            }
+            renderFlows();
+        }
+
+        function rejectFlow(index) {
+            // In a real app, this would check if the current user holds the relevant role
+            const flow = flows[index];
+            flow.consent.from = 'rejected';
+            renderFlows();
+        }
+
+        function setView(mode) {
+            viewMode = mode;
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderFlows();
+        }
+
+        // Custom dropdown functionality
+        let selectedValues = {
+            fromRole: '',
+            preposition: 'to',
+            toRole: ''
+        };
+
+        function toggleDropdown(selectId) {
+            const selectElement = document.getElementById(selectId + 'Select');
+            const trigger = selectElement.querySelector('.select-trigger');
+            const options = selectElement.querySelector('.select-options');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.custom-select').forEach(sel => {
+                if (sel.id !== selectId + 'Select') {
+                    sel.querySelector('.select-trigger').classList.remove('active');
+                    sel.querySelector('.select-options').classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            trigger.classList.toggle('active');
+            options.classList.toggle('active');
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!selectElement.contains(e.target)) {
+                    trigger.classList.remove('active');
+                    options.classList.remove('active');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+
+        function selectOption(selectId, value) {
+            const selectElement = document.getElementById(selectId + 'Select');
+            const valueSpan = selectElement.querySelector('.select-value');
+            const trigger = selectElement.querySelector('.select-trigger');
+            const options = selectElement.querySelector('.select-options');
+            
+            // Update display value
+            valueSpan.textContent = value;
+            valueSpan.setAttribute('data-value', value);
+            
+            // Update selected state
+            selectElement.querySelectorAll('.select-option').forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.textContent === value) {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            // Store value
+            selectedValues[selectId] = value;
+            
+            // Close dropdown
+            trigger.classList.remove('active');
+            options.classList.remove('active');
+            
+            event.stopPropagation();
+        }
+
+        function getDropdownValue(selectId) {
+            return selectedValues[selectId] || '';
+        }
+
+        function setDropdownValue(selectId, value) {
+            selectedValues[selectId] = value;
+            const selectElement = document.getElementById(selectId + 'Select');
+            if (selectElement) {
+                const valueSpan = selectElement.querySelector('.select-value');
+                valueSpan.textContent = value || 'Select role...';
+                valueSpan.setAttribute('data-value', value);
+                
+                selectElement.querySelectorAll('.select-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    if (opt.textContent === value) {
+                        opt.classList.add('selected');
+                    }
+                });
+            }
+        }
+
+        // Flow management
+        let selectedCoreCategory = null;
+        
+        function selectCoreCategory(category) {
+            selectedCoreCategory = category;
+            
+            // Update visual selection
+            document.querySelectorAll('[data-core]').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelector(`[data-core="${category}"]`).classList.add('selected');
+            
+            // Show detailed operator row
+            document.getElementById('detailedOperatorRow').style.display = 'block';
+            
+            // Populate specific operators for this category
+            populateDetailedOperators(category);
+        }
+        
+        function populateDetailedOperators(category) {
+            const grid = document.getElementById('operatorGrid');
+            let operatorHTML = '';
+            
+            if (category === 'shares') {
+                operatorHTML = `
+                    <div class="operator-option shares" data-op="spot" data-cat="shares" onclick="selectModalOperator(this)">Spot</div>
+                    <div class="operator-option shares" data-op="define" data-cat="shares" onclick="selectModalOperator(this)">Define</div>
+                    <div class="operator-option shares" data-op="bound" data-cat="shares" onclick="selectModalOperator(this)">Bound</div>
+                    <div class="operator-option shares" data-op="reflect" data-cat="shares" onclick="selectModalOperator(this)">Reflect</div>
+                `;
+            } else if (category === 'does') {
+                operatorHTML = `
+                    <div class="operator-option does" data-op="build" data-cat="does" onclick="selectModalOperator(this)">Build</div>
+                    <div class="operator-option does" data-op="connect" data-cat="does" onclick="selectModalOperator(this)">Connect</div>
+                    <div class="operator-option does" data-op="protect" data-cat="does" onclick="selectModalOperator(this)">Protect</div>
+                `;
+            } else if (category === 'okays') {
+                operatorHTML = `
+                    <div class="operator-option okays" data-op="integrate" data-cat="okays" onclick="selectModalOperator(this)">Integrate</div>
+                    <div class="operator-option okays" data-op="pace" data-cat="okays" onclick="selectModalOperator(this)">Pace</div>
+                `;
+            }
+            
+            grid.innerHTML = operatorHTML;
+            grid.style.gridTemplateColumns = category === 'shares' ? 'repeat(2, 1fr)' : category === 'does' ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)';
+        }
+        
+        function selectOperator(op, cat) {
+            selectedOperator = op;
+            selectedCategory = cat;
+            selectedCoreCategory = cat;
+            openFlowBuilder();
+            
+            // Pre-select the core category
+            selectCoreCategory(cat);
+            
+            // Pre-select the specific operator
+            setTimeout(() => {
+                document.querySelectorAll('.operator-option').forEach(opt => {
+                    if (opt.dataset.op === op) {
+                        opt.classList.add('selected');
+                    }
+                });
+            }, 100);
+        }
+
+        function selectModalOperator(element) {
+            document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedOperator = element.dataset.op;
+            selectedCategory = element.dataset.cat;
+        }
+
+        function openFlowBuilder() {
+            document.getElementById('flowModal').classList.add('active');
+            // Reset state
+            selectedCoreCategory = null;
+            document.getElementById('detailedOperatorRow').style.display = 'none';
+        }
+
+        function closeModal() {
+            document.getElementById('flowModal').classList.remove('active');
+            // Reset form
+            document.getElementById('fromRole').value = '';
+            document.getElementById('operand').value = '';
+            document.getElementById('toRole').value = '';
+            document.querySelectorAll('.operator-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            selectedOperator = null;
+            selectedCategory = null;
+            selectedCoreCategory = null;
+            document.getElementById('detailedOperatorRow').style.display = 'none';
+        }
+
+        function createFlow() {
+            const fromRole = getDropdownValue('fromRole');
+            const operand = document.getElementById('operand').value;
+            const preposition = getDropdownValue('preposition');
+            const toRole = getDropdownValue('toRole');
+
+            if (fromRole && selectedOperator && operand && toRole && selectedCoreCategory) {
+                flows.push({
+                    from: fromRole,
+                    operator: selectedOperator,
+                    operand: operand,
+                    preposition: preposition,
+                    to: toRole,
+                    category: selectedCategory || selectedCoreCategory
+                });
+                
+                renderFlows();
+                closeModal();
+            } else {
+                alert('Please fill in all fields and select both a category and operator');
+            }
+        }
+
+        function editFlow(index) {
+            const flow = flows[index];
+            openFlowBuilder();
+            
+            // Set dropdown values
+            setDropdownValue('fromRole', flow.from);
+            setDropdownValue('preposition', flow.preposition);
+            setDropdownValue('toRole', flow.to);
+            
+            // Set operand
+            document.getElementById('operand').value = flow.operand;
+            
+            // Pre-select the core category and operator
+            selectCoreCategory(flow.category);
+            setTimeout(() => {
+                document.querySelectorAll('#operatorGrid .operator-option').forEach(opt => {
+                    if (opt.dataset.op === flow.operator) {
+                        opt.classList.add('selected');
+                        selectedOperator = flow.operator;
+                        selectedCategory = flow.category;
+                    }
+                });
+            }, 100);
+            
+            flows.splice(index, 1);
+        }
+
+        function closeModal() {
+            document.getElementById('flowModal').classList.remove('active');
+            // Reset form
+            setDropdownValue('fromRole', '');
+            setDropdownValue('preposition', 'to');
+            setDropdownValue('toRole', '');
+            document.getElementById('operand').value = '';
+            document.querySelectorAll('.operator-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            selectedOperator = null;
+            selectedCategory = null;
+            selectedCoreCategory = null;
+            document.getElementById('detailedOperatorRow').style.display = 'none';
+        }
+
+        function deleteFlow(index) {
+            if (confirm('Delete this flow?')) {
+                flows.splice(index, 1);
+                renderFlows();
+            }
+        }
+
+        // Role management
+        function quickAdd(role) {
+            const name = prompt(`Add person to ${role} role:`);
+            if (name) {
+                const person = people.find(p => p.name === name);
+                if (person) {
+                    if (!person.roles.includes(role)) {
+                        person.roles.push(role);
+                    }
+                } else {
+                    people.push({ name: name, roles: [role] });
+                }
+                location.reload(); // Simple refresh for demo
+            }
+        }
+    </script>
+</body>
+</html>
