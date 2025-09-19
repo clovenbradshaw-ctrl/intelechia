@@ -2143,6 +2143,181 @@
         .login-screen.hidden {
             display: none;
         }
+
+        /* Custom Prompt Modal */
+        .custom-prompt-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .custom-prompt-modal.active {
+            opacity: 1;
+        }
+
+        .custom-prompt-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(4px);
+        }
+
+        .custom-prompt-dialog {
+            position: relative;
+            background: var(--bg-card);
+            border: 2px solid var(--green);
+            border-radius: 0;
+            width: 90%;
+            max-width: 400px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .custom-prompt-modal.active .custom-prompt-dialog {
+            transform: translateY(0);
+        }
+
+        .prompt-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg,
+                    rgba(0, 255, 136, 0.05) 0%,
+                    transparent 100%);
+        }
+
+        .prompt-title {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--green);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .prompt-message {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .prompt-body {
+            padding: 20px;
+        }
+
+        .prompt-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.1rem;
+            font-family: monospace;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: var(--green);
+            background: rgba(0, 255, 136, 0.02);
+            box-shadow: inset 0 0 0 1px var(--green),
+                        0 0 20px rgba(0, 255, 136, 0.1);
+            animation: blink 1s infinite;
+        }
+
+        .prompt-input::placeholder {
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        @keyframes blink {
+            50% { border-color: var(--green); }
+        }
+
+        .prompt-suggestions {
+            margin-top: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .prompt-actions {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .prompt-btn {
+            flex: 1;
+            padding: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .prompt-btn:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .prompt-cancel:hover {
+            background: rgba(255, 51, 102, 0.1);
+            color: var(--red);
+        }
+
+        .prompt-confirm {
+            background: rgba(0, 255, 136, 0.05);
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .prompt-confirm:hover {
+            background: var(--green);
+            color: var(--bg);
+        }
+
+        .btn-text {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .btn-shortcut {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            padding: 2px 6px;
+            border: 1px solid currentColor;
+            border-radius: 3px;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+        }
+
+        .prompt-confirm:active {
+            animation: glitch 0.2s ease;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -5234,10 +5409,95 @@
         }
 
         function quickAdd(role) {
-            const name = prompt(`Add person to ${role} role:`);
-            if (name) {
-                alert(`Adding ${name} to ${role}`);
+            showCustomPrompt(`Add person to ${role} role:`, (name) => {
+                if (name) {
+                    const triad = triadsData.find(t =>
+                        t.roles.some(r => r.name === role)
+                    );
+                    if (triad) {
+                        const roleData = triad.roles.find(r => r.name === role);
+                        roleData.people.push(name);
+                        renderRoles();
+                    }
+                }
+            });
+        }
+
+        function showCustomPrompt(message, callback) {
+            const modal = document.createElement('div');
+            modal.className = 'custom-prompt-modal';
+            modal.innerHTML = `
+                <div class="custom-prompt-overlay"></div>
+                <div class="custom-prompt-dialog">
+                    <div class="prompt-header">
+                        <div class="prompt-title">ROLE ASSIGNMENT</div>
+                        <div class="prompt-message">${message}</div>
+                    </div>
+                    <div class="prompt-body">
+                        <input type="text"
+                               class="prompt-input"
+                               id="promptInput"
+                               placeholder="Enter codename..."
+                               autocomplete="off">
+                        <div class="prompt-suggestions"></div>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="prompt-btn prompt-cancel" onclick="closeCustomPrompt()">
+                            <span class="btn-text">ABORT</span>
+                            <span class="btn-shortcut">ESC</span>
+                        </button>
+                        <button class="prompt-btn prompt-confirm" onclick="confirmCustomPrompt()">
+                            <span class="btn-text">ASSIGN</span>
+                            <span class="btn-shortcut">⏎</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+            window.currentPromptCallback = callback;
+
+            const overlay = modal.querySelector('.custom-prompt-overlay');
+            if (overlay) {
+                overlay.addEventListener('click', closeCustomPrompt);
             }
+
+            setTimeout(() => {
+                const input = document.getElementById('promptInput');
+                if (!input) return;
+                input.focus();
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        confirmCustomPrompt();
+                    } else if (e.key === 'Escape') {
+                        closeCustomPrompt();
+                    }
+                });
+            }, 100);
+
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function confirmCustomPrompt() {
+            const input = document.getElementById('promptInput');
+            const value = input ? input.value : '';
+            closeCustomPrompt();
+            if (window.currentPromptCallback) {
+                window.currentPromptCallback(value);
+            }
+        }
+
+        function closeCustomPrompt() {
+            const modal = document.querySelector('.custom-prompt-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+            window.currentPromptCallback = null;
         }
 
         // Network tab functions
